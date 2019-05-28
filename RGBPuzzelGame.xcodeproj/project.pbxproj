@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9003505F22985FC4003A7344 /* colorSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9003505E22985FC4003A7344 /* colorSwitch.swift */; };
 		905C3EA020B70456001BCBE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C3E9F20B70456001BCBE9 /* AppDelegate.swift */; };
 		905C3EA220B70456001BCBE9 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 905C3EA120B70456001BCBE9 /* GameScene.sks */; };
 		905C3EA420B70456001BCBE9 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 905C3EA320B70456001BCBE9 /* Actions.sks */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9003505E22985FC4003A7344 /* colorSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colorSwitch.swift; sourceTree = "<group>"; };
 		905C3E9C20B70456001BCBE9 /* RGBPuzzelGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RGBPuzzelGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		905C3E9F20B70456001BCBE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		905C3EA120B70456001BCBE9 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				905C3EA120B70456001BCBE9 /* GameScene.sks */,
 				905C3EA320B70456001BCBE9 /* Actions.sks */,
 				905C3EA520B70456001BCBE9 /* GameScene.swift */,
+				9003505E22985FC4003A7344 /* colorSwitch.swift */,
 				905C3EB920B76024001BCBE9 /* Level.swift */,
 				90ABED4B20DAFDDC00F00422 /* LevelMenu.swift */,
 				905C3EA720B70456001BCBE9 /* GameViewController.swift */,
@@ -157,6 +160,7 @@
 				905C3EA820B70456001BCBE9 /* GameViewController.swift in Sources */,
 				905C3EBA20B76024001BCBE9 /* Level.swift in Sources */,
 				905C3EA020B70456001BCBE9 /* AppDelegate.swift in Sources */,
+				9003505F22985FC4003A7344 /* colorSwitch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,7 +303,6 @@
 		905C3EB520B70457001BCBE9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZM8773GJ6J;
 				INFOPLIST_FILE = RGBPuzzelGame/Info.plist;
@@ -317,7 +320,6 @@
 		905C3EB620B70457001BCBE9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZM8773GJ6J;
 				INFOPLIST_FILE = RGBPuzzelGame/Info.plist;

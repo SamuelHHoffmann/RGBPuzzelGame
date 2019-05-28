@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,16 +18,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading screen" translatesAutoresizingMaskIntoConstraints="NO" id="Sul-FE-EQH">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BeI-fH-BQ5">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.33000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3zH-6M-0Qz">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="0.33000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oft-uv-sM3">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="0.33000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="center image(rotated)(color correct)" translatesAutoresizingMaskIntoConstraints="NO" id="kuf-oG-4te">
+                                <rect key="frame" x="90" y="179.5" width="195" height="308.00000000000011"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="308" id="PLh-zF-eW7"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Sul-FE-EQH" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Nfl-qC-yLH"/>
-                            <constraint firstItem="Sul-FE-EQH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bdh-iX-fLL"/>
-                            <constraint firstItem="Sul-FE-EQH" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="hUP-8b-4hs"/>
-                            <constraint firstItem="Sul-FE-EQH" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="pe6-4R-tSM"/>
+                            <constraint firstItem="Oft-uv-sM3" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="0t3-it-dMM"/>
+                            <constraint firstItem="kuf-oG-4te" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5l1-69-ijy"/>
+                            <constraint firstItem="3zH-6M-0Qz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="7Q5-cG-Hpa"/>
+                            <constraint firstItem="Oft-uv-sM3" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="9tv-7N-FXn"/>
+                            <constraint firstItem="3zH-6M-0Qz" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="BF6-Gb-Kp8"/>
+                            <constraint firstItem="3zH-6M-0Qz" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="CK8-QG-8Op"/>
+                            <constraint firstItem="BeI-fH-BQ5" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="GL6-cj-GpM"/>
+                            <constraint firstItem="kuf-oG-4te" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="KRn-a8-1Zf"/>
+                            <constraint firstItem="BeI-fH-BQ5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="N2Q-oh-YhE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kuf-oG-4te" secondAttribute="trailing" constant="90" id="NKp-YE-gM6"/>
+                            <constraint firstItem="Oft-uv-sM3" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Xy5-hS-Vjb"/>
+                            <constraint firstItem="BeI-fH-BQ5" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="bug-lf-SgK"/>
+                            <constraint firstItem="kuf-oG-4te" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="90" id="kvy-54-0WA"/>
+                            <constraint firstItem="3zH-6M-0Qz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="meQ-3e-iIZ"/>
+                            <constraint firstItem="BeI-fH-BQ5" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="p6O-P9-O8T"/>
+                            <constraint firstItem="Oft-uv-sM3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="w1f-rj-c6U"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -38,6 +65,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="loading screen" width="1080" height="1920"/>
+        <image name="center image(rotated)(color correct)" width="309" height="753"/>
     </resources>
 </document>

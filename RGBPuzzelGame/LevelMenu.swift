@@ -37,6 +37,8 @@ class LevelMenu: SKScene {
     func initializeMenu(NumberOfLevels: Int, Restricted: Bool, MenuNumber: Int){
         
         
+        
+        
         menuNumber = MenuNumber
         restricted = Restricted
         numberOfLevels = NumberOfLevels

@@ -19,6 +19,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
     var greenLayer = SKSpriteNode()
     var blueLayer = SKSpriteNode()
     
+    let cs = colorSwitch()
+    
     var player = SKSpriteNode()
     
     var redButton = SKShapeNode()
@@ -36,7 +38,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
     var menu = SKScene()
     
     //variable for editing and moving around level items
-    var editMode = false
+    let editMode = false
     
     override init() {
         super.init()
@@ -106,6 +108,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
     
     
     func setUp(package: Int, numberInPackage: Int, locked: Bool, menu: LevelMenu){
+        //currently used level code
+        
         self.packageNumber = package
         self.levelNumber = numberInPackage
         
@@ -129,11 +133,16 @@ class Level: SKScene, SKPhysicsContactDelegate {
         //self.startingPoint = GlobalStaticLookup(package, numberinPackage)
         //self.endingPoint = GlobalStaticLookup(package, numberinPackage)
         
+        self.startingPoint = CGPoint(x: 172.49, y: 607.49)
+        self.endingPoint = CGPoint(x: 157.99, y: 37.0)
         
         setUpLayers()
         setUpButtons()
         setUpStartAndEnd()
         miscSetUp()
+        
+        
+        
     }
     
     
@@ -143,29 +152,24 @@ class Level: SKScene, SKPhysicsContactDelegate {
     */
     func setUpLayers(){
         
-        redLayer.size = CGSize(width: self.frame.height, height: self.frame.width)
-        greenLayer.size = CGSize(width: self.frame.height, height: self.frame.width)
-        blueLayer.size = CGSize(width: self.frame.height, height: self.frame.width)
-
-        //theoretical code for layer scaling
-//        if self.size.width == 1124 {
-//            //images proper size
-//        }else if self.size.width == 1080 {
-//
-//            redLayer.setScale(0.960854093)
-//
-//        }else if self.size.width == 750 {
-//
-//            redLayer.setScale(0.666370107)
-//
-//        }else if self.size.width == 640 {
-//
-//            redLayer.setScale(0.569395017)
-//
-//        }else{
-//            //unknown device
-//        }
+        //self.redLayer.scale(to: CGSize()
         
+        print(self.frame.width)
+        print(self.frame.height)
+        
+        var size = CGSize(width: self.frame.height, height: self.frame.width)
+        
+        if self.size.width == 375 {
+            size = CGSize(width: 667, height: 375) //x xr
+        }else if self.size.width == 414 {
+            size = CGSize(width: 736, height: 414) //xs max
+        }else{
+            //properly images scaleable
+        }
+        
+        redLayer.size = size
+        greenLayer.size = size
+        blueLayer.size = size
         
         
         redLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: redLayer.name!), alphaThreshold: 0, size: redLayer.size)
@@ -279,25 +283,39 @@ class Level: SKScene, SKPhysicsContactDelegate {
     
     func setUpButtons(){
         
-        redButton = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
-        redButton.fillColor = UIColor(red: 255/255, green: 154/255, blue: 154/255, alpha: 1)
-        redButton.position = CGPoint(x: self.frame.minX, y: self.frame.midY - redButton.frame.width)
+        cs.setScale(0.35)
+        cs.zPosition = 4
+        
+        cs.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY)
+        
+        self.addChild(cs)
+        
+        redButton = SKShapeNode(rectOf: CGSize(width: (cs.width/3), height: (cs.height/3)/3))
+        redButton.fillColor = UIColor(red: 255/255, green: 154/255, blue: 154/255, alpha: 0.001)
+        redButton.position = CGPoint(x: cs.position.x, y: cs.position.y+redButton.frame.height)
+        redButton.strokeColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 0.001)
         redButton.zPosition = 5
         self.addChild(redButton)
-        
-        
-        greenButton = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
-        greenButton.fillColor = UIColor(red: 154/255, green: 255/255, blue: 154/255, alpha: 1)
-        greenButton.position = CGPoint(x: self.frame.minX, y: self.frame.midY)
+
+
+        greenButton = SKShapeNode(rectOf: CGSize(width: (cs.width/3), height: (cs.height/3)/3))
+        greenButton.fillColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.001)
+        greenButton.position = CGPoint(x: cs.position.x, y: cs.position.y)
+        greenButton.strokeColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 0.001)
         greenButton.zPosition = 5
         self.addChild(greenButton)
-        
-        
-        blueButton = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
-        blueButton.fillColor = UIColor(red: 154/255, green: 154/255, blue: 255/255, alpha: 1)
-        blueButton.position = CGPoint(x: self.frame.minX, y: self.frame.midY + redButton.frame.width)
+
+
+        blueButton = SKShapeNode(rectOf: CGSize(width: (cs.width/3), height: (cs.height/3)/3))
+        blueButton.fillColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.001)
+        blueButton.position = CGPoint(x: cs.position.x, y: cs.position.y-redButton.frame.height)
+        blueButton.strokeColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 0.001)
         blueButton.zPosition = 5
         self.addChild(blueButton)
+        
+        
+        
+        
         
         
         
@@ -381,7 +399,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         var leftWall = SKSpriteNode()
         leftWall.size = CGSize(width: self.frame.width, height: 1)
-        leftWall.color = UIColor.blue
+        leftWall.color = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
         leftWall.position = CGPoint(x: self.frame.midX, y: self.frame.maxY)
         
         leftWall.physicsBody = SKPhysicsBody(rectangleOf: leftWall.size)
@@ -406,7 +424,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         var rightWall = SKSpriteNode()
         rightWall.size = CGSize(width: self.frame.width, height: 1)
-        rightWall.color = UIColor.blue
+        rightWall.color = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
         rightWall.position = CGPoint(x: self.frame.midX, y: self.frame.minY)
         
         rightWall.physicsBody = SKPhysicsBody(rectangleOf: rightWall.size)
@@ -432,7 +450,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         var topWall = SKSpriteNode()
         topWall.size = CGSize(width: 1, height: self.frame.height)
-        topWall.color = UIColor.blue
+        topWall.color = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
         topWall.position = CGPoint(x: self.frame.maxX, y: self.frame.midY)
         
         topWall.physicsBody = SKPhysicsBody(rectangleOf: topWall.size)
@@ -459,7 +477,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         var bottomWall = SKSpriteNode()
         bottomWall.name = "bottomWall"
         bottomWall.size = CGSize(width: 1, height: self.frame.height)
-        bottomWall.color = UIColor.blue
+        bottomWall.color = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
         bottomWall.position = CGPoint(x: self.frame.minX, y: self.frame.midY)
         
         bottomWall.physicsBody = SKPhysicsBody(rectangleOf: bottomWall.size)
@@ -530,7 +548,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         //see if hits end marker
         if (bodyA.categoryBitMask == 0 && bodyB.categoryBitMask == 3) || (bodyA.categoryBitMask == 3 && bodyB.categoryBitMask == 0){
-            //levelComplete()
+            levelComplete()
         }
         
         //check if a layer is turned on a kills a player
@@ -578,21 +596,32 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         for node in nodes(at: (touches.first?.location(in: self))!) {
             if node == redButton {
+                cs.flipColor(color: COLOR.RED)
+                self.run(SKAction.wait(forDuration: 0.025))
                 toggleRedLayer(checkForCollision: false) //todo: should be 'true' in the future
             }else if node == blueButton {
+                cs.flipColor(color: COLOR.BLUE)
+                self.run(SKAction.wait(forDuration: 0.025))
                 toggleBlueLayer(checkForCollision: false) //todo: should be 'true' in the future
             }else if node == greenButton {
+                cs.flipColor(color: COLOR.GREEN)
+                self.run(SKAction.wait(forDuration: 0.025))
                 toggleGreenLayer(checkForCollision: false) //todo: should be 'true' in the future
             }else{
                 if editMode{
                     self.player.position = (touches.first?.location(in: self))!
                     //debug
-                    //print((touches.first?.location(in: self))!)
+                    print((touches.first?.location(in: self))!)
                     
                 }
             }
         }
     }
+    
+    private func checkSwitchPosition(touch: UITouch){
+        
+    }
+    
     
     func toggleRedLayer(checkForCollision: Bool){ //could be abstracted with the blue and green similar functions below
         if redLayer.parent != nil {

@@ -12,16 +12,32 @@ import GameplayKit
 
 class GameViewController: UIViewController {
 
+    
+    @IBOutlet weak var game_view: SKView!
+    
     var menu = LevelMenu()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let view = self.view as! SKView? {
+        if let backgroundView = self.view as? SKView {
+            
+            backgroundView.backgroundColor = UIColor(displayP3Red: 96/255, green: 133/255, blue: 144/255, alpha: 1)
+            
+            var tempScene = SKScene(size: self.view.frame.size)
+            tempScene.backgroundColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
+            tempScene.scaleMode = .fill
+            
+            backgroundView.presentScene(tempScene)
+        }
+        
+        
+        if let view = self.game_view {
             // Load the SKScene from 'GameScene.sks'
             menu = LevelMenu()
             
-            menu.size = self.view.frame.size
+            menu.size = self.game_view.frame.size
+            
             
 //            testLevel.setUp(package: 1, numberInPackage: 1, redLayer: "red", greenLayer: "green", blueLayer: "blue", startingPos: CGPoint(x: 143, y: 717), endingPos: CGPoint(x: 0, y: 0))
             
@@ -44,8 +60,8 @@ class GameViewController: UIViewController {
             
             view.ignoresSiblingOrder = true
             
-            view.showsFPS = true
-            view.showsNodeCount = true
+            view.showsFPS = false
+            view.showsNodeCount = false
         }
     }
 
@@ -53,8 +69,9 @@ class GameViewController: UIViewController {
         
     }
     
+    
     func showMenu(){
-        if let view = self.view as! SKView? {
+        if let view = self.game_view {
             view.presentScene(menu)
         }
     }
@@ -72,7 +89,7 @@ class GameViewController: UIViewController {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown
         } else {
-            return .all
+            return .allButUpsideDown
         }
     }
 
