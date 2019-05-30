@@ -66,31 +66,29 @@ class colorSwitch: SKNode {
         //red
         redSwitchBackground.position = CGPoint(x: 0, y: 0)
         redSwitchBackground.zRotation = CGFloat(Double.pi/2)
-        redSwitchBackground.zPosition = 0
+        redSwitchBackground.zPosition = 1
         
         redSwitchOverlay.position = CGPoint(x: redSwitchBackground.position.x, y: redSwitchBackground.position.y+(redSwitchOverlay.frame.height/2))
         
-        print(redSwitchBackground.frame)
-        print(redSwitchOverlay.frame)
         
         redSwitchOverlay.zRotation = CGFloat(Double.pi/2)
-        redSwitchOverlay.zPosition = 1
+        redSwitchOverlay.zPosition = 2
         //green
         greenSwitchBackground.position = CGPoint(x: 0, y: 0)
         greenSwitchBackground.zRotation = CGFloat(Double.pi/2)
-        greenSwitchBackground.zPosition = 0
+        greenSwitchBackground.zPosition = 1
         
         greenSwitchOverlay.position = CGPoint(x: greenSwitchBackground.position.x, y: greenSwitchBackground.position.y+(greenSwitchOverlay.frame.height/2))
         greenSwitchOverlay.zRotation = CGFloat(Double.pi/2)
-        greenSwitchOverlay.zPosition = 1
+        greenSwitchOverlay.zPosition = 2
         //blue
         blueSwitchBackground.position = CGPoint(x: 0, y: 0)
         blueSwitchBackground.zRotation = CGFloat(Double.pi/2)
-        blueSwitchBackground.zPosition = 0
+        blueSwitchBackground.zPosition = 1
         
         blueSwitchOverlay.position = CGPoint(x: blueSwitchBackground.position.x, y: blueSwitchBackground.position.y+(blueSwitchOverlay.frame.height/2))
         blueSwitchOverlay.zRotation = CGFloat(Double.pi/2)
-        blueSwitchOverlay.zPosition = 1
+        blueSwitchOverlay.zPosition = 2
         
         spacing = Double(redSwitchOverlay.frame.width/2) //set sapcing for switches
         

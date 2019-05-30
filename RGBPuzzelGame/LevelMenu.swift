@@ -25,13 +25,16 @@ class LevelMenu: SKScene {
     var currentLevel = Level()
     var currentLevelNumber = 0
     
-    var numbers : [SKNode] = []
+    var numbers : [SKNode] = [] //useless (but use positioning for layers)
     
-    var leftMenuBlocker = SKSpriteNode()
+//    var leftMenuBlocker = SKSpriteNode()
+//    var middleMenuBlocker = SKSpriteNode()
+//    var rightMenuBlocker = SKSpriteNode()
     
-    var middleMenuBlocker = SKSpriteNode()
     
-    var rightMenuBlocker = SKSpriteNode()
+    var redLayers : [SKSpriteNode] = []
+    var greenLayers : [SKSpriteNode] = []
+    var blueLayers : [SKSpriteNode] = []
     
     
     func initializeMenu(NumberOfLevels: Int, Restricted: Bool, MenuNumber: Int){
@@ -51,7 +54,7 @@ class LevelMenu: SKScene {
         
         self.backgroundColor = UIColor.white
         
-        setUpNumbers()
+        setUpLayers()
         setUpSecondaryGraphics()
         
         //set up menu buttons
@@ -59,79 +62,146 @@ class LevelMenu: SKScene {
     
     func setUpSecondaryGraphics(){
         //set up background
-        do {
-            try menuSkin = SKSpriteNode(imageNamed: "menu\(menuNumber)Background")
-        } catch {
-            menuSkin = SKSpriteNode(imageNamed: "DefaultmenuBackground")
-        }
-        menuSkin.size = CGSize(width: self.frame.height, height: self.frame.width)
-        menuSkin.zRotation = CGFloat(-Double.pi/2)
-        menuSkin.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        menuSkin.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        menuSkin.zPosition = 1
-        self.addChild(menuSkin)
-        
-        //set up pointer and blocker graphics
-        
-        leftMenuBlocker = SKSpriteNode(imageNamed: "leftMenuBlocker")
-        leftMenuBlocker.size = CGSize(width: self.frame.height, height: self.frame.width)
-        leftMenuBlocker.zRotation = CGFloat(-Double.pi/2)
-        leftMenuBlocker.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        leftMenuBlocker.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        leftMenuBlocker.zPosition = 2
-        self.addChild(leftMenuBlocker)
-        
-        middleMenuBlocker = SKSpriteNode(imageNamed: "middleMenuBlocker")
-        middleMenuBlocker.size = CGSize(width: self.frame.height, height: self.frame.width)
-        middleMenuBlocker.zRotation = CGFloat(-Double.pi/2)
-        middleMenuBlocker.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        middleMenuBlocker.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        middleMenuBlocker.zPosition = 2
-        self.addChild(middleMenuBlocker)
+//
+//        rightMenuBlocker = SKSpriteNode(imageNamed: "rightMenuBlocker")
+//        rightMenuBlocker.size = CGSize(width: self.frame.height, height: self.frame.width)
+//        rightMenuBlocker.zRotation = CGFloat(-Double.pi/2)
+//        rightMenuBlocker.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+//        rightMenuBlocker.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+//        rightMenuBlocker.zPosition = 2
+//        self.addChild(rightMenuBlocker)
         
         
-        rightMenuBlocker = SKSpriteNode(imageNamed: "rightMenuBlocker")
-        rightMenuBlocker.size = CGSize(width: self.frame.height, height: self.frame.width)
-        rightMenuBlocker.zRotation = CGFloat(-Double.pi/2)
-        rightMenuBlocker.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        rightMenuBlocker.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        rightMenuBlocker.zPosition = 2
-        self.addChild(rightMenuBlocker)
+        
         
     }
     
-    func setUpNumbers(){
+    func setUpLayers(){
         //set up numbers
         
-        var numbers : [SKNode] = []
         
         for i in 1...numberOfLevels {
-            let bob = SKSpriteNode(imageNamed: "\(i)")
-            bob.setScale(0.4)
-            bob.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-            bob.zRotation = CGFloat(-Double.pi/2)
-            bob.zPosition = 2
-            bob.alpha = 1
-            self.addChild(bob)
-            numbers.append(bob)
+            //red layer
+            let tempRed = SKSpriteNode(imageNamed: "ls-r-\(menuNumber)-\(i)-L")
+            tempRed.name = "ls-r-\(menuNumber)-\(i)-L"
+            tempRed.size = CGSize(width: self.frame.height/2, height: self.frame.width)
+            tempRed.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+            tempRed.zRotation = CGFloat(-Double.pi/2)
+            tempRed.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: tempRed.name!), alphaThreshold: 0, size: tempRed.size)
             
-            for number in numbers {
-                number.position = CGPoint(x: number.position.x, y: number.position.y+(self.frame.height/2))
+            tempRed.physicsBody?.affectedByGravity = false
+            tempRed.physicsBody?.allowsRotation = false
+            tempRed.physicsBody?.isDynamic = false
+            tempRed.physicsBody?.pinned = false
+
+            tempRed.physicsBody?.friction = 0.2
+            tempRed.physicsBody?.restitution = 0.2
+            tempRed.physicsBody?.angularDamping = 0.1
+            tempRed.physicsBody?.linearDamping = 0.1
+
+            tempRed.physicsBody?.categoryBitMask = UInt32(1)
+            tempRed.physicsBody?.collisionBitMask = UInt32(1)
+            tempRed.physicsBody?.fieldBitMask = UInt32(1)
+            tempRed.physicsBody?.contactTestBitMask = UInt32(1)
+            
+            tempRed.zPosition = 1.1
+            tempRed.alpha = 0.333
+            self.addChild(tempRed)
+            redLayers.append(tempRed)
+            
+            for r in redLayers {
+                r.position = CGPoint(x: r.position.x, y: r.position.y+(self.frame.height/2))
+            }
+            
+            //green layer
+            let tempGreen = SKSpriteNode(imageNamed: "ls-g-\(menuNumber)-\(i)-L")
+            tempGreen.name = "ls-g-\(menuNumber)-\(i)-L"
+            tempGreen.size = CGSize(width: self.frame.height/2, height: self.frame.width)
+            tempGreen.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+            tempGreen.zRotation = CGFloat(-Double.pi/2)
+            tempGreen.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: tempGreen.name!), alphaThreshold: 0, size: tempGreen.size)
+            
+            tempGreen.physicsBody?.affectedByGravity = false
+            tempGreen.physicsBody?.allowsRotation = false
+            tempGreen.physicsBody?.isDynamic = false
+            tempGreen.physicsBody?.pinned = false
+            
+            tempGreen.physicsBody?.friction = 0.2
+            tempGreen.physicsBody?.restitution = 0.2
+            tempGreen.physicsBody?.angularDamping = 0.1
+            tempGreen.physicsBody?.linearDamping = 0.1
+            
+            tempGreen.physicsBody?.categoryBitMask = UInt32(1)
+            tempGreen.physicsBody?.collisionBitMask = UInt32(1)
+            tempGreen.physicsBody?.fieldBitMask = UInt32(1)
+            tempGreen.physicsBody?.contactTestBitMask = UInt32(1)
+            
+            tempGreen.zPosition = 1.2
+            tempGreen.alpha = 0.333
+            self.addChild(tempGreen)
+            greenLayers.append(tempGreen)
+            
+            for g in greenLayers {
+                g.position = CGPoint(x: g.position.x, y: g.position.y+(self.frame.height/2))
+            }
+            
+            //blue layer
+            let tempBlue = SKSpriteNode(imageNamed: "ls-b-\(menuNumber)-\(i)-L")
+            tempBlue.name = "ls-b-\(menuNumber)-\(i)-L"
+            tempBlue.size = CGSize(width: self.frame.height/2, height: self.frame.width)
+            tempBlue.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+            tempBlue.zRotation = CGFloat(-Double.pi/2)
+            tempBlue.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: tempBlue.name!), alphaThreshold: 0, size: tempBlue.size)
+            
+            tempBlue.physicsBody?.affectedByGravity = false
+            tempBlue.physicsBody?.allowsRotation = false
+            tempBlue.physicsBody?.isDynamic = false
+            tempBlue.physicsBody?.pinned = false
+            
+            tempBlue.physicsBody?.friction = 0.2
+            tempBlue.physicsBody?.restitution = 0.2
+            tempBlue.physicsBody?.angularDamping = 0.1
+            tempBlue.physicsBody?.linearDamping = 0.1
+            
+            tempBlue.physicsBody?.categoryBitMask = UInt32(1)
+            tempBlue.physicsBody?.collisionBitMask = UInt32(1)
+            tempBlue.physicsBody?.fieldBitMask = UInt32(1)
+            tempBlue.physicsBody?.contactTestBitMask = UInt32(1)
+            
+            tempBlue.zPosition = 1.3
+            tempBlue.alpha = 0.333
+            self.addChild(tempBlue)
+            blueLayers.append(tempBlue)
+            
+            for b in blueLayers {
+                b.position = CGPoint(x: b.position.x, y: b.position.y+(self.frame.height/2))
             }
             
         }
-        
-        for number in numbers {
-            number.position = CGPoint(x: number.position.x, y: number.position.y-(self.frame.height/4))
+        //slight ajust
+        for r in redLayers {
+            r.position = CGPoint(x: r.position.x, y: r.position.y-(self.frame.height/4))
+        }
+        for g in greenLayers {
+            g.position = CGPoint(x: g.position.x, y: g.position.y-(self.frame.height/4))
+        }
+        for b in blueLayers {
+            b.position = CGPoint(x: b.position.x, y: b.position.y-(self.frame.height/4))
         }
         
-        for _ in 1...numbers.count-1 {
-            for number in numbers {
-                number.position = CGPoint(x: number.position.x, y: number.position.y-(self.frame.height/2))
+        //move layers back to 1st
+        for _ in 1...redLayers.count-1 {
+            for r in redLayers {
+                r.position = CGPoint(x: r.position.x, y: r.position.y-(self.frame.height/2))
+            }
+            for b in blueLayers {
+                b.position = CGPoint(x: b.position.x, y: b.position.y-(self.frame.height/2))
+            }
+            for g in greenLayers {
+                g.position = CGPoint(x: g.position.x, y: g.position.y-(self.frame.height/2))
             }
         }
         
-        self.numbers = numbers
     }
     
     func setUpLevelMenu(){
@@ -151,13 +221,13 @@ class LevelMenu: SKScene {
         if restricted {
             levels.first?.locked = false
             
-            leftMenuBlocker.alpha = 1
-            middleMenuBlocker.alpha = 1
-            rightMenuBlocker.alpha = 1
+//            leftMenuBlocker.alpha = 1
+//            middleMenuBlocker.alpha = 1
+//            rightMenuBlocker.alpha = 1
         }else{
-            leftMenuBlocker.alpha = 1
-            middleMenuBlocker.alpha = 0
-            rightMenuBlocker.alpha = 0
+//            leftMenuBlocker.alpha = 1
+//            middleMenuBlocker.alpha = 0
+//            rightMenuBlocker.alpha = 0
         }
         
         currentLevelNumber = 0
@@ -173,10 +243,10 @@ class LevelMenu: SKScene {
             
             if (currentLevelNumber % 2) != 0 {
                 //unlock right
-                rightMenuBlocker.alpha = 0
+                //rightMenuBlocker.alpha = 0
             }else{
                 //unlock middle
-                middleMenuBlocker.alpha = 0
+                //middleMenuBlocker.alpha = 0
             }
             
         }else{
@@ -194,21 +264,21 @@ class LevelMenu: SKScene {
         
         
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction(swipe:)))
-        leftSwipe.direction = UISwipeGestureRecognizerDirection.up
+        leftSwipe.direction = UISwipeGestureRecognizer.Direction.up
         self.view?.addGestureRecognizer(leftSwipe)
         
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction(swipe:)))
-        rightSwipe.direction = UISwipeGestureRecognizerDirection.down
+        rightSwipe.direction = UISwipeGestureRecognizer.Direction.down
         self.view?.addGestureRecognizer(rightSwipe)
         
     }
     
     @objc func swipeAction(swipe: UISwipeGestureRecognizer){
         
-        if swipe.direction == UISwipeGestureRecognizerDirection.up {
+        if swipe.direction == UISwipeGestureRecognizer.Direction.up {
             //move to next level
             nextLevel()
-        }else if swipe.direction == UISwipeGestureRecognizerDirection.down {
+        }else if swipe.direction == UISwipeGestureRecognizer.Direction.down {
             //go back a level
             previousLevel()
         }else {
@@ -235,19 +305,19 @@ class LevelMenu: SKScene {
                     }
                 
                     //update menu blockers
-                    leftMenuBlocker.alpha = 0
+                    //leftMenuBlocker.alpha = 0
                     
-                    middleMenuBlocker.alpha = 1
-                    rightMenuBlocker.alpha = 1
+                    //middleMenuBlocker.alpha = 1
+                    //rightMenuBlocker.alpha = 1
                     if !levels[currentLevelNumber+2].locked {
-                        middleMenuBlocker.alpha = 0
+                        //middleMenuBlocker.alpha = 0
                     }
                     if currentLevelNumber+3 >= levels.count-1 {
                         //keep right on
                     }else{
                         //bug crash
                         if !levels[currentLevelNumber+3].locked {
-                            rightMenuBlocker.alpha = 0
+                            //rightMenuBlocker.alpha = 0
                         }
                     }
                     
@@ -275,13 +345,13 @@ class LevelMenu: SKScene {
                         number.run(SKAction.moveBy(x: 0, y: -(self.frame.height/2), duration: 0.75))
                     }
                 }
-                leftMenuBlocker.alpha = 0
-                middleMenuBlocker.alpha = 0
-                rightMenuBlocker.alpha = 0
+                //leftMenuBlocker.alpha = 0
+                //middleMenuBlocker.alpha = 0
+                //rightMenuBlocker.alpha = 0
                 
                 if currentLevelNumber-2 == 0 {
                     //going to first page
-                    leftMenuBlocker.alpha = 1
+                    //leftMenuBlocker.alpha = 1
                 }
                 
             }

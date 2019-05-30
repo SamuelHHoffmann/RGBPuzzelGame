@@ -17,6 +17,7 @@
 		905C3EAD20B70457001BCBE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 905C3EAC20B70457001BCBE9 /* Assets.xcassets */; };
 		905C3EB020B70457001BCBE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 905C3EAE20B70457001BCBE9 /* LaunchScreen.storyboard */; };
 		905C3EBA20B76024001BCBE9 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C3EB920B76024001BCBE9 /* Level.swift */; };
+		90A74A1E229DCE2000AC302E /* welcomeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A74A1D229DCE2000AC302E /* welcomeMenu.swift */; };
 		90ABED4C20DAFDDC00F00422 /* LevelMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90ABED4B20DAFDDC00F00422 /* LevelMenu.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		905C3EAF20B70457001BCBE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		905C3EB120B70457001BCBE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		905C3EB920B76024001BCBE9 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		90A74A1D229DCE2000AC302E /* welcomeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = welcomeMenu.swift; sourceTree = "<group>"; };
 		90ABED4B20DAFDDC00F00422 /* LevelMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,6 +75,7 @@
 				9003505E22985FC4003A7344 /* colorSwitch.swift */,
 				905C3EB920B76024001BCBE9 /* Level.swift */,
 				90ABED4B20DAFDDC00F00422 /* LevelMenu.swift */,
+				90A74A1D229DCE2000AC302E /* welcomeMenu.swift */,
 				905C3EA720B70456001BCBE9 /* GameViewController.swift */,
 				905C3EA920B70456001BCBE9 /* Main.storyboard */,
 				905C3EAC20B70457001BCBE9 /* Assets.xcassets */,
@@ -114,6 +117,7 @@
 				TargetAttributes = {
 					905C3E9B20B70456001BCBE9 = {
 						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -160,6 +164,7 @@
 				905C3EA820B70456001BCBE9 /* GameViewController.swift in Sources */,
 				905C3EBA20B76024001BCBE9 /* Level.swift in Sources */,
 				905C3EA020B70456001BCBE9 /* AppDelegate.swift in Sources */,
+				90A74A1E229DCE2000AC302E /* welcomeMenu.swift in Sources */,
 				9003505F22985FC4003A7344 /* colorSwitch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,6 +308,8 @@
 		905C3EB520B70457001BCBE9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZM8773GJ6J;
 				INFOPLIST_FILE = RGBPuzzelGame/Info.plist;
@@ -312,7 +319,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.SamuelHoffmann.IOSDev.RGBPuzzelGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -320,6 +327,8 @@
 		905C3EB620B70457001BCBE9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZM8773GJ6J;
 				INFOPLIST_FILE = RGBPuzzelGame/Info.plist;
@@ -329,7 +338,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.SamuelHoffmann.IOSDev.RGBPuzzelGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
