@@ -267,7 +267,7 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
         
         self.addChild(cs)
         
-        redButton = SKShapeNode(rectOf: CGSize(width: (cs.width/3), height: (cs.height/3)/3))
+        redButton = SKShapeNode(rectOf: CGSize(width: (cs.width), height: (cs.height/3)/3)) //note: (cs.width/3) is the actual size but (cs.width) gives space for users to tap the buttons without frustration
         redButton.fillColor = UIColor(red: 255/255, green: 154/255, blue: 154/255, alpha: 0.001)
         redButton.position = CGPoint(x: cs.position.x, y: cs.position.y+redButton.frame.height)
         redButton.strokeColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 0.001)
@@ -275,7 +275,7 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
         self.addChild(redButton)
         
         
-        greenButton = SKShapeNode(rectOf: CGSize(width: (cs.width/3), height: (cs.height/3)/3))
+        greenButton = SKShapeNode(rectOf: CGSize(width: (cs.width), height: (cs.height/3)/3))
         greenButton.fillColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.001)
         greenButton.position = CGPoint(x: cs.position.x, y: cs.position.y)
         greenButton.strokeColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 0.001)
@@ -283,7 +283,7 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
         self.addChild(greenButton)
         
         
-        blueButton = SKShapeNode(rectOf: CGSize(width: (cs.width/3), height: (cs.height/3)/3))
+        blueButton = SKShapeNode(rectOf: CGSize(width: (cs.width), height: (cs.height/3)/3))
         blueButton.fillColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.001)
         blueButton.position = CGPoint(x: cs.position.x, y: cs.position.y-redButton.frame.height)
         blueButton.strokeColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 0.001)
