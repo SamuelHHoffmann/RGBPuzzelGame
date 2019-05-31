@@ -22,6 +22,10 @@ class Level: SKScene, SKPhysicsContactDelegate {
     let cs = colorSwitch()
     
     var player = SKSpriteNode()
+    //collision data
+    var collisionS = 0
+    var resetS = 0
+    var collisionColor : COLOR = COLOR.RED
     
     var redButton = SKShapeNode()
     var greenButton = SKShapeNode()
@@ -39,6 +43,11 @@ class Level: SKScene, SKPhysicsContactDelegate {
     
     //variable for editing and moving around level items
     let editMode = false
+    
+    
+    
+    
+    
     
     override init() {
         super.init()
@@ -171,9 +180,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         greenLayer.size = size
         blueLayer.size = size
         
-        
+        //red
         redLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: redLayer.name!), alphaThreshold: 0, size: redLayer.size)
-        
         redLayer.name = "redLayer"
         
         redLayer.physicsBody?.affectedByGravity = false
@@ -193,9 +201,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         redLayer.zPosition = 1.1
         
-        
+        //green
         greenLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: greenLayer.name!), alphaThreshold: 0, size: greenLayer.size)
-        
         greenLayer.name = "greenLayer"
         
         greenLayer.physicsBody?.affectedByGravity = false
@@ -215,9 +222,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         greenLayer.zPosition = 1.2
         
-        
+        //blue
         blueLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: blueLayer.name!), alphaThreshold: 0, size: blueLayer.size)
-        
         blueLayer.name = "blueLayer"
         
         blueLayer.physicsBody?.affectedByGravity = false
@@ -238,38 +244,22 @@ class Level: SKScene, SKPhysicsContactDelegate {
         blueLayer.zPosition = 1.3
         
         
-        
-        
-        
-        
         redLayer.zRotation = CGFloat(-Double.pi/2)
         redLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         redLayer.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
 
-        
-        
-        
         greenLayer.zRotation = CGFloat(-Double.pi/2)
         greenLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         greenLayer.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        
-        
-        
-        
         
         blueLayer.zRotation = CGFloat(-Double.pi/2)
         blueLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         blueLayer.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         
         
-        
-        
-        
         redLayer.alpha = 0.333
         greenLayer.alpha = 0.333
         blueLayer.alpha = 0.333
-        
-        
         
         self.addChild(redLayer)
         self.addChild(greenLayer)
@@ -386,6 +376,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         end.alpha = 1
         
         self.addChild(end)
+        
         
         
         
@@ -552,13 +543,43 @@ class Level: SKScene, SKPhysicsContactDelegate {
         }
         
         //check if a layer is turned on a kills a player
-        
-        
+        if(collisionColor == .RED){
+            if (bodyA.node?.name == "player" && bodyB.node?.name == "redLayer") || (bodyB.node?.name == "player" && bodyA.node?.name == "redLayer"){
+                checkCollisionTime()
+            }
+        }else if(collisionColor == .GREEN){
+            if (bodyA.node?.name == "player" && bodyB.node?.name == "greenLayer") || (bodyB.node?.name == "player" && bodyA.node?.name == "greenLayer"){
+                checkCollisionTime()
+            }
+        }else if(collisionColor == .BLUE){
+            if (bodyA.node?.name == "player" && bodyB.node?.name == "blueLayer") || (bodyB.node?.name == "player" && bodyA.node?.name == "blueLayer"){
+                checkCollisionTime()
+            }
+        }
+    }
+    
+    private func checkCollisionTime(){
+        let date = Date()
+        let calendar = Calendar.current
+        let compareS = calendar.component(.second, from: date)
+        if(compareS <= collisionS){
+            resetLevel()
+        }
     }
     
     func resetLevel(){
+        //notes: reseting is a little jaring and fast. Maybe add an artificial delay to make things seem slower
         
+        let date = Date()
+        let calendar = Calendar.current
+        let tempS = calendar.component(.second, from: date)
+        if(resetS == tempS){
+            //print("nope")
+            return //dont do method
+        }
+        resetS = tempS
         
+        cs.reset()
         
         //turn on all layers again
         if redLayer.parent == nil {
@@ -626,18 +647,34 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         
         for node in nodes(at: (touches.first?.location(in: self))!) {
+            let date = Date()
+            let calendar = Calendar.current
+            
             if node == redButton {
+                
                 cs.flipColor(color: COLOR.RED)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleRedLayer(checkForCollision: false) //todo: should be 'true' in the future
+                
+                collisionS = calendar.component(.second, from: date)
+                collisionColor = COLOR.RED
+                
             }else if node == blueButton {
                 cs.flipColor(color: COLOR.BLUE)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleBlueLayer(checkForCollision: false) //todo: should be 'true' in the future
+                
+                collisionS = calendar.component(.second, from: date)
+                collisionColor = COLOR.BLUE
+                
             }else if node == greenButton {
                 cs.flipColor(color: COLOR.GREEN)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleGreenLayer(checkForCollision: false) //todo: should be 'true' in the future
+                
+                collisionS = calendar.component(.second, from: date)
+                collisionColor = COLOR.GREEN
+                
             }else{
                 if editMode{
                     self.player.position = (touches.first?.location(in: self))!
@@ -648,6 +685,12 @@ class Level: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
+    
+    private func checkForPlayerCollision(){
+        
+       
+    }
+    
     
     private func checkSwitchPosition(touch: UITouch){
         

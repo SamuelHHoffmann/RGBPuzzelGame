@@ -160,7 +160,17 @@ class colorSwitch: SKNode {
         }
     }
     
-    
+    func reset(){
+        if(red == .OFF){
+            flipColor(color: .RED)
+        }
+        if(green == .OFF){
+            flipColor(color: .GREEN)
+        }
+        if(blue == .OFF){
+            flipColor(color: .BLUE)
+        }
+    }
     
     
     

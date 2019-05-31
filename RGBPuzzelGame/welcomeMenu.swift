@@ -491,7 +491,7 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
         
         //music should be playing from the main menu
         
-        sleep(5)
+        sleep(5) //just for fun
         transitionLayer.alpha = 0
         cs.alpha = 1
         
