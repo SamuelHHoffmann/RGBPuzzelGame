@@ -517,7 +517,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         self.physicsWorld.contactDelegate = self
         
-        
+        resetLevel()
         
         
         
@@ -572,7 +572,38 @@ class Level: SKScene, SKPhysicsContactDelegate {
         }
         
         //reset player location
+        player.removeFromParent()
+        
+        player = SKSpriteNode(imageNamed: "player")
+        player.size = CGSize(width: 50, height: 50)
+        
+        
+        player.physicsBody = SKPhysicsBody(circleOfRadius: 25)
+        player.name = "player"
+        
+        player.physicsBody?.affectedByGravity = true
+        player.physicsBody?.allowsRotation = true
+        player.physicsBody?.isDynamic = true
+        player.physicsBody?.pinned = false
+        
+        player.physicsBody?.friction = 1
+        player.physicsBody?.restitution = 0.2
+        player.physicsBody?.angularDamping = 0.1
+        player.physicsBody?.linearDamping = 0.1
+        
+        player.physicsBody?.categoryBitMask = UInt32(0) //the player is level 0
+        player.physicsBody?.collisionBitMask = UInt32(1)
+        player.physicsBody?.fieldBitMask = UInt32(1)
+        player.physicsBody?.contactTestBitMask = UInt32(1)
+        
+        player.zPosition = 4
+        
+        player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         player.position = startingPoint
+        
+        player.alpha = 1
+        
+        self.addChild(player)
         
         
     }

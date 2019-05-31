@@ -224,6 +224,18 @@ class LevelMenu: SKScene {
 //            leftMenuBlocker.alpha = 1
 //            middleMenuBlocker.alpha = 1
 //            rightMenuBlocker.alpha = 1
+            
+            redLayers[0] = SKSpriteNode(imageNamed: "ls-r-\(menuNumber)-\(1)-U")
+            redLayers[0].name = "ls-r-\(menuNumber)-\(1)-U"
+            redLayers[0].physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: redLayers[0].name!), alphaThreshold: 0, size: redLayers[0].size)
+            
+            greenLayers[0] = SKSpriteNode(imageNamed: "ls-g-\(menuNumber)-\(1)-U")
+            greenLayers[0].name = "ls-g-\(menuNumber)-\(1)-U"
+            greenLayers[0].physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: greenLayers[0].name!), alphaThreshold: 0, size: greenLayers[0].size)
+            
+            blueLayers[0] = SKSpriteNode(imageNamed: "ls-b-\(menuNumber)-\(1)-U")
+            blueLayers[0].name = "ls-b-\(menuNumber)-\(1)-U"
+            blueLayers[0].physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: blueLayers[0].name!), alphaThreshold: 0, size: blueLayers[0].size)
         }else{
 //            leftMenuBlocker.alpha = 1
 //            middleMenuBlocker.alpha = 0
