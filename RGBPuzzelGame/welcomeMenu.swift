@@ -65,7 +65,7 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
         //if first time...
         if(previousScene == nil){
             menu.size = sceneSize
-            menu.initializeMenu(NumberOfLevels: 4, Restricted: true, MenuNumber: 1)
+            menu.initializeMenu(NumberOfLevels: 6, Restricted: true, MenuNumber: 1)
             menu.scaleMode = .fill
             //menu.unlockNextLevel()
         }else{

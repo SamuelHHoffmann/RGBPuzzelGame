@@ -14,6 +14,7 @@ enum COLOR {
     case RED
     case GREEN
     case BLUE
+    case NULL
 }
 
 enum COLOR_STATE {
@@ -171,7 +172,6 @@ class colorSwitch: SKNode {
             flipColor(color: .BLUE)
         }
     }
-    
     
     
     

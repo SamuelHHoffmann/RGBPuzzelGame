@@ -7,6 +7,9 @@
 //
 
 
+
+
+
 import SpriteKit
 import GameplayKit
 import CoreMotion
@@ -19,13 +22,13 @@ class Level: SKScene, SKPhysicsContactDelegate {
     var greenLayer = SKSpriteNode()
     var blueLayer = SKSpriteNode()
     
+    var redCollision = SKSpriteNode()
+    var greenCollision = SKSpriteNode()
+    var blueCollision = SKSpriteNode()
+    
     let cs = colorSwitch()
     
     var player = SKSpriteNode()
-    //collision data
-    var collisionS = 0
-    var resetS = 0
-    var collisionColor : COLOR = COLOR.RED
     
     var redButton = SKShapeNode()
     var greenButton = SKShapeNode()
@@ -45,8 +48,15 @@ class Level: SKScene, SKPhysicsContactDelegate {
     let editMode = false
     
     
-    
-    
+    // categories:
+    let playerCat: UInt32 = 0x1 << 1
+    let endCat: UInt32 = 0x1 << 2
+    let colliiderCat: UInt32 = 0x1 << 3 //all collision layers
+    let redCat : UInt32 = 0x1 << 4
+    let blueCat : UInt32 = 0x1 << 5
+    let greenCat : UInt32 = 0x1 << 6
+    let wallCat : UInt32 = 0x1 << 7
+    let bottomCat : UInt32 = 0x1 << 8
     
     
     override init() {
@@ -136,35 +146,47 @@ class Level: SKScene, SKPhysicsContactDelegate {
         self.blueLayer.name = "\(package),\(numberInPackage)B"
         self.blueLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "\(package),\(numberInPackage)B"), size:CGSize(width: self.blueLayer.size.width, height: self.blueLayer.size.height))
         
+        
+        //set up collision layers
+        self.redCollision = SKSpriteNode(imageNamed: "\(package),\(numberInPackage)RC")
+        self.redCollision.name = "\(package),\(numberInPackage)RC"
+        self.redCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "\(package),\(numberInPackage)RC"), size:CGSize(width: self.redCollision.size.width, height: self.redCollision.size.height))
+        
+        self.greenCollision = SKSpriteNode(imageNamed: "\(package),\(numberInPackage)GC")
+        self.greenCollision.name = "\(package),\(numberInPackage)GC"
+        self.greenCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "\(package),\(numberInPackage)GC"), size:CGSize(width: self.greenCollision.size.width, height: self.greenCollision.size.height))
+        
+        self.blueCollision = SKSpriteNode(imageNamed: "\(package),\(numberInPackage)BC")
+        self.blueCollision.name = "\(package),\(numberInPackage)BC"
+        self.blueCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "\(package),\(numberInPackage)BC"), size:CGSize(width: self.blueCollision.size.width, height: self.blueCollision.size.height))
+        
+        
         self.menu = menu
         
         
         //self.startingPoint = GlobalStaticLookup(package, numberinPackage)
         //self.endingPoint = GlobalStaticLookup(package, numberinPackage)
         
-        self.startingPoint = CGPoint(x: 172.49, y: 607.49)
-        self.endingPoint = CGPoint(x: 157.99, y: 37.0)
+        //with multiple packages will use lookup scheme. currently hardwired
+        self.startingPoint = CGPoint(x: 170, y: 607.49)
+        self.endingPoint = CGPoint(x: 170, y: 37.0)
         
         setUpLayers()
         setUpButtons()
         setUpStartAndEnd()
         miscSetUp()
-        
-        
-        
     }
     
     
     /*
      sets up the R,G,and B layers with their physics body and alpha values.
+     Also sets up the collsion layers for each color giving them a physics body and attributes.
      
     */
     func setUpLayers(){
         
-        //self.redLayer.scale(to: CGSize()
-        
-        print(self.frame.width)
-        print(self.frame.height)
+        //print(self.frame.width)
+        //print(self.frame.height)
         
         var size = CGSize(width: self.frame.height, height: self.frame.width)
         
@@ -194,10 +216,9 @@ class Level: SKScene, SKPhysicsContactDelegate {
         redLayer.physicsBody?.angularDamping = 0.1
         redLayer.physicsBody?.linearDamping = 0.1
         
-        redLayer.physicsBody?.categoryBitMask = UInt32(1)
-        redLayer.physicsBody?.collisionBitMask = UInt32(1)
-        redLayer.physicsBody?.fieldBitMask = UInt32(1)
-        redLayer.physicsBody?.contactTestBitMask = UInt32(1)
+        redLayer.physicsBody?.categoryBitMask = redCat
+        redLayer.physicsBody?.collisionBitMask = playerCat
+        redLayer.physicsBody?.contactTestBitMask = playerCat
         
         redLayer.zPosition = 1.1
         
@@ -215,10 +236,9 @@ class Level: SKScene, SKPhysicsContactDelegate {
         greenLayer.physicsBody?.angularDamping = 0.1
         greenLayer.physicsBody?.linearDamping = 0.1
         
-        greenLayer.physicsBody?.categoryBitMask = UInt32(1)
-        greenLayer.physicsBody?.collisionBitMask = UInt32(1)
-        greenLayer.physicsBody?.fieldBitMask = UInt32(1)
-        greenLayer.physicsBody?.contactTestBitMask = UInt32(1)
+        greenLayer.physicsBody?.categoryBitMask = greenCat
+        greenLayer.physicsBody?.collisionBitMask = playerCat
+        greenLayer.physicsBody?.contactTestBitMask = playerCat
         
         greenLayer.zPosition = 1.2
         
@@ -236,10 +256,9 @@ class Level: SKScene, SKPhysicsContactDelegate {
         blueLayer.physicsBody?.angularDamping = 0.1
         blueLayer.physicsBody?.linearDamping = 0.1
         
-        blueLayer.physicsBody?.categoryBitMask = UInt32(1)
-        blueLayer.physicsBody?.collisionBitMask = UInt32(1)
-        blueLayer.physicsBody?.fieldBitMask = UInt32(1)
-        blueLayer.physicsBody?.contactTestBitMask = UInt32(1)
+        blueLayer.physicsBody?.categoryBitMask = blueCat
+        blueLayer.physicsBody?.collisionBitMask = playerCat
+        blueLayer.physicsBody?.contactTestBitMask = playerCat
         
         blueLayer.zPosition = 1.3
         
@@ -265,7 +284,99 @@ class Level: SKScene, SKPhysicsContactDelegate {
         self.addChild(greenLayer)
         self.addChild(blueLayer)
         
-       
+        ///////////////////////////////////////////////////////////////
+        
+        
+        //set up collisions layers
+        
+        
+        ///////////////////////////////////////////////////////////////
+        
+        redCollision.size = size
+        greenCollision.size = size
+        blueCollision.size = size
+        
+        //red
+        redCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: redCollision.name!), alphaThreshold: 0, size: redCollision.size)
+        redCollision.name = "redCollision"
+        
+        redCollision.physicsBody?.affectedByGravity = false
+        redCollision.physicsBody?.allowsRotation = false
+        redCollision.physicsBody?.isDynamic = false
+        redCollision.physicsBody?.pinned = false
+        
+        redCollision.physicsBody?.friction = 0.2
+        redCollision.physicsBody?.restitution = 0.2
+        redCollision.physicsBody?.angularDamping = 0.1
+        redCollision.physicsBody?.linearDamping = 0.1
+        
+        redCollision.physicsBody?.categoryBitMask = colliiderCat
+        redCollision.physicsBody?.collisionBitMask = playerCat
+        redCollision.physicsBody?.contactTestBitMask = playerCat
+        
+        redCollision.zPosition = 2.1
+        
+        //green
+        greenCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: greenCollision.name!), alphaThreshold: 0, size: greenCollision.size)
+        greenCollision.name = "greenCollision"
+        
+        greenCollision.physicsBody?.affectedByGravity = false
+        greenCollision.physicsBody?.allowsRotation = false
+        greenCollision.physicsBody?.isDynamic = false
+        greenCollision.physicsBody?.pinned = false
+        
+        greenCollision.physicsBody?.friction = 0.2
+        greenCollision.physicsBody?.restitution = 0.2
+        greenCollision.physicsBody?.angularDamping = 0.1
+        greenCollision.physicsBody?.linearDamping = 0.1
+        
+        greenCollision.physicsBody?.categoryBitMask = colliiderCat
+        greenCollision.physicsBody?.collisionBitMask = playerCat
+        greenCollision.physicsBody?.contactTestBitMask = playerCat
+        
+        greenCollision.zPosition = 2.2
+        
+        //blue
+        blueCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: blueCollision.name!), alphaThreshold: 0, size: blueCollision.size)
+        blueCollision.name = "blueCollision"
+        
+        blueCollision.physicsBody?.affectedByGravity = false
+        blueCollision.physicsBody?.allowsRotation = false
+        blueCollision.physicsBody?.isDynamic = false
+        blueCollision.physicsBody?.pinned = false
+        
+        blueCollision.physicsBody?.friction = 0.2
+        blueCollision.physicsBody?.restitution = 0.2
+        blueCollision.physicsBody?.angularDamping = 0.1
+        blueCollision.physicsBody?.linearDamping = 0.1
+        
+        blueCollision.physicsBody?.categoryBitMask = colliiderCat
+        blueCollision.physicsBody?.collisionBitMask = playerCat
+        blueCollision.physicsBody?.contactTestBitMask = playerCat
+        
+        blueCollision.zPosition = 2.3
+        
+        
+        redCollision.zRotation = CGFloat(-Double.pi/2)
+        redCollision.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        redCollision.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        
+        greenCollision.zRotation = CGFloat(-Double.pi/2)
+        greenCollision.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        greenCollision.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        
+        blueCollision.zRotation = CGFloat(-Double.pi/2)
+        blueCollision.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        blueCollision.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        
+        
+        redCollision.alpha = 0.001
+        greenCollision.alpha = 0.001
+        blueCollision.alpha = 0.001
+        
+        self.addChild(redCollision)
+        self.addChild(greenCollision)
+        self.addChild(blueCollision)
         
         
         
@@ -328,15 +439,15 @@ class Level: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.pinned = false
 
         player.physicsBody?.friction = 1
-        player.physicsBody?.restitution = 0.2
+        player.physicsBody?.restitution = 0.05
         player.physicsBody?.angularDamping = 0.1
         player.physicsBody?.linearDamping = 0.1
 
-        player.physicsBody?.categoryBitMask = UInt32(0) //the player is level 0
-        player.physicsBody?.collisionBitMask = UInt32(1)
-        player.physicsBody?.fieldBitMask = UInt32(1)
-        player.physicsBody?.contactTestBitMask = UInt32(1)
+        player.physicsBody?.categoryBitMask = playerCat
+        player.physicsBody?.collisionBitMask = wallCat | redCat | blueCat | greenCat | colliiderCat
+        player.physicsBody?.contactTestBitMask = bottomCat | endCat | colliiderCat
 
+        
         player.zPosition = 4
 
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -346,11 +457,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
 
         self.addChild(player)
         
-        //let bodies = player.physicsBody?.allContactedBodies() code for later
         
-        
-        
-        
+        //set up end point
         let end = SKSpriteNode(imageNamed: "end")
         end.size = CGSize(width: 50, height: 50)
         
@@ -363,10 +471,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         end.physicsBody?.isDynamic = false
         end.physicsBody?.pinned = false
         
-        end.physicsBody?.categoryBitMask = UInt32(3) //the end is level 3
-        end.physicsBody?.collisionBitMask = UInt32(3)
-        end.physicsBody?.fieldBitMask = UInt32(3)
-        end.physicsBody?.contactTestBitMask = UInt32(3)
+        end.physicsBody?.categoryBitMask = endCat
+        end.physicsBody?.contactTestBitMask = playerCat
         
         end.zPosition = 4
         
@@ -376,11 +482,6 @@ class Level: SKScene, SKPhysicsContactDelegate {
         end.alpha = 1
         
         self.addChild(end)
-        
-        
-        
-        
-        //set up end point
         
     }
     
@@ -400,10 +501,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         leftWall.physicsBody?.isDynamic = false
         leftWall.physicsBody?.pinned = false
         
-        leftWall.physicsBody?.categoryBitMask = UInt32(1)
-        leftWall.physicsBody?.collisionBitMask = UInt32(1)
-        leftWall.physicsBody?.fieldBitMask = UInt32(1)
-        leftWall.physicsBody?.contactTestBitMask = UInt32(1)
+        leftWall.physicsBody?.categoryBitMask = wallCat
+        leftWall.physicsBody?.collisionBitMask = playerCat
         
         
         leftWall.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -425,10 +524,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         rightWall.physicsBody?.isDynamic = false
         rightWall.physicsBody?.pinned = false
         
-        rightWall.physicsBody?.categoryBitMask = UInt32(1)
-        rightWall.physicsBody?.collisionBitMask = UInt32(1)
-        rightWall.physicsBody?.fieldBitMask = UInt32(1)
-        rightWall.physicsBody?.contactTestBitMask = UInt32(1)
+        rightWall.physicsBody?.categoryBitMask = wallCat
+        rightWall.physicsBody?.collisionBitMask = playerCat
         
         
         rightWall.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -451,10 +548,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         topWall.physicsBody?.isDynamic = false
         topWall.physicsBody?.pinned = false
         
-        topWall.physicsBody?.categoryBitMask = UInt32(1)
-        topWall.physicsBody?.collisionBitMask = UInt32(1) //level 1 means normal blocking wall
-        topWall.physicsBody?.fieldBitMask = UInt32(1)
-        topWall.physicsBody?.contactTestBitMask = UInt32(1)
+        topWall.physicsBody?.categoryBitMask = wallCat
+        topWall.physicsBody?.collisionBitMask = playerCat
         
         
         topWall.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -478,10 +573,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         bottomWall.physicsBody?.isDynamic = false
         bottomWall.physicsBody?.pinned = false
         
-        bottomWall.physicsBody?.categoryBitMask = UInt32(1) //level 2 means deadly
-        bottomWall.physicsBody?.collisionBitMask = UInt32(1)
-        bottomWall.physicsBody?.fieldBitMask = UInt32(1)
-        bottomWall.physicsBody?.contactTestBitMask = UInt32(1)
+        bottomWall.physicsBody?.categoryBitMask = bottomCat
+        bottomWall.physicsBody?.contactTestBitMask = playerCat
         
         
         bottomWall.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -491,12 +584,6 @@ class Level: SKScene, SKPhysicsContactDelegate {
         self.addChild(bottomWall)
         
         
-        //todo: walls are buggy invesitage
-        //note. player will not bounce on bottom wall becuase it is a deadly wall.
-        //cont. add colision checking and death
-        
-        
-        
         self.backgroundColor = UIColor.white
         
     }
@@ -504,20 +591,17 @@ class Level: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         
         //music should be playing from the main menu
-        
-        
+
         self.physicsWorld.contactDelegate = self
         
-        resetLevel()
-        
-        
+        resetLevel() //clean things when starting
         
         manager.startAccelerometerUpdates()
         manager.accelerometerUpdateInterval = 0.1
         manager.startAccelerometerUpdates(to: OperationQueue.main){
             (data, error) in
             
-            self.physicsWorld.gravity = CGVector(dx: CGFloat(-5), dy: CGFloat((data?.acceleration.y)! * 10))
+            self.physicsWorld.gravity = CGVector(dx: CGFloat(-7), dy: CGFloat((data?.acceleration.y)! * 10))
             
         }
         
@@ -531,65 +615,61 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         //debug
         //print("\(bodyA.node?.name), category mask \(bodyA.categoryBitMask) collided with \(bodyB.node?.name), category mask \(bodyB.categoryBitMask).")
+        //print(player.position)
+        //print(contact.contactPoint)
         
         //see if hits bottom wall
-        if (bodyA.categoryBitMask == 0 && bodyB.node?.name == "bottomWall") || (bodyA.node?.name == "bottomWall" && bodyB.categoryBitMask == 0){
+        if (bodyA.categoryBitMask == bottomCat && bodyB.categoryBitMask == playerCat) || (bodyB.categoryBitMask == bottomCat && bodyA.categoryBitMask == playerCat){
             resetLevel()
         }
+
+        //see if hits collision layer
+        if (bodyA.categoryBitMask == colliiderCat && bodyB.categoryBitMask == playerCat) || (bodyB.categoryBitMask == colliiderCat && bodyA.categoryBitMask == playerCat){
+            print("\(bodyA.node?.name), category mask \(bodyA.categoryBitMask) collided with \(bodyB.node?.name), category mask \(bodyB.categoryBitMask).")
+            animateDeath()
+            //resetLevel() moved into death sequence to require completion of animation
+        }
+        
         
         //see if hits end marker
-        if (bodyA.categoryBitMask == 0 && bodyB.categoryBitMask == 3) || (bodyA.categoryBitMask == 3 && bodyB.categoryBitMask == 0){
+        if (bodyA.categoryBitMask == endCat && bodyB.categoryBitMask == playerCat) || (bodyA.categoryBitMask == playerCat && bodyB.categoryBitMask == endCat){
             levelComplete()
         }
         
-        //check if a layer is turned on a kills a player
-        if(collisionColor == .RED){
-            if (bodyA.node?.name == "player" && bodyB.node?.name == "redLayer") || (bodyB.node?.name == "player" && bodyA.node?.name == "redLayer"){
-                checkCollisionTime()
-            }
-        }else if(collisionColor == .GREEN){
-            if (bodyA.node?.name == "player" && bodyB.node?.name == "greenLayer") || (bodyB.node?.name == "player" && bodyA.node?.name == "greenLayer"){
-                checkCollisionTime()
-            }
-        }else if(collisionColor == .BLUE){
-            if (bodyA.node?.name == "player" && bodyB.node?.name == "blueLayer") || (bodyB.node?.name == "player" && bodyA.node?.name == "blueLayer"){
-                checkCollisionTime()
-            }
-        }
     }
     
-    private func checkCollisionTime(){
-        let date = Date()
-        let calendar = Calendar.current
-        let compareS = calendar.component(.second, from: date)
-        if(compareS <= collisionS){
-            resetLevel()
-        }
+    //animation time for being smushed by layer
+    func animateDeath(){
+        
+        //freeze player
+        player.physicsBody?.affectedByGravity = false
+        player.physicsBody?.allowsRotation = false
+        player.physicsBody?.isDynamic = false
+        player.physicsBody?.pinned = true
+        
+        let deathSequence = SKAction.sequence([SKAction.run{self.player.texture = SKTexture(imageNamed: "death")},SKAction.wait(forDuration: 1), SKAction.run{self.resetLevel()}])
+        player.run(deathSequence)
     }
+    
+    
     
     func resetLevel(){
         //notes: reseting is a little jaring and fast. Maybe add an artificial delay to make things seem slower
-        
-        let date = Date()
-        let calendar = Calendar.current
-        let tempS = calendar.component(.second, from: date)
-        if(resetS == tempS){
-            //print("nope")
-            return //dont do method
-        }
-        resetS = tempS
         
         cs.reset()
         
         //turn on all layers again
         if redLayer.parent == nil {
             self.addChild(redLayer)
+            self.addChild(redCollision)
         }
         if greenLayer.parent == nil {
             self.addChild(greenLayer)
+            self.addChild(greenCollision)
         }
         if blueLayer.parent == nil {
             self.addChild(blueLayer)
+            self.addChild(blueCollision)
         }
         
         //reset player location
@@ -608,14 +688,13 @@ class Level: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.pinned = false
         
         player.physicsBody?.friction = 1
-        player.physicsBody?.restitution = 0.2
+        player.physicsBody?.restitution = 0.05
         player.physicsBody?.angularDamping = 0.1
         player.physicsBody?.linearDamping = 0.1
         
-        player.physicsBody?.categoryBitMask = UInt32(0) //the player is level 0
-        player.physicsBody?.collisionBitMask = UInt32(1)
-        player.physicsBody?.fieldBitMask = UInt32(1)
-        player.physicsBody?.contactTestBitMask = UInt32(1)
+        player.physicsBody?.categoryBitMask = playerCat
+        player.physicsBody?.collisionBitMask = wallCat | redCat | blueCat | greenCat
+        player.physicsBody?.contactTestBitMask = bottomCat | endCat
         
         player.zPosition = 4
         
@@ -642,13 +721,14 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    
+    
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         
         
         for node in nodes(at: (touches.first?.location(in: self))!) {
-            let date = Date()
-            let calendar = Calendar.current
             
             if node == redButton {
                 
@@ -656,24 +736,18 @@ class Level: SKScene, SKPhysicsContactDelegate {
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleRedLayer(checkForCollision: false) //todo: should be 'true' in the future
                 
-                collisionS = calendar.component(.second, from: date)
-                collisionColor = COLOR.RED
-                
             }else if node == blueButton {
+                
                 cs.flipColor(color: COLOR.BLUE)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleBlueLayer(checkForCollision: false) //todo: should be 'true' in the future
-                
-                collisionS = calendar.component(.second, from: date)
-                collisionColor = COLOR.BLUE
+
                 
             }else if node == greenButton {
+                
                 cs.flipColor(color: COLOR.GREEN)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleGreenLayer(checkForCollision: false) //todo: should be 'true' in the future
-                
-                collisionS = calendar.component(.second, from: date)
-                collisionColor = COLOR.GREEN
                 
             }else{
                 if editMode{
@@ -686,11 +760,6 @@ class Level: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    private func checkForPlayerCollision(){
-        
-       
-    }
-    
     
     private func checkSwitchPosition(touch: UITouch){
         
@@ -700,11 +769,13 @@ class Level: SKScene, SKPhysicsContactDelegate {
     func toggleRedLayer(checkForCollision: Bool){ //could be abstracted with the blue and green similar functions below
         if redLayer.parent != nil {
             redLayer.removeFromParent()
+            redCollision.removeFromParent()
         }else{
             if checkForCollision {
                 //grab position before and after and compare
             }else{
                 self.addChild(redLayer)
+                self.addChild(redCollision)
             }
         }
     }
@@ -712,11 +783,13 @@ class Level: SKScene, SKPhysicsContactDelegate {
     func toggleBlueLayer(checkForCollision: Bool){
         if blueLayer.parent != nil {
             blueLayer.removeFromParent()
+            blueCollision.removeFromParent()
         }else{
             if checkForCollision {
-                //grab position before and after and compare
+                //collisions happens when the collision layer makes contact with the
             }else{
                 self.addChild(blueLayer)
+                self.addChild(blueCollision)
             }
         }
     }
@@ -724,11 +797,13 @@ class Level: SKScene, SKPhysicsContactDelegate {
     func toggleGreenLayer(checkForCollision: Bool){
         if greenLayer.parent != nil {
             greenLayer.removeFromParent()
+            greenCollision.removeFromParent()
         }else{
             if checkForCollision {
                 //grab position before and after and compare
             }else{
                 self.addChild(greenLayer)
+                self.addChild(greenCollision)
             }
         }
     }
