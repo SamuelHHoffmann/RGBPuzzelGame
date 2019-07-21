@@ -218,55 +218,71 @@ class LevelMenu: SKScene {
             levels.append(TempLevel)
             
         }
+        
         if restricted {
-            levels.first?.locked = false
+            //unlock levels
             
-//            leftMenuBlocker.alpha = 1
-//            middleMenuBlocker.alpha = 1
-//            rightMenuBlocker.alpha = 1
+            //if first time
+                //unlock first level
+            //else
+                //unlock levels from memory
             
-            redLayers[0] = SKSpriteNode(imageNamed: "ls-r-\(menuNumber)-\(1)-U")
-            redLayers[0].name = "ls-r-\(menuNumber)-\(1)-U"
-            redLayers[0].physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: redLayers[0].name!), alphaThreshold: 0, size: redLayers[0].size)
             
-            greenLayers[0] = SKSpriteNode(imageNamed: "ls-g-\(menuNumber)-\(1)-U")
-            greenLayers[0].name = "ls-g-\(menuNumber)-\(1)-U"
-            greenLayers[0].physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: greenLayers[0].name!), alphaThreshold: 0, size: greenLayers[0].size)
-            
-            blueLayers[0] = SKSpriteNode(imageNamed: "ls-b-\(menuNumber)-\(1)-U")
-            blueLayers[0].name = "ls-b-\(menuNumber)-\(1)-U"
-            blueLayers[0].physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: blueLayers[0].name!), alphaThreshold: 0, size: blueLayers[0].size)
         }else{
-//            leftMenuBlocker.alpha = 1
-//            middleMenuBlocker.alpha = 0
-//            rightMenuBlocker.alpha = 0
+            //unlock all levels
+            
+            
         }
         
         currentLevelNumber = 0
         currentLevel = levels[0]
+        unlockLevel(levelNumber: currentLevelNumber)
         
     }
     
     func unlockNextLevel(){
         
-        if currentLevelNumber != levels.count-1 {
+        if currentLevelNumber < levels.count-1 {
             
-            levels[currentLevelNumber+1].locked = false
-            
-            if (currentLevelNumber % 2) != 0 {
-                //unlock right
-                //rightMenuBlocker.alpha = 0
-            }else{
-                //unlock middle
-                //middleMenuBlocker.alpha = 0
-            }
+            unlockNext(levelNumber: currentLevelNumber)
+            unlockLevel(levelNumber: currentLevelNumber+1)
             
         }else{
             //last level in menu
         }
-        
-        
-        
+    }
+    
+    //unlocks level number in levels list
+    private func unlockLevel(levelNumber: Int){
+        if levelNumber < levels.count {
+            
+            levels[levelNumber].locked = false
+            redLayers[levelNumber].texture = SKTexture(imageNamed: "ls-r-\(menuNumber)-\(levelNumber+1)-U")
+            redLayers[levelNumber].name = "ls-r-\(menuNumber)-\(levelNumber+1)-U"
+            greenLayers[levelNumber].texture = SKTexture(imageNamed: "ls-g-\(menuNumber)-\(levelNumber+1)-U")
+            greenLayers[levelNumber].name = "ls-g-\(menuNumber)-\(levelNumber+1)-U"
+            blueLayers[levelNumber].texture = SKTexture(imageNamed: "ls-b-\(menuNumber)-\(levelNumber+1)-U")
+            blueLayers[levelNumber].name = "ls-b-\(menuNumber)-\(levelNumber+1)-U"
+            
+        }else{
+            //out of range
+        }
+    }
+    
+    //unlocks level number in levels list
+    private func unlockNext(levelNumber: Int){
+        if levelNumber < levels.count {
+            
+            redLayers[levelNumber].texture = SKTexture(imageNamed: "ls-r-\(menuNumber)-\(levelNumber+1)-N")
+            redLayers[levelNumber].name = "ls-r-\(menuNumber)-\(levelNumber+1)-N"
+            greenLayers[levelNumber].texture = SKTexture(imageNamed: "ls-g-\(menuNumber)-\(levelNumber+1)-N")
+            greenLayers[levelNumber].name = "ls-g-\(menuNumber)-\(levelNumber+1)-N"
+            blueLayers[levelNumber].texture = SKTexture(imageNamed: "ls-b-\(menuNumber)-\(levelNumber+1)-N")
+            blueLayers[levelNumber].name = "ls-b-\(menuNumber)-\(levelNumber+1)-N"
+            
+        }else{
+            //out of range
+        }
     }
     
     
