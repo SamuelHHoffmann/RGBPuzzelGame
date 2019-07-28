@@ -625,7 +625,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
 
         //see if hits collision layer
         if (bodyA.categoryBitMask == colliiderCat && bodyB.categoryBitMask == playerCat) || (bodyB.categoryBitMask == colliiderCat && bodyA.categoryBitMask == playerCat){
-            print("\(bodyA.node?.name), category mask \(bodyA.categoryBitMask) collided with \(bodyB.node?.name), category mask \(bodyB.categoryBitMask).")
+            print("\(bodyA.node?.name ?? "BodyA"), category mask \(bodyA.categoryBitMask) collided with \(bodyB.node?.name ?? "BodyB"), category mask \(bodyB.categoryBitMask).")
             animateDeath()
             //resetLevel() moved into death sequence to require completion of animation
         }
@@ -777,6 +777,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
                 self.addChild(redLayer)
                 self.addChild(redCollision)
             }
+            
         }
     }
     

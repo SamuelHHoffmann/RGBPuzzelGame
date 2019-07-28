@@ -27,14 +27,13 @@ class LevelMenu: SKScene {
     
     var numbers : [SKNode] = [] //useless (but use positioning for layers)
     
-//    var leftMenuBlocker = SKSpriteNode()
-//    var middleMenuBlocker = SKSpriteNode()
-//    var rightMenuBlocker = SKSpriteNode()
-    
     
     var redLayers : [SKSpriteNode] = []
     var greenLayers : [SKSpriteNode] = []
     var blueLayers : [SKSpriteNode] = []
+    
+    
+    private var playerLeft = true
     
     
     func initializeMenu(NumberOfLevels: Int, Restricted: Bool, MenuNumber: Int){
@@ -80,7 +79,7 @@ class LevelMenu: SKScene {
         //set up numbers
         
         
-        for i in 1...numberOfLevels {
+        for i in 1...(numberOfLevels) {
             //red layer
             let tempRed = SKSpriteNode(imageNamed: "ls-r-\(menuNumber)-\(i)-L")
             tempRed.name = "ls-r-\(menuNumber)-\(i)-L"
@@ -227,22 +226,30 @@ class LevelMenu: SKScene {
             //else
                 //unlock levels from memory
             
+            currentLevelNumber = 0
+            currentLevel = levels[0]
+            unlockLevel(levelNumber: currentLevelNumber)
             
         }else{
             //unlock all levels
             
+            currentLevelNumber = 0
+            currentLevel = levels[0]
+            for x in 0...numberOfLevels-2{
+                unlockNext(levelNumber: x)
+            }
+            unlockLevel(levelNumber: numberOfLevels-1)
+            
             
         }
         
-        currentLevelNumber = 0
-        currentLevel = levels[0]
-        unlockLevel(levelNumber: currentLevelNumber)
+
         
     }
     
     func unlockNextLevel(){
         
-        if currentLevelNumber < levels.count-1 {
+        if currentLevelNumber < levels.count {
             
             unlockNext(levelNumber: currentLevelNumber)
             unlockLevel(levelNumber: currentLevelNumber+1)
@@ -316,41 +323,27 @@ class LevelMenu: SKScene {
     
     func nextLevel(){
         
-        if currentLevelNumber == levels.count-1 {
+        
+        if currentLevelNumber == levels.count-1 { // last level
             //dont move
         }else{
-            if levels[currentLevelNumber+1].locked {
+            if levels[currentLevelNumber+1].locked { //next level locked
                 //dont move
             }else{
-                if (currentLevelNumber % 2) != 0 {
+                if playerLeft == false { //aka player right
                     //even
                     //move to next page
-                    for _ in 1...2{
-                        for number in numbers {
-                            //number.position = CGPoint(x: number.position.x, y: number.position.y+(self.frame.height/2))
-                            number.run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.75))
-                        }
-                    }
-                
-                    //update menu blockers
-                    //leftMenuBlocker.alpha = 0
-                    
-                    //middleMenuBlocker.alpha = 1
-                    //rightMenuBlocker.alpha = 1
-                    if !levels[currentLevelNumber+2].locked {
-                        //middleMenuBlocker.alpha = 0
-                    }
-                    if currentLevelNumber+3 >= levels.count-1 {
-                        //keep right on
-                    }else{
-                        //bug crash
-                        if !levels[currentLevelNumber+3].locked {
-                            //rightMenuBlocker.alpha = 0
-                        }
+                    var x = 0
+                    for _ in redLayers {
+                        redLayers[x].run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
+                        greenLayers[x].run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
+                        blueLayers[x].run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
+                        x = x + 1
                     }
                     
                 }else{
                     //just move ball over
+                    playerLeft = false
                 }
                 currentLevelNumber += 1
                 currentLevel = levels[currentLevelNumber]
@@ -364,22 +357,17 @@ class LevelMenu: SKScene {
         if currentLevelNumber == 0 {
             
         }else{
-            if (currentLevelNumber % 2) != 0 {
+            if playerLeft == false { //aka player right
                 //just move ball back one
+                playerLeft = true
             }else{
                 //go back a page
-                for _ in 1...2{
-                    for number in numbers {
-                        number.run(SKAction.moveBy(x: 0, y: -(self.frame.height/2), duration: 0.75))
-                    }
-                }
-                //leftMenuBlocker.alpha = 0
-                //middleMenuBlocker.alpha = 0
-                //rightMenuBlocker.alpha = 0
-                
-                if currentLevelNumber-2 == 0 {
-                    //going to first page
-                    //leftMenuBlocker.alpha = 1
+                var x = 0
+                for _ in redLayers {
+                    redLayers[x].run(SKAction.moveBy(x: 0, y: -(self.frame.height/2), duration: 0.35))
+                    greenLayers[x].run(SKAction.moveBy(x: 0, y: -(self.frame.height/2), duration: 0.35))
+                    blueLayers[x].run(SKAction.moveBy(x: 0, y: -(self.frame.height/2), duration: 0.35))
+                    x = x + 1
                 }
                 
             }

@@ -65,7 +65,7 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
         //if first time...
         if(previousScene == nil){
             menu.size = sceneSize
-            menu.initializeMenu(NumberOfLevels: 6, Restricted: true, MenuNumber: 1)
+            menu.initializeMenu(NumberOfLevels: 4, Restricted: false, MenuNumber: 1)
             menu.scaleMode = .fill
             //menu.unlockNextLevel()
         }else{
@@ -491,20 +491,19 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
         
         //music should be playing from the main menu
         
-        sleep(5) //just for fun
+        //sleep(5) //just for fun
         transitionLayer.alpha = 0
         cs.alpha = 1
         
         
         self.physicsWorld.contactDelegate = self
         
+        //this causes the startup Thread Ckecker in the system dialogue. This is not an issue and rather a warning.
         manager.startAccelerometerUpdates()
         manager.accelerometerUpdateInterval = 0.1
         manager.startAccelerometerUpdates(to: OperationQueue.main){
             (data, error) in
-            
             self.physicsWorld.gravity = CGVector(dx: CGFloat(-5), dy: CGFloat((data?.acceleration.y)! * 10))
-            
         }
         
     }
