@@ -36,6 +36,12 @@ class LevelMenu: SKScene {
     private var playerLeft = true
     
     
+    var pointer = SKSpriteNode()
+    
+    
+    
+    
+    
     func initializeMenu(NumberOfLevels: Int, Restricted: Bool, MenuNumber: Int){
         
         
@@ -61,15 +67,16 @@ class LevelMenu: SKScene {
     
     func setUpSecondaryGraphics(){
         //set up background
-//
-//        rightMenuBlocker = SKSpriteNode(imageNamed: "rightMenuBlocker")
-//        rightMenuBlocker.size = CGSize(width: self.frame.height, height: self.frame.width)
-//        rightMenuBlocker.zRotation = CGFloat(-Double.pi/2)
-//        rightMenuBlocker.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-//        rightMenuBlocker.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-//        rightMenuBlocker.zPosition = 2
-//        self.addChild(rightMenuBlocker)
+
+        pointer = SKSpriteNode(imageNamed: "player")
         
+        pointer.name = "pointer"
+        pointer.size = CGSize(width: 50, height: 50)
+        pointer.zPosition = 4
+        pointer.position = CGPoint(x: redLayers[0].position.x+(redLayers[0].frame.width/4), y: redLayers[0].position.y)
+        pointer.alpha = 1
+
+        self.addChild(pointer)
         
         
         
@@ -249,10 +256,15 @@ class LevelMenu: SKScene {
     
     func unlockNextLevel(){
         
-        if currentLevelNumber < levels.count {
+        if currentLevelNumber < levels.count-1 {
             
-            unlockNext(levelNumber: currentLevelNumber)
-            unlockLevel(levelNumber: currentLevelNumber+1)
+            if(restricted){
+                unlockNext(levelNumber: currentLevelNumber)
+                unlockLevel(levelNumber: currentLevelNumber+1)
+            }else{
+                //everything is already unlocked
+            }
+            
             
         }else{
             //last level in menu
@@ -309,7 +321,7 @@ class LevelMenu: SKScene {
     }
     
     @objc func swipeAction(swipe: UISwipeGestureRecognizer){
-        
+        print("swipe")
         if swipe.direction == UISwipeGestureRecognizer.Direction.up {
             //move to next level
             nextLevel()
@@ -343,6 +355,7 @@ class LevelMenu: SKScene {
                     
                 }else{
                     //just move ball over
+                    pointer.run(SKAction.moveBy(x: 0, y: -(self.frame.height/2), duration: 0.35))
                     playerLeft = false
                 }
                 currentLevelNumber += 1
@@ -359,6 +372,7 @@ class LevelMenu: SKScene {
         }else{
             if playerLeft == false { //aka player right
                 //just move ball back one
+                pointer.run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
                 playerLeft = true
             }else{
                 //go back a page
@@ -367,6 +381,7 @@ class LevelMenu: SKScene {
                     redLayers[x].run(SKAction.moveBy(x: 0, y: -(self.frame.height/2), duration: 0.35))
                     greenLayers[x].run(SKAction.moveBy(x: 0, y: -(self.frame.height/2), duration: 0.35))
                     blueLayers[x].run(SKAction.moveBy(x: 0, y: -(self.frame.height/2), duration: 0.35))
+                    
                     x = x + 1
                 }
                 
@@ -389,6 +404,7 @@ class LevelMenu: SKScene {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.isPaused = true
         if let view = self.view as SKView? {
             view.presentScene(currentLevel)
         }

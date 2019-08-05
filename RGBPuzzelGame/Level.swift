@@ -34,6 +34,10 @@ class Level: SKScene, SKPhysicsContactDelegate {
     var greenButton = SKShapeNode()
     var blueButton = SKShapeNode()
     
+    var backButton_img = SKSpriteNode()
+    var backButton = SKShapeNode()
+    
+    
     var packageNumber = 0
     var levelNumber = 0
     
@@ -416,7 +420,19 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         
         
+        backButton_img = SKSpriteNode(imageNamed: "back button")
+        backButton_img.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY+(self.frame.height/2)-(self.frame.height/16))
+        backButton_img.zPosition = 4
+        backButton_img.zRotation = CGFloat(-1*(Double.pi/2))
+        backButton_img.setScale(0.35)
+        self.addChild(backButton_img)
         
+        backButton = SKShapeNode(rectOf: CGSize(width: (backButton_img.frame.width)*2, height: (backButton_img.frame.height)*2))
+        backButton.fillColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.001)
+        backButton.position = backButton_img.position
+        backButton.strokeColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 0.001)
+        backButton.zPosition = 5
+        self.addChild(backButton)
         
         
         
@@ -710,6 +726,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
     
     func levelComplete(){
         let menuCasted = menu as! LevelMenu
+        menuCasted.isPaused = false
         menuCasted.unlockNextLevel()
         
         if let view = self.view as SKView? {
@@ -721,6 +738,16 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    func quitLevel(){
+        let menuCasted = menu as! LevelMenu
+        menuCasted.isPaused = false
+        if let view = self.view as SKView? {
+            
+            menuCasted.size = self.size
+            
+            view.presentScene(menuCasted)
+        }
+    }
     
     
     
@@ -748,6 +775,10 @@ class Level: SKScene, SKPhysicsContactDelegate {
                 cs.flipColor(color: COLOR.GREEN)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleGreenLayer(checkForCollision: false) //todo: should be 'true' in the future
+                
+            }else if node == backButton {
+                
+                quitLevel()
                 
             }else{
                 if editMode{

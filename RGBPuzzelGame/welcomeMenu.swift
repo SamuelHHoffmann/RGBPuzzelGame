@@ -530,8 +530,6 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
     
     func resetLevel(){
         
-        
-        
         //turn on all layers again
         if redLayer.parent == nil {
             self.addChild(redLayer)
@@ -550,9 +548,6 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
     }
     
     func levelComplete(){
-        
-        
-        
         
         if let view = self.view as SKView? {
             
