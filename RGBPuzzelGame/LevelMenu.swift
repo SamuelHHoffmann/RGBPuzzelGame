@@ -38,6 +38,7 @@ class LevelMenu: SKScene {
     
     var pointer = SKSpriteNode()
     
+    var isTopScene = false
     
     
     
@@ -307,8 +308,8 @@ class LevelMenu: SKScene {
     
     
     override func didMove(to view: SKView) {
-        
-        
+        //first responder for negating swipes
+        isTopScene = true
         
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction(swipe:)))
         leftSwipe.direction = UISwipeGestureRecognizer.Direction.up
@@ -321,15 +322,17 @@ class LevelMenu: SKScene {
     }
     
     @objc func swipeAction(swipe: UISwipeGestureRecognizer){
-        print("swipe")
-        if swipe.direction == UISwipeGestureRecognizer.Direction.up {
-            //move to next level
-            nextLevel()
-        }else if swipe.direction == UISwipeGestureRecognizer.Direction.down {
-            //go back a level
-            previousLevel()
-        }else {
-            //impossible
+        if(isTopScene){
+            print("swipe")
+            if swipe.direction == UISwipeGestureRecognizer.Direction.up {
+                //move to next level
+                nextLevel()
+            }else if swipe.direction == UISwipeGestureRecognizer.Direction.down {
+                //go back a level
+                previousLevel()
+            }else {
+                //impossible
+            }
         }
     }
     
@@ -404,7 +407,7 @@ class LevelMenu: SKScene {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.isPaused = true
+        isTopScene = false
         if let view = self.view as SKView? {
             view.presentScene(currentLevel)
         }
