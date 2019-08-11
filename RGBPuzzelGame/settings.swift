@@ -10,27 +10,25 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-enum SceneType {
-    case Level
-    case MainMenu
-    case LevelSelect
-    case none
-}
 
 
-class Settings: SKScene {
+
+class Settings: RGBAScene {
 
     var previousScene = SKScene()
     var previousSceneType = SceneType.none
     
     
     func setUpSettings(){
+        super.setUp(redLayerStr: "settingsRed", greenLayerStr: "settingsGreen", blueLayerStr: "settingsBlue", physics: false)
+        
+        self.type = SceneType.Settings
         
     }
     
     
     override func didMove(to view: SKView) {
-        //
+        super.didMove(to: self.view!)
     }
     
     
@@ -40,11 +38,14 @@ class Settings: SKScene {
 
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        //what was clicked
+        //super.touchesBegan(touches, with: event)
     }
     
+    
+    
+    
     override func update(_ currentTime: TimeInterval) {
-        //
+        // Called before each frame is rendered
     }
     
 

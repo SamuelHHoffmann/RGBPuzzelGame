@@ -52,6 +52,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
     var locked = false
     
     var menu = SKScene()
+    var settingsScene = Settings()
     
     //variable for editing and moving around level items
     let editMode = false
@@ -466,6 +467,9 @@ class Level: SKScene, SKPhysicsContactDelegate {
         hideSettingsMenu()
         
         
+        settingsScene = Settings()
+        settingsScene.size = self.size
+        settingsScene.setUpSettings()
     }
     
     func setUpStartAndEnd(){
@@ -701,9 +705,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
     func resetLevel(){
         //notes: reseting is a little jaring and fast. Maybe add an artificial delay to make things seem slower
         
-        if(settingsOverlay.position != CGPoint(x: self.frame.midX, y: self.frame.midY)){ //reset settings if not. Never will happen.
-            settingsOverlay.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        }
+        settingsOverlay.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         
         cs.reset()
         
@@ -784,7 +786,11 @@ class Level: SKScene, SKPhysicsContactDelegate {
     
     func showSettingsMenu(){
         
-        settingsOverlay.run(SKAction.moveTo(x: (self.frame.midX), duration: 0.75))
+        settingsOverlay.run(SKAction.sequence([SKAction.moveTo(x: (self.frame.midX), duration: 0.75), SKAction.run {
+            if let view = self.view as SKView? {
+                view.presentScene(self.settingsScene)
+            }
+            }]))
         
     }
     

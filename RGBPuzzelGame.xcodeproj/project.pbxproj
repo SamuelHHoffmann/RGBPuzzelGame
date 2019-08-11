@@ -15,6 +15,7 @@
 		905C3EAD20B70457001BCBE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 905C3EAC20B70457001BCBE9 /* Assets.xcassets */; };
 		905C3EB020B70457001BCBE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 905C3EAE20B70457001BCBE9 /* LaunchScreen.storyboard */; };
 		905C3EBA20B76024001BCBE9 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C3EB920B76024001BCBE9 /* Level.swift */; };
+		9082DFB023006D0B00CB15E0 /* RGBAScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082DFAF23006D0B00CB15E0 /* RGBAScene.swift */; };
 		90A74A1E229DCE2000AC302E /* welcomeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A74A1D229DCE2000AC302E /* welcomeMenu.swift */; };
 		90ABED4C20DAFDDC00F00422 /* LevelMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90ABED4B20DAFDDC00F00422 /* LevelMenu.swift */; };
 /* End PBXBuildFile section */
@@ -30,6 +31,7 @@
 		905C3EAF20B70457001BCBE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		905C3EB120B70457001BCBE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		905C3EB920B76024001BCBE9 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		9082DFAF23006D0B00CB15E0 /* RGBAScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBAScene.swift; sourceTree = "<group>"; };
 		90A74A1D229DCE2000AC302E /* welcomeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = welcomeMenu.swift; sourceTree = "<group>"; };
 		90ABED4B20DAFDDC00F00422 /* LevelMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,6 +68,7 @@
 			children = (
 				905C3E9F20B70456001BCBE9 /* AppDelegate.swift */,
 				9003505E22985FC4003A7344 /* colorSwitch.swift */,
+				9082DFAF23006D0B00CB15E0 /* RGBAScene.swift */,
 				905C3EB920B76024001BCBE9 /* Level.swift */,
 				9000BD9922FB21570010DCAA /* settings.swift */,
 				90ABED4B20DAFDDC00F00422 /* LevelMenu.swift */,
@@ -155,6 +158,7 @@
 				905C3EA820B70456001BCBE9 /* GameViewController.swift in Sources */,
 				905C3EBA20B76024001BCBE9 /* Level.swift in Sources */,
 				905C3EA020B70456001BCBE9 /* AppDelegate.swift in Sources */,
+				9082DFB023006D0B00CB15E0 /* RGBAScene.swift in Sources */,
 				90A74A1E229DCE2000AC302E /* welcomeMenu.swift in Sources */,
 				9000BD9A22FB21570010DCAA /* settings.swift in Sources */,
 				9003505F22985FC4003A7344 /* colorSwitch.swift in Sources */,

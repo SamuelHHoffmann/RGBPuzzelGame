@@ -15,15 +15,12 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var game_view: SKView!
     
-    //var menu = LevelMenu()
     var home = welcomeMenu()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let backgroundView = self.view as? SKView {
-            
-            backgroundView.backgroundColor = UIColor(displayP3Red: 96/255, green: 133/255, blue: 144/255, alpha: 1)
             
             let tempScene = SKScene(size: self.view.frame.size)
             tempScene.backgroundColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
@@ -32,6 +29,19 @@ class GameViewController: UIViewController {
             backgroundView.presentScene(tempScene)
         }
         
+        
+//        if let view = self.game_view { //used for testing RGBAScene's
+//
+//            let temp = RGBAScene()
+//            temp.size = self.game_view.frame.size
+//            temp.setUp(redLayerStr: "1,1R", greenLayerStr: "1,1G", blueLayerStr: "1,1B", physics: false)
+//            temp.scaleMode = .fill
+//
+//            view.presentScene(temp)
+//            view.ignoresSiblingOrder = true
+//            view.showsFPS = true
+//            view.showsNodeCount = true
+//        }
         
         if let view = self.game_view {
             // Load the SKScene from 'GameScene.sks'
