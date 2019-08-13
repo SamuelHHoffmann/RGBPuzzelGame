@@ -41,6 +41,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
     var settingsButton = SKShapeNode()
     
     var settingsOverlay = SKShapeNode()
+    var settingsShown = true
+    var comingBackFromSettings = false
     
     
     var packageNumber = 0
@@ -53,6 +55,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
     
     var menu = SKScene()
     var settingsScene = Settings()
+    
+
     
     //variable for editing and moving around level items
     let editMode = false
@@ -470,6 +474,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         settingsScene = Settings()
         settingsScene.size = self.size
         settingsScene.setUpSettings()
+        settingsScene.previousScene = self
+        settingsScene.previousSceneType = SceneType.Level
     }
     
     func setUpStartAndEnd(){
@@ -640,18 +646,24 @@ class Level: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         
         //music should be playing from the main menu
-
-        self.physicsWorld.contactDelegate = self
         
-        resetLevel() //clean things when starting
-        
-        manager.startAccelerometerUpdates()
-        manager.accelerometerUpdateInterval = 0.1
-        manager.startAccelerometerUpdates(to: OperationQueue.main){
-            (data, error) in
+        if(comingBackFromSettings){
+            comingBackFromSettings = false
+            hideSettingsMenu()
+        }else{
             
-            self.physicsWorld.gravity = CGVector(dx: CGFloat(-7), dy: CGFloat((data?.acceleration.y)! * 10))
+            self.physicsWorld.contactDelegate = self
             
+            resetLevel() //clean things when starting
+            
+            manager.startAccelerometerUpdates()
+            manager.accelerometerUpdateInterval = 0.1
+            manager.startAccelerometerUpdates(to: OperationQueue.main){
+                (data, error) in
+                
+                self.physicsWorld.gravity = CGVector(dx: CGFloat(-7), dy: CGFloat((data?.acceleration.y)! * 10))
+                
+            }
         }
         
     }
@@ -705,7 +717,9 @@ class Level: SKScene, SKPhysicsContactDelegate {
     func resetLevel(){
         //notes: reseting is a little jaring and fast. Maybe add an artificial delay to make things seem slower
         
-        settingsOverlay.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        if(settingsShown == true){
+            hideSettingsMenu()
+        }
         
         cs.reset()
         
@@ -785,11 +799,17 @@ class Level: SKScene, SKPhysicsContactDelegate {
     }
     
     func showSettingsMenu(){
+        //pause scene so ball doesnt move
+        
+        settingsShown = true
         
         settingsOverlay.run(SKAction.sequence([SKAction.moveTo(x: (self.frame.midX), duration: 0.75), SKAction.run {
-            if let view = self.view as SKView? {
-                view.presentScene(self.settingsScene)
-            }
+                if let view = self.view as SKView? {
+                    view.presentScene(self.settingsScene)
+                }
+            }, SKAction.run {
+                self.comingBackFromSettings = true
+                self.isPaused = true
             }]))
         
     }
@@ -797,7 +817,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
     func hideSettingsMenu(){
         
         settingsOverlay.run(SKAction.moveTo(x: -(self.frame.midX), duration: 0))
-        
+        settingsShown = false
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
