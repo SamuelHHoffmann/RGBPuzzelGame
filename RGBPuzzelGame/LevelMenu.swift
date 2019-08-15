@@ -227,16 +227,8 @@ class LevelMenu: SKScene {
         }
         
         if restricted {
-            //unlock levels
-            
-            //if first time
-                //unlock first level
-            //else
-                //unlock levels from memory
-            
-            currentLevelNumber = 0
-            currentLevel = levels[0]
-            unlockLevel(levelNumber: currentLevelNumber)
+            //unlevels
+            loadMenuFromData()
             
         }else{
             //unlock all levels
@@ -252,6 +244,50 @@ class LevelMenu: SKScene {
         }
         
 
+        
+    }
+    
+    
+    func loadMenuFromData(){
+        
+        //unlock levels from memory
+        
+        let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
+        
+        let lastLevel = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Last:\(menuNumber)")
+        
+        if(lastUnlocked > numberOfLevels-1){ //error lastunlocked value is too large
+            currentLevelNumber = 0
+            currentLevel = levels[0]
+            unlockLevel(levelNumber: currentLevelNumber)
+            
+            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
+            
+        }else{
+            //unlock levels upto a certain point
+            if(lastUnlocked != 0){
+                for x in 0...lastUnlocked-1{
+                    unlockNext(levelNumber: x)
+                }
+            }
+            unlockLevel(levelNumber: lastUnlocked)
+            
+            //move levels to current level
+            
+            currentLevelNumber = 0
+            currentLevel = levels[0]
+            
+            if(lastLevel > lastUnlocked){//error: last level is greater than unlocked levels. Cheating suspected
+                UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(menuNumber)")
+            }else{
+                if(lastUnlocked != 0){
+                    for _ in 0...lastUnlocked{
+                        nextLevel()
+                    }
+                }
+            }
+            
+        }
         
     }
     
@@ -284,6 +320,8 @@ class LevelMenu: SKScene {
             blueLayers[levelNumber].texture = SKTexture(imageNamed: "ls-b-\(menuNumber)-\(levelNumber+1)-U")
             blueLayers[levelNumber].name = "ls-b-\(menuNumber)-\(levelNumber+1)-U"
             
+            //update last unlocked level
+            UserDefaults.standard.set(levelNumber, forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
         }else{
             //out of range
         }
@@ -293,6 +331,7 @@ class LevelMenu: SKScene {
     private func unlockNext(levelNumber: Int){
         if levelNumber < levels.count {
             
+            levels[levelNumber].locked = false
             redLayers[levelNumber].texture = SKTexture(imageNamed: "ls-r-\(menuNumber)-\(levelNumber+1)-N")
             redLayers[levelNumber].name = "ls-r-\(menuNumber)-\(levelNumber+1)-N"
             greenLayers[levelNumber].texture = SKTexture(imageNamed: "ls-g-\(menuNumber)-\(levelNumber+1)-N")
@@ -337,8 +376,6 @@ class LevelMenu: SKScene {
     }
     
     func nextLevel(){
-        
-        
         if currentLevelNumber == levels.count-1 { // last level
             //dont move
         }else{
@@ -364,7 +401,8 @@ class LevelMenu: SKScene {
                 currentLevelNumber += 1
                 currentLevel = levels[currentLevelNumber]
                 
-                
+                //update current level
+                UserDefaults.standard.set(currentLevelNumber, forKey: "Saved_Level_Record:Last:\(menuNumber)")
             }
         }
     }

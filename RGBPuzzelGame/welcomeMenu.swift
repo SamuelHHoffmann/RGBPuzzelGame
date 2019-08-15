@@ -65,9 +65,13 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
         //if first time...
         if(previousScene == nil){
             menu.size = sceneSize
-            menu.initializeMenu(NumberOfLevels: 4, Restricted: false, MenuNumber: 1)
+            menu.initializeMenu(NumberOfLevels: 4, Restricted: true, MenuNumber: 1)
             menu.scaleMode = .fill
             //menu.unlockNextLevel()
+            
+            //reset code
+//            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(1)")
+//            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(1)")
         }else{
             menu = (previousScene as? LevelMenu)!
         }

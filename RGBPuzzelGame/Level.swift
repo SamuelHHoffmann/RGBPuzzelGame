@@ -85,61 +85,6 @@ class Level: SKScene, SKPhysicsContactDelegate {
         super.init(coder: aDecoder)
     }
     
-    func setUp(package: Int, numberInPackage: Int, redLayer: String, greenLayer: String, blueLayer: String, startingPos: CGPoint, endingPos: CGPoint){
-        self.packageNumber = package
-        self.levelNumber = numberInPackage
-        
-        self.locked = false
-        
-        self.redLayer = SKSpriteNode(imageNamed: redLayer)
-        self.redLayer.name = redLayer
-        self.redLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: redLayer), size:CGSize(width: self.redLayer.size.width, height: self.redLayer.size.height))
-        
-        self.greenLayer = SKSpriteNode(imageNamed: greenLayer)
-        self.greenLayer.name = greenLayer
-        self.greenLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: greenLayer), size:CGSize(width: self.greenLayer.size.width, height: self.greenLayer.size.height))
-        
-        self.blueLayer = SKSpriteNode(imageNamed: blueLayer)
-        self.blueLayer.name = blueLayer
-        self.blueLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: blueLayer), size:CGSize(width: self.blueLayer.size.width, height: self.blueLayer.size.height))
-        
-        self.startingPoint = startingPos
-        self.endingPoint = endingPos
-        
-        
-        setUpLayers()
-        setUpButtons()
-        setUpStartAndEnd()
-        miscSetUp()
-    }
-    
-    func setUp(package: Int, numberInPackage: Int, startingPos: CGPoint, endingPos: CGPoint){
-        self.packageNumber = package
-        self.levelNumber = numberInPackage
-        
-        locked = false
-        
-        self.redLayer = SKSpriteNode(imageNamed: "\(package),\(numberInPackage)R")
-        self.redLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "\(package),\(numberInPackage)R"), size:CGSize(width: self.redLayer.size.width, height: self.redLayer.size.height))
-        
-        self.greenLayer = SKSpriteNode(imageNamed: "\(package),\(numberInPackage)G")
-        self.greenLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "\(package),\(numberInPackage)G"), size:CGSize(width: self.greenLayer.size.width, height: self.greenLayer.size.height))
-        
-        self.blueLayer = SKSpriteNode(imageNamed: "\(package),\(numberInPackage)B")
-        self.blueLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "\(package),\(numberInPackage)B"), size:CGSize(width: self.blueLayer.size.width, height: self.blueLayer.size.height))
-        
-        
-        self.startingPoint = startingPos
-        self.endingPoint = endingPos
-        
-        
-        setUpLayers()
-        setUpButtons()
-        setUpStartAndEnd()
-        miscSetUp()
-    }
-    
-    
     func setUp(package: Int, numberInPackage: Int, locked: Bool, menu: LevelMenu){
         //currently used level code
         
