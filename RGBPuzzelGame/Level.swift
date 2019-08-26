@@ -128,7 +128,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         //with multiple packages will use lookup scheme. currently hardwired
         self.startingPoint = CGPoint(x: 170, y: 607.49)
-        self.endingPoint = CGPoint(x: 170, y: 37.0)
+        self.endingPoint = CGPoint(x: 145, y: 37.0)
         
         setUpLayers()
         setUpButtons()
@@ -427,10 +427,10 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         
         player = SKSpriteNode(imageNamed: "player")
-        player.size = CGSize(width: 50, height: 50)
+        player.size = CGSize(width: 45, height: 45)
 
-
-        player.physicsBody = SKPhysicsBody(circleOfRadius: 25)
+        
+        player.physicsBody = SKPhysicsBody(circleOfRadius: 22.5)
         player.name = "player"
 
         player.physicsBody?.affectedByGravity = true
@@ -460,11 +460,11 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         //set up end point
         let end = SKSpriteNode(imageNamed: "end")
-        end.size = CGSize(width: 50, height: 50)
+        end.size = CGSize(width: 45, height: 45)
         
-        
-        end.physicsBody = SKPhysicsBody(circleOfRadius: 25)
+        end.physicsBody = SKPhysicsBody(circleOfRadius: 22.5)
         end.name = "end"
+        
         
         end.physicsBody?.affectedByGravity = false
         end.physicsBody?.allowsRotation = false
@@ -719,6 +719,11 @@ class Level: SKScene, SKPhysicsContactDelegate {
     }
     
     func levelComplete(){
+        if(menu == nil){ //if level has no menu then just reset
+            resetLevel()
+            return
+        }
+        
         let menuCasted = menu as! LevelMenu
         menuCasted.isTopScene = true
         menuCasted.unlockNextLevel()
@@ -733,6 +738,11 @@ class Level: SKScene, SKPhysicsContactDelegate {
     }
     
     func quitLevel(){
+        if(menu == nil){ //if level has no menu then just reset
+            resetLevel()
+            return
+        }
+        
         let menuCasted = menu as! LevelMenu
         menuCasted.isTopScene = true
         if let view = self.view as SKView? {
@@ -800,9 +810,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
                 
             }else{
                 if editMode{
-                    self.player.position = (touches.first?.location(in: self))!
                     //debug
-                    print((touches.first?.location(in: self))!)
+                    print(self.player.position)
                     
                 }
             }

@@ -295,11 +295,11 @@ class LevelMenu: SKScene {
         
         if currentLevelNumber < levels.count-1 {
             
-            if(restricted){
-                unlockNext(levelNumber: currentLevelNumber)
-                unlockLevel(levelNumber: currentLevelNumber+1)
+            if(levels[currentLevelNumber+1].locked == true){ //if next level is locked
+                unlockNext(levelNumber: currentLevelNumber) //open current level more
+                unlockLevel(levelNumber: currentLevelNumber+1) //open next level
             }else{
-                //everything is already unlocked
+                //next level already unlocked
             }
             
             
@@ -331,7 +331,7 @@ class LevelMenu: SKScene {
     private func unlockNext(levelNumber: Int){
         if levelNumber < levels.count {
             
-            levels[levelNumber].locked = false
+            levels[levelNumber].locked = false //redundant but helps with the quick loading from memory
             redLayers[levelNumber].texture = SKTexture(imageNamed: "ls-r-\(menuNumber)-\(levelNumber+1)-N")
             redLayers[levelNumber].name = "ls-r-\(menuNumber)-\(levelNumber+1)-N"
             greenLayers[levelNumber].texture = SKTexture(imageNamed: "ls-g-\(menuNumber)-\(levelNumber+1)-N")
