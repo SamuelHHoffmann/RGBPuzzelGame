@@ -37,7 +37,9 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
     
     var locked = false
     
-    var menu = LevelMenu()
+    //var menu = LevelMenu() //testing edit
+    var menu = MenuMenu() //testing edit
+    
     var sceneSize : CGSize = CGSize(width: 0, height: 0)
     var previousScene : SKScene? = nil
     
@@ -60,26 +62,34 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
     func setUp(sceneSize: CGSize){
         //currently used level code
         
-        //set up for leaving the scene (might as well do it now...)
-        self.sceneSize = sceneSize
-        //if first time...
-        if(previousScene == nil){
-            menu.size = sceneSize
-            menu.initializeMenu(NumberOfLevels: 4, Restricted: true, MenuNumber: 1)
-            menu.scaleMode = .fill
-            //menu.unlockNextLevel()
-            
-            //reset code
-//            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(1)")
-//            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(1)")
-        }else{
-            menu = (previousScene as? LevelMenu)!
-        }
+        //start testing edit edit
+        
+//        //set up for leaving the scene (might as well do it now...)
+//        self.sceneSize = sceneSize
+//        //if first time...
+//        if(previousScene == nil){
+//            menu.size = sceneSize
+//            menu.initializeMenu(NumberOfLevels: 4, Restricted: true, MenuNumber: 1)
+//            menu.scaleMode = .fill
+//            //menu.unlockNextLevel()
+//
+//            //reset code
+////            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(1)")
+////            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(1)")
+//        }else{
+//            menu = (previousScene as? LevelMenu)!
+//        }
+        
+        menu.size = sceneSize
+        menu.scaleMode = .fill
+        menu.setUpMenu()
         
         
+        //end testing edit
         
-        self.packageNumber = 0
-        self.levelNumber = 0
+        
+        self.packageNumber = -1
+        self.levelNumber = -1
         
         self.locked = false
         

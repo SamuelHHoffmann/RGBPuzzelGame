@@ -43,9 +43,25 @@ class GameViewController: UIViewController {
 //            view.showsNodeCount = true
 //        }
         
+//        if let view = self.game_view {
+//            // Load the SKScene from 'GameScene.sks'
+//
+//
+//            home = welcomeMenu()
+//            home.size = self.game_view.frame.size
+//            home.setUp(sceneSize: self.game_view.frame.size)
+//            home.scaleMode = .fill
+//            view.presentScene(home)
+//
+//            view.ignoresSiblingOrder = true
+//
+//            view.showsFPS = false
+//            view.showsNodeCount = false
+//        }
+        
         if let view = self.game_view {
             // Load the SKScene from 'GameScene.sks'
-
+            
             
             home = welcomeMenu()
             home.size = self.game_view.frame.size
@@ -58,6 +74,8 @@ class GameViewController: UIViewController {
             view.showsFPS = false
             view.showsNodeCount = false
         }
+        
+        
     }
 
     
