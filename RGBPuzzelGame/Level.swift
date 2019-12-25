@@ -162,7 +162,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         blueLayer.size = size
         
         //red
-        redLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: redLayer.name!), alphaThreshold: 0, size: redLayer.size)
+        redLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: redLayer.name!), size: redLayer.size)
         redLayer.name = "redLayer"
         
         redLayer.physicsBody?.affectedByGravity = false
@@ -182,7 +182,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         redLayer.zPosition = 1.1
         
         //green
-        greenLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: greenLayer.name!), alphaThreshold: 0, size: greenLayer.size)
+        greenLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: greenLayer.name!), size: greenLayer.size)
         greenLayer.name = "greenLayer"
         
         greenLayer.physicsBody?.affectedByGravity = false
@@ -202,8 +202,10 @@ class Level: SKScene, SKPhysicsContactDelegate {
         greenLayer.zPosition = 1.2
         
         //blue
-        blueLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: blueLayer.name!), alphaThreshold: 0, size: blueLayer.size)
-        blueLayer.name = "blueLayer"
+        blueLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: blueLayer.name!), size: blueLayer.size)
+        //blueLayer.name = "blueLayer"
+        
+        //blueLayer.physicsBody
         
         blueLayer.physicsBody?.affectedByGravity = false
         blueLayer.physicsBody?.allowsRotation = false
@@ -256,7 +258,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         blueCollision.size = size
         
         //red
-        redCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: redCollision.name!), alphaThreshold: 0, size: redCollision.size)
+        redCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: redCollision.name!), size: redCollision.size)
         redCollision.name = "redCollision"
         
         redCollision.physicsBody?.affectedByGravity = false
@@ -276,7 +278,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         redCollision.zPosition = 2.1
         
         //green
-        greenCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: greenCollision.name!), alphaThreshold: 0, size: greenCollision.size)
+        greenCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: greenCollision.name!), size: greenCollision.size)
         greenCollision.name = "greenCollision"
         
         greenCollision.physicsBody?.affectedByGravity = false
@@ -296,7 +298,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         greenCollision.zPosition = 2.2
         
         //blue
-        blueCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: blueCollision.name!), alphaThreshold: 0, size: blueCollision.size)
+        blueCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: blueCollision.name!), size: blueCollision.size)
         blueCollision.name = "blueCollision"
         
         blueCollision.physicsBody?.affectedByGravity = false
@@ -631,7 +633,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
 
         //see if hits collision layer
         if (bodyA.categoryBitMask == colliiderCat && bodyB.categoryBitMask == playerCat) || (bodyB.categoryBitMask == colliiderCat && bodyA.categoryBitMask == playerCat){
-            print("\(bodyA.node?.name ?? "BodyA"), category mask \(bodyA.categoryBitMask) collided with \(bodyB.node?.name ?? "BodyB"), category mask \(bodyB.categoryBitMask).")
+            //print("\(bodyA.node?.name ?? "BodyA"), category mask \(bodyA.categoryBitMask) collided with \(bodyB.node?.name ?? "BodyB"), category mask \(bodyB.categoryBitMask).")
             animateDeath()
             //resetLevel() moved into death sequence to require completion of animation
         }
@@ -777,7 +779,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        
+        //print(nodes(at: (touches.first?.location(in: self))!))
         
         for node in nodes(at: (touches.first?.location(in: self))!) {
             

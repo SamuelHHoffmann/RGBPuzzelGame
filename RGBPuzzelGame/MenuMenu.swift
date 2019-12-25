@@ -18,16 +18,16 @@ class MenuMenu: SKScene {
     var previousScene = SKScene()
     var previousSceneType = SceneType.none
 
-    var backButton = SKShapeNode()
-    var backButton_img = SKSpriteNode()
+    var back = backButton()
 
     var settingsButton = SKShapeNode()
     var settingsButton_img = SKSpriteNode()
-
+    
     var level0Button = levelThumbnail()
     var level1Button = levelThumbnail()
     var level2Button = levelThumbnail()
     var level3Button = levelThumbnail()
+    var levels : [levelThumbnail] = []
 
     var level1Menu = LevelMenu()
     
@@ -44,7 +44,7 @@ class MenuMenu: SKScene {
     private func setUpSettingsButtons(){
 
         
-        print(self.size)
+        //print(self.size)
         
         level0Button.setUp(level: 0, width: Double(self.frame.height), height: Double(self.frame.width)/4)
         level0Button.position = CGPoint(x: self.frame.maxX - self.frame.width/8, y: self.frame.height/2)
@@ -67,21 +67,28 @@ class MenuMenu: SKScene {
         self.addChild(level3Button)
 
         
+        levels.append(level0Button)
+        levels.append(level1Button)
+        levels.append(level2Button)
+        levels.append(level3Button)
         
+        let cs = colorSwitch()
+        cs.setScale(0.35)
+        cs.zPosition = 4
+        cs.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY)
+        //dont actually add, just use for back button spacing// self.addChild(cs)
+        
+        back.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY+(self.frame.height/2)-(self.frame.height/16))
+        back.zRotation = CGFloat(-1*(Double.pi/2))
+        //self.addChild(back) //don't want a back button
 
-//        backButton_img = SKSpriteNode(imageNamed: "back button")
-//        backButton_img.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY+(self.frame.height/2)-(self.frame.height/16))
-//        backButton_img.zPosition = 4
-//        backButton_img.zRotation = CGFloat(-1*(Double.pi/2))
-//        backButton_img.setScale(0.35)
-//        self.addChild(backButton_img)
-//
-//        backButton = SKShapeNode(rectOf: CGSize(width: (backButton_img.frame.width)*2, height: (backButton_img.frame.height)*2))
-//        backButton.fillColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.001)
-//        backButton.position = backButton_img.position
-//        backButton.strokeColor = UIColor(displayP3Red: 0/255, green: 0/255, blue: 0/255, alpha: 0.001)
-//        backButton.zPosition = 5
-//        self.addChild(backButton)
+        let menuFrame = SKSpriteNode(imageNamed: "menuframe")
+        menuFrame.size = CGSize(width: self.frame.height, height: self.frame.width)
+        menuFrame.zRotation = CGFloat(-1*(Double.pi/2))
+        menuFrame.zPosition = 3
+        menuFrame.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        self.addChild(menuFrame)
+        
 
     }
 
@@ -133,27 +140,28 @@ class MenuMenu: SKScene {
 
 
 
-            }else if node == backButton {
+            }else if node == back {
 
 
 
             }else if node == level0Button {
 
-
+                
 
             }else if node == level1Button {
 
                 if let view = self.view as SKView? {
+                    level1Menu.previousScene = self
                     view.presentScene(level1Menu)
                 }
 
             }else if node == level2Button {
 
-
+                //disabled
 
             }else if node == level3Button {
 
-
+                //disabled
 
             }else{
 

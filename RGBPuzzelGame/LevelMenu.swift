@@ -12,6 +12,8 @@ import CoreMotion
 
 class LevelMenu: SKScene {
     
+    var previousScene = SKScene()
+    
     var menuSkin = SKSpriteNode()
     
     var numberOfLevels = 0
@@ -40,6 +42,8 @@ class LevelMenu: SKScene {
     
     var isTopScene = false
     
+    var back = backButton()
+    
     
     
     
@@ -64,6 +68,15 @@ class LevelMenu: SKScene {
         setUpSecondaryGraphics()
         
         //set up menu buttons
+        
+        let cs = colorSwitch()
+        cs.setScale(0.35)
+        cs.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY)
+        //dont actually add, just use for back button spacing// self.addChild(cs)
+        
+        back.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY+(self.frame.height/2)-(self.frame.height/16))
+        back.zRotation = CGFloat(-1*(Double.pi/2))
+        self.addChild(back)
     }
     
     func setUpSecondaryGraphics(){
@@ -298,6 +311,7 @@ class LevelMenu: SKScene {
             if(levels[currentLevelNumber+1].locked == true){ //if next level is locked
                 unlockNext(levelNumber: currentLevelNumber) //open current level more
                 unlockLevel(levelNumber: currentLevelNumber+1) //open next level
+                UserDefaults.standard.set(currentLevelNumber, forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
             }else{
                 //next level already unlocked
             }
@@ -321,7 +335,7 @@ class LevelMenu: SKScene {
             blueLayers[levelNumber].name = "ls-b-\(menuNumber)-\(levelNumber+1)-U"
             
             //update last unlocked level
-            UserDefaults.standard.set(levelNumber, forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
+            
         }else{
             //out of range
         }
@@ -338,6 +352,7 @@ class LevelMenu: SKScene {
             greenLayers[levelNumber].name = "ls-g-\(menuNumber)-\(levelNumber+1)-N"
             blueLayers[levelNumber].texture = SKTexture(imageNamed: "ls-b-\(menuNumber)-\(levelNumber+1)-N")
             blueLayers[levelNumber].name = "ls-b-\(menuNumber)-\(levelNumber+1)-N"
+            
             
         }else{
             //out of range
@@ -358,11 +373,14 @@ class LevelMenu: SKScene {
         rightSwipe.direction = UISwipeGestureRecognizer.Direction.down
         self.view?.addGestureRecognizer(rightSwipe)
         
+        
+        
     }
+    
     
     @objc func swipeAction(swipe: UISwipeGestureRecognizer){
         if(isTopScene){
-            print("swipe")
+            //print("swipe")
             if swipe.direction == UISwipeGestureRecognizer.Direction.up {
                 //move to next level
                 nextLevel()
@@ -438,6 +456,26 @@ class LevelMenu: SKScene {
     //use taps for menu
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        for node in nodes(at: (touches.first?.location(in: self))!) {
+
+            if node == back {
+
+                
+                let menuCasted = previousScene as! MenuMenu
+                if let view = self.view as SKView? {
+                    
+                    menuCasted.size = self.size
+                    for level in menuCasted.levels{
+                        level.update()
+                    }
+                    
+                    view.presentScene(menuCasted)
+                }
+                
+            }
+            
+        }
+        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -446,6 +484,7 @@ class LevelMenu: SKScene {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         isTopScene = false
+        
         if let view = self.view as SKView? {
             view.presentScene(currentLevel)
         }

@@ -73,9 +73,9 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
 //            menu.scaleMode = .fill
 //            //menu.unlockNextLevel()
 //
-//            //reset code
-////            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(1)")
-////            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(1)")
+//            //reset code: uncomment and run once to reset saved values
+//            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(1)")
+//            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(1)")
 //        }else{
 //            menu = (previousScene as? LevelMenu)!
 //        }

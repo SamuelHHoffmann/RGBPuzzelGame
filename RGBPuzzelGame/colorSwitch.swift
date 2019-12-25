@@ -22,6 +22,7 @@ enum COLOR_STATE {
     case OFF
 }
 
+
 class colorSwitch: SKNode {
     
     private var state : Int = 5 //the state represents an easy way to get which switches are on or off R:G:B is the bit representation where each                                is a single bit on or off (1 on, 0 off)

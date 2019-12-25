@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9000BD9A22FB21570010DCAA /* settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9000BD9922FB21570010DCAA /* settings.swift */; };
 		9003505F22985FC4003A7344 /* colorSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9003505E22985FC4003A7344 /* colorSwitch.swift */; };
+		9019CBFA23B3BB6D00353D31 /* backButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9019CBF923B3BB6D00353D31 /* backButton.swift */; };
 		90510A7C23B164590027FC6C /* LevelThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90510A7B23B164590027FC6C /* LevelThumbnail.swift */; };
 		90510A7E23B167C90027FC6C /* Standards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90510A7D23B167C90027FC6C /* Standards.swift */; };
 		905C3EA020B70456001BCBE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C3E9F20B70456001BCBE9 /* AppDelegate.swift */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		9000BD9922FB21570010DCAA /* settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settings.swift; sourceTree = "<group>"; };
 		9003505E22985FC4003A7344 /* colorSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colorSwitch.swift; sourceTree = "<group>"; };
+		9019CBF923B3BB6D00353D31 /* backButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = backButton.swift; sourceTree = "<group>"; };
 		90510A7B23B164590027FC6C /* LevelThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelThumbnail.swift; sourceTree = "<group>"; };
 		90510A7D23B167C90027FC6C /* Standards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Standards.swift; sourceTree = "<group>"; };
 		905C3E9C20B70456001BCBE9 /* RGBPuzzelGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RGBPuzzelGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +80,7 @@
 				90510A7D23B167C90027FC6C /* Standards.swift */,
 				9003505E22985FC4003A7344 /* colorSwitch.swift */,
 				90510A7B23B164590027FC6C /* LevelThumbnail.swift */,
+				9019CBF923B3BB6D00353D31 /* backButton.swift */,
 				9082DFAF23006D0B00CB15E0 /* RGBAScene.swift */,
 				90A7A9642314331600900A84 /* RGBALevel.swift */,
 				905C3EB920B76024001BCBE9 /* Level.swift */,
@@ -176,6 +179,7 @@
 				9000BD9A22FB21570010DCAA /* settings.swift in Sources */,
 				90A3867423424EA50082704A /* MenuMenu.swift in Sources */,
 				9003505F22985FC4003A7344 /* colorSwitch.swift in Sources */,
+				9019CBFA23B3BB6D00353D31 /* backButton.swift in Sources */,
 				90A7A9652314331600900A84 /* RGBALevel.swift in Sources */,
 				90510A7C23B164590027FC6C /* LevelThumbnail.swift in Sources */,
 			);
