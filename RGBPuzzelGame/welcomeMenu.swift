@@ -576,19 +576,22 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
         
         for node in nodes(at: (touches.first?.location(in: self))!) {
             if node == redButton {
+                playSwitchSound()
                 cs.flipColor(color: COLOR.RED)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleRedLayer(checkForCollision: false) //todo: should be 'true' in the future
             }else if node == blueButton {
+                playSwitchSound()
                 cs.flipColor(color: COLOR.BLUE)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleBlueLayer(checkForCollision: false) //todo: should be 'true' in the future
             }else if node == greenButton {
+                playSwitchSound()
                 cs.flipColor(color: COLOR.GREEN)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleGreenLayer(checkForCollision: false) //todo: should be 'true' in the future
             }else{
-                if editMode{
+                if Standards.editmode{
                     self.player.position = (touches.first?.location(in: self))!
                     //debug
                     print((touches.first?.location(in: self))!)
@@ -599,6 +602,12 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
     }
     
     private func checkSwitchPosition(touch: UITouch){
+        
+    }
+    
+    private func playSwitchSound(){
+
+        run(SKAction.playSoundFileNamed("switch.mp3", waitForCompletion: false))
         
     }
     

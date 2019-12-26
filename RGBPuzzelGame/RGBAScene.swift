@@ -34,8 +34,6 @@ class RGBAScene: SKScene {
     var backgroundScene = SKScene()
     
     
-    //variable for editing and moving around level items
-    let editMode = false
     
     // categories for physics:
     let playerCat: UInt32 = 0x1 << 1
@@ -235,12 +233,14 @@ class RGBAScene: SKScene {
             
             if node == redButton {
                 
+                playSwitchSound()
                 cs.flipColor(color: COLOR.RED)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleLayer(layer: redLayer)
                 
             }else if node == blueButton {
                 
+                playSwitchSound()
                 cs.flipColor(color: COLOR.BLUE)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleLayer(layer: blueLayer)
@@ -248,17 +248,31 @@ class RGBAScene: SKScene {
                 
             }else if node == greenButton {
                 
+                playSwitchSound()
                 cs.flipColor(color: COLOR.GREEN)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleLayer(layer: greenLayer)
                 
             }else{
-                if editMode{
+                if Standards.editmode{
                     //debug
                     print("Debug: Touch location: \((touches.first?.location(in: self))!)")
                 }
             }
         }
+    }
+    
+    
+    private func playSwitchSound(){
+
+        run(SKAction.playSoundFileNamed("switch.mp3", waitForCompletion: false))
+        
+    }
+    
+    private func playSquishedSound(){
+
+        run(SKAction.playSoundFileNamed("squished.mp3", waitForCompletion: false))
+        
     }
     
     

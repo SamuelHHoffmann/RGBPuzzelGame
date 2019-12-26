@@ -673,7 +673,7 @@ class RGBALevel: RGBAScene, SKPhysicsContactDelegate {
                 showSettingsMenu()
                 
             }else{
-                if editMode{
+                if Standards.editmode{
                     //debug
                     print(self.player.position)
                     

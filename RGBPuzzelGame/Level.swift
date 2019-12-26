@@ -13,7 +13,6 @@
 import SpriteKit
 import GameplayKit
 import CoreMotion
-
 class Level: SKScene, SKPhysicsContactDelegate {
     
     let manager = CMMotionManager()
@@ -56,10 +55,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
     var menu = SKScene()
     var settingsScene = Settings()
     
-
     
-    //variable for editing and moving around level items
-    let editMode = false
+    
     
     
     // categories:
@@ -85,13 +82,23 @@ class Level: SKScene, SKPhysicsContactDelegate {
         super.init(coder: aDecoder)
     }
     
-    func setUp(package: Int, numberInPackage: Int, locked: Bool, menu: LevelMenu){
+    func setUp(package: Int, numberInPackage: Int, locked: Bool, menu: LevelMenu, background: Bool? = false){
         //currently used level code
         
         self.packageNumber = package
         self.levelNumber = numberInPackage
         
         self.locked = locked
+        
+        if (background ?? false) == true{ //optional background graphics
+            let background = SKSpriteNode(imageNamed: "\(package),\(numberInPackage)Background")
+            background.zPosition = 0
+            background.size = self.size
+            background.zRotation = CGFloat(-Double.pi/2)
+            self.addChild(background)
+        }
+        
+        
         
         self.redLayer = SKSpriteNode(imageNamed: "\(package),\(numberInPackage)R")
         self.redLayer.name = "\(package),\(numberInPackage)R"
@@ -594,6 +601,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         //music should be playing from the main menu
         
+        
+        
         if(comingBackFromSettings){
             comingBackFromSettings = false
             hideSettingsMenu()
@@ -628,6 +637,9 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         //see if hits bottom wall
         if (bodyA.categoryBitMask == bottomCat && bodyB.categoryBitMask == playerCat) || (bodyB.categoryBitMask == bottomCat && bodyA.categoryBitMask == playerCat){
+            
+            
+            
             resetLevel()
         }
 
@@ -648,6 +660,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
     
     //animation time for being smushed by layer
     func animateDeath(){
+        
+        playSquishedSound()
         
         //freeze player
         player.physicsBody?.affectedByGravity = false
@@ -781,15 +795,23 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         //print(nodes(at: (touches.first?.location(in: self))!))
         
+        //audio setup
+        
+        
+        
         for node in nodes(at: (touches.first?.location(in: self))!) {
             
             if node == redButton {
+                
+                playSwitchSound()
                 
                 cs.flipColor(color: COLOR.RED)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleRedLayer(checkForCollision: false) //todo: should be 'true' in the future
                 
             }else if node == blueButton {
+                
+                playSwitchSound()
                 
                 cs.flipColor(color: COLOR.BLUE)
                 self.run(SKAction.wait(forDuration: 0.025))
@@ -798,22 +820,27 @@ class Level: SKScene, SKPhysicsContactDelegate {
                 
             }else if node == greenButton {
                 
+                playSwitchSound()
+                
                 cs.flipColor(color: COLOR.GREEN)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleGreenLayer(checkForCollision: false) //todo: should be 'true' in the future
                 
             }else if node == backButton {
                 
+                playSquishedSound()
                 quitLevel()
                 
             }else if node == settingsButton {
                 
+                playSwitchSound()
                 showSettingsMenu()
                 
             }else{
-                if editMode{
+                if Standards.editmode{
                     //debug
                     print(self.player.position)
+                    print(self.frame.size)
                     
                 }
             }
@@ -825,6 +852,17 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    private func playSwitchSound(){
+
+        run(SKAction.playSoundFileNamed("switch.mp3", waitForCompletion: false))
+        
+    }
+    
+    private func playSquishedSound(){
+
+        run(SKAction.playSoundFileNamed("squished.mp3", waitForCompletion: false))
+        
+    }
     
     func toggleRedLayer(checkForCollision: Bool){ //could be abstracted with the blue and green similar functions below
         if redLayer.parent != nil {

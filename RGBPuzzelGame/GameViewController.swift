@@ -26,7 +26,19 @@ class GameViewController: UIViewController {
             tempScene.backgroundColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
             tempScene.scaleMode = .fill
             
+            
+            //generate background music
+            var musicSeq = [SKAction.run{}]
+            for _ in 0...20{
+                musicSeq.append(SKAction.playSoundFileNamed(Standards.music[Int.random(in: 0...Standards.music.count-1)], waitForCompletion: true))
+            }
+            tempScene.run(SKAction.sequence(musicSeq))
+            
+            
             backgroundView.presentScene(tempScene)
+            
+            
+            
         }
         
         
