@@ -76,6 +76,10 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
 //            //reset code: uncomment and run once to reset saved values
 //            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(1)")
 //            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(1)")
+//            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Completed:\(1)")
+//            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(0)")
+//            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(0)")
+//            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Completed:\(0)")
 //        }else{
 //            menu = (previousScene as? LevelMenu)!
 //        }

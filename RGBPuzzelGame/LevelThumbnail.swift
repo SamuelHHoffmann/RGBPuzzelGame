@@ -12,7 +12,7 @@ import UIKit
 
 
 
-class levelThumbnail: SKNode {
+class levelThumbnail: SKNode { 
 
     let totalPerLevel = [0 : 4, 1 : 4, 2 : 0, 3 : 0]
     
@@ -28,7 +28,7 @@ class levelThumbnail: SKNode {
     var disabled = false
     
     func setUp(level: Int, width: Double, height: Double){
-        let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Unlocked:\(level)") + 1
+        let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Completed:\(level)")+1
         
         if (totalPerLevel[level] ?? 0) == 0 {
             disabled = true
@@ -46,11 +46,12 @@ class levelThumbnail: SKNode {
         self.addChild(backgroundImage)
         
         //completePercentOverlay = SKShapeNode(rectOf: CGSize(width: width/2, height: 80*height/290)) //Testing width
-        completePercentOverlay = SKShapeNode(rectOf: CGSize(width: percentComplete*width, height: 80*height/260)) //actual width
+        completePercentOverlay = SKShapeNode(rectOf: CGSize(width: width, height: 80*height/260)) //actual width
         completePercentOverlay.fillColor = UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 1)
         completePercentOverlay.strokeColor = UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 1)
         completePercentOverlay.zPosition = 1
-        completePercentOverlay.position = CGPoint(x: backgroundImage.frame.minX + completePercentOverlay.frame.width/2, y: backgroundImage.frame.minY + completePercentOverlay.frame.height/2)
+        let x = backgroundImage.frame.minX + completePercentOverlay.frame.width/2 - CGFloat(width*(1-percentComplete))
+        completePercentOverlay.position = CGPoint(x: x, y: backgroundImage.frame.minY + completePercentOverlay.frame.height/2)
         self.addChild(completePercentOverlay)
         
         percentOverlay.text = "\(Int(percentComplete*100))%"
@@ -98,7 +99,7 @@ class levelThumbnail: SKNode {
     
     func update(){
         
-        let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Unlocked:\(level)")
+        let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Completed:\(level)")+1
         
         if (totalPerLevel[level] ?? 0) == 0 {
             disabled = true
@@ -107,15 +108,9 @@ class levelThumbnail: SKNode {
             percentComplete = Double(lastUnlocked)/Double((totalPerLevel[level] ?? 0))
         }
         
-        //completePercentOverlay.removeFromParent()
         
-        let newcompletePercentOverlay = SKShapeNode(rectOf: CGSize(width: CGFloat(percentComplete)*self.frame.width, height: 80*self.frame.height/260)) //actual width
-        newcompletePercentOverlay.fillColor = UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 1)
-        newcompletePercentOverlay.strokeColor = UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 1)
-        newcompletePercentOverlay.zPosition = 1
-        newcompletePercentOverlay.position = CGPoint(x: backgroundImage.frame.minX + newcompletePercentOverlay.frame.width/2, y: backgroundImage.frame.minY + newcompletePercentOverlay.frame.height/2)
-        self.addChild(newcompletePercentOverlay)
-     
+        let x : CGFloat = CGFloat(backgroundImage.frame.minX + completePercentOverlay.frame.width/2) - CGFloat(Double(backgroundImage.frame.width)*(1-percentComplete))
+        completePercentOverlay.run(SKAction.move(to: CGPoint(x: x, y: backgroundImage.frame.minY + completePercentOverlay.frame.height/2), duration: 0.25))
         
     }
     

@@ -102,12 +102,14 @@ class MenuMenu: SKScene {
     func setUpMenus(){
         
         
+        level0Menu.size = self.size
+        level0Menu.initializeMenu(NumberOfLevels: 4, Restricted: true, MenuNumber: 0)
+        level0Menu.scaleMode = .fill
         
-            
         
-        
-        
-        
+        level1Menu.size = self.size
+        level1Menu.initializeMenu(NumberOfLevels: 4, Restricted: true, MenuNumber: 1)
+        level1Menu.scaleMode = .fill
         
         
     }
@@ -115,6 +117,11 @@ class MenuMenu: SKScene {
     
     override func didMove(to view: SKView) {
         super.didMove(to: self.view!)
+        
+        for level in levels{
+            level.update()
+        }
+        
     }
 
 
@@ -156,9 +163,7 @@ class MenuMenu: SKScene {
             }else if node == level0Button {
 
                 if level0MenuLoaded == false{ //stupid ram
-                    level0Menu.size = self.size
-                    level0Menu.initializeMenu(NumberOfLevels: 4, Restricted: true, MenuNumber: 0)
-                    level0Menu.scaleMode = .fill
+                    
                     level0MenuLoaded = true
                 }
                 
@@ -170,9 +175,7 @@ class MenuMenu: SKScene {
             }else if node == level1Button {
 
                 if level1MenuLoaded == false{
-                    level1Menu.size = self.size
-                    level1Menu.initializeMenu(NumberOfLevels: 4, Restricted: true, MenuNumber: 1)
-                    level1Menu.scaleMode = .fill
+                    
                     level1MenuLoaded = true
                 }
                 
