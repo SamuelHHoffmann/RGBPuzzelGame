@@ -82,7 +82,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         super.init(coder: aDecoder)
     }
     
-    func setUp(package: Int, numberInPackage: Int, locked: Bool, menu: LevelMenu, background: Bool? = false){
+    func setUp(package: Int, numberInPackage: Int, locked: Bool, menu: LevelMenu){
         //currently used level code
         
         self.packageNumber = package
@@ -90,11 +90,12 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         self.locked = locked
         
-        if (background ?? false) == true{ //optional background graphics
+        if UIImage(named: "\(package),\(numberInPackage)Background") != nil{ //check if background art exists
             let background = SKSpriteNode(imageNamed: "\(package),\(numberInPackage)Background")
             background.zPosition = 0
-            background.size = self.size
+            background.size = CGSize(width: self.frame.height, height: self.frame.width)
             background.zRotation = CGFloat(-Double.pi/2)
+            background.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
             self.addChild(background)
         }
         
@@ -338,9 +339,9 @@ class Level: SKScene, SKPhysicsContactDelegate {
         blueCollision.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         
         
-        redCollision.alpha = 0.001
-        greenCollision.alpha = 0.001
-        blueCollision.alpha = 0.001
+        redCollision.alpha = 0.5
+        greenCollision.alpha = 0.5
+        blueCollision.alpha = 0.5
         
         self.addChild(redCollision)
         self.addChild(greenCollision)
@@ -860,7 +861,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
     
     private func playSquishedSound(){
 
-        run(SKAction.playSoundFileNamed("squished.mp3", waitForCompletion: false))
+        run(SKAction.playSoundFileNamed("squished.mp3", waitForCompletion: true))
         
     }
     

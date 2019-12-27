@@ -102,8 +102,8 @@ class LevelMenu: SKScene {
         
         for i in 1...(numberOfLevels) {
             //red layer
-            let tempRed = SKSpriteNode(imageNamed: "ls-r-\(menuNumber)-\(i)-L")
-            tempRed.name = "ls-r-\(menuNumber)-\(i)-L"
+            let tempRed = SKSpriteNode(imageNamed: "ls-r-1-\(i)-L") //* find "-1-" replace "-1-"
+            tempRed.name = "ls-r-1-\(i)-L" //*
             tempRed.size = CGSize(width: self.frame.height/2, height: self.frame.width)
             tempRed.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
             tempRed.zRotation = CGFloat(-Double.pi/2)
@@ -134,8 +134,8 @@ class LevelMenu: SKScene {
             }
             
             //green layer
-            let tempGreen = SKSpriteNode(imageNamed: "ls-g-\(menuNumber)-\(i)-L")
-            tempGreen.name = "ls-g-\(menuNumber)-\(i)-L"
+            let tempGreen = SKSpriteNode(imageNamed: "ls-g-1-\(i)-L") //*
+            tempGreen.name = "ls-g-1-\(i)-L" //*
             tempGreen.size = CGSize(width: self.frame.height/2, height: self.frame.width)
             tempGreen.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
             tempGreen.zRotation = CGFloat(-Double.pi/2)
@@ -166,8 +166,8 @@ class LevelMenu: SKScene {
             }
             
             //blue layer
-            let tempBlue = SKSpriteNode(imageNamed: "ls-b-\(menuNumber)-\(i)-L")
-            tempBlue.name = "ls-b-\(menuNumber)-\(i)-L"
+            let tempBlue = SKSpriteNode(imageNamed: "ls-b-1-\(i)-L") //*
+            tempBlue.name = "ls-b-1-\(i)-L"//*
             tempBlue.size = CGSize(width: self.frame.height/2, height: self.frame.width)
             tempBlue.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
             tempBlue.zRotation = CGFloat(-Double.pi/2)
@@ -224,6 +224,15 @@ class LevelMenu: SKScene {
         
     }
     
+    /*
+     So we've got an issue...
+     Loading all the levels and all the graphics in the game at once is not possible.
+     There is just not enought RAMs.
+     We have to modify the code to smartly load graphics and elements so it can load less.
+     Think about it this way: Once you beat a level you are less likely to play it so it
+     doesn't make sense to load beginner packages once you're at the end.
+     
+     */
     func setUpLevelMenu(){
         for i in 1...numberOfLevels {
             //git test
@@ -311,7 +320,7 @@ class LevelMenu: SKScene {
             if(levels[currentLevelNumber+1].locked == true){ //if next level is locked
                 unlockNext(levelNumber: currentLevelNumber) //open current level more
                 unlockLevel(levelNumber: currentLevelNumber+1) //open next level
-                UserDefaults.standard.set(currentLevelNumber, forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
+                
             }else{
                 //next level already unlocked
             }
@@ -327,14 +336,15 @@ class LevelMenu: SKScene {
         if levelNumber < levels.count {
             
             levels[levelNumber].locked = false
-            redLayers[levelNumber].texture = SKTexture(imageNamed: "ls-r-\(menuNumber)-\(levelNumber+1)-U")
-            redLayers[levelNumber].name = "ls-r-\(menuNumber)-\(levelNumber+1)-U"
-            greenLayers[levelNumber].texture = SKTexture(imageNamed: "ls-g-\(menuNumber)-\(levelNumber+1)-U")
-            greenLayers[levelNumber].name = "ls-g-\(menuNumber)-\(levelNumber+1)-U"
-            blueLayers[levelNumber].texture = SKTexture(imageNamed: "ls-b-\(menuNumber)-\(levelNumber+1)-U")
-            blueLayers[levelNumber].name = "ls-b-\(menuNumber)-\(levelNumber+1)-U"
+            redLayers[levelNumber].texture = SKTexture(imageNamed: "ls-r-1-\(levelNumber+1)-U") //*
+            redLayers[levelNumber].name = "ls-r-1-\(levelNumber+1)-U" //*
+            greenLayers[levelNumber].texture = SKTexture(imageNamed: "ls-g-1-\(levelNumber+1)-U") //*
+            greenLayers[levelNumber].name = "ls-g-1-\(levelNumber+1)-U" //*
+            blueLayers[levelNumber].texture = SKTexture(imageNamed: "ls-b-1-\(levelNumber+1)-U") //*
+            blueLayers[levelNumber].name = "ls-b-1-\(levelNumber+1)-U" //*
             
             //update last unlocked level
+            UserDefaults.standard.set(levelNumber, forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
             
         }else{
             //out of range
@@ -346,12 +356,12 @@ class LevelMenu: SKScene {
         if levelNumber < levels.count {
             
             levels[levelNumber].locked = false //redundant but helps with the quick loading from memory
-            redLayers[levelNumber].texture = SKTexture(imageNamed: "ls-r-\(menuNumber)-\(levelNumber+1)-N")
-            redLayers[levelNumber].name = "ls-r-\(menuNumber)-\(levelNumber+1)-N"
-            greenLayers[levelNumber].texture = SKTexture(imageNamed: "ls-g-\(menuNumber)-\(levelNumber+1)-N")
-            greenLayers[levelNumber].name = "ls-g-\(menuNumber)-\(levelNumber+1)-N"
-            blueLayers[levelNumber].texture = SKTexture(imageNamed: "ls-b-\(menuNumber)-\(levelNumber+1)-N")
-            blueLayers[levelNumber].name = "ls-b-\(menuNumber)-\(levelNumber+1)-N"
+            redLayers[levelNumber].texture = SKTexture(imageNamed: "ls-r-1-\(levelNumber+1)-N") //*
+            redLayers[levelNumber].name = "ls-r-1-\(levelNumber+1)-N" //*
+            greenLayers[levelNumber].texture = SKTexture(imageNamed: "ls-g-1-\(levelNumber+1)-N") //*
+            greenLayers[levelNumber].name = "ls-g-1-\(levelNumber+1)-N" //*
+            blueLayers[levelNumber].texture = SKTexture(imageNamed: "ls-b-1-\(levelNumber+1)-N") //*
+            blueLayers[levelNumber].name = "ls-b-1-\(levelNumber+1)-N" //*
             
             
         }else{
@@ -373,6 +383,8 @@ class LevelMenu: SKScene {
         rightSwipe.direction = UISwipeGestureRecognizer.Direction.down
         self.view?.addGestureRecognizer(rightSwipe)
         
+        
+        //load levels
         
         
     }

@@ -29,7 +29,14 @@ class MenuMenu: SKScene {
     var level3Button = levelThumbnail()
     var levels : [levelThumbnail] = []
 
+    var level0Menu = LevelMenu()
     var level1Menu = LevelMenu()
+    
+    
+    var level0MenuLoaded = false
+    var level1MenuLoaded = false
+    
+    
     
     var type = SceneType.none
 
@@ -94,9 +101,11 @@ class MenuMenu: SKScene {
 
     func setUpMenus(){
         
-        level1Menu.size = self.size
-        level1Menu.initializeMenu(NumberOfLevels: 4, Restricted: true, MenuNumber: 1)
-        level1Menu.scaleMode = .fill
+        
+        
+            
+        
+        
         
         
         
@@ -146,10 +155,27 @@ class MenuMenu: SKScene {
 
             }else if node == level0Button {
 
+                if level0MenuLoaded == false{ //stupid ram
+                    level0Menu.size = self.size
+                    level0Menu.initializeMenu(NumberOfLevels: 4, Restricted: true, MenuNumber: 0)
+                    level0Menu.scaleMode = .fill
+                    level0MenuLoaded = true
+                }
                 
+                if let view = self.view as SKView? {
+                    level0Menu.previousScene = self
+                    view.presentScene(level0Menu)
+                }
 
             }else if node == level1Button {
 
+                if level1MenuLoaded == false{
+                    level1Menu.size = self.size
+                    level1Menu.initializeMenu(NumberOfLevels: 4, Restricted: true, MenuNumber: 1)
+                    level1Menu.scaleMode = .fill
+                    level1MenuLoaded = true
+                }
+                
                 if let view = self.view as SKView? {
                     level1Menu.previousScene = self
                     view.presentScene(level1Menu)

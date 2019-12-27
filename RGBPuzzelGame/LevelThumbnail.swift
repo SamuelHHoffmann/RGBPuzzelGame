@@ -28,7 +28,7 @@ class levelThumbnail: SKNode {
     var disabled = false
     
     func setUp(level: Int, width: Double, height: Double){
-        let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Unlocked:\(level)")
+        let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Unlocked:\(level)") + 1
         
         if (totalPerLevel[level] ?? 0) == 0 {
             disabled = true
