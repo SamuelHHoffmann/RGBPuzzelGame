@@ -50,7 +50,9 @@ class Level: SKScene, SKPhysicsContactDelegate {
     var startingPoint = CGPoint(x: 0, y: 0)
     var endingPoint = CGPoint(x: 0, y: 0)
     
-    var locked = false
+    var locked = true
+    var setup = false
+    
     
     var menu = SKScene()
     var settingsScene = Settings()
@@ -142,6 +144,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         setUpButtons()
         setUpStartAndEnd()
         miscSetUp()
+        setup = true
     }
     
     
@@ -842,6 +845,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
                     //debug
                     print(self.player.position)
                     print(self.frame.size)
+                    
+                    print()
                     
                 }
             }

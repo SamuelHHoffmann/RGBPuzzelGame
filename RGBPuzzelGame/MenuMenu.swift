@@ -124,6 +124,12 @@ class MenuMenu: SKScene {
         
     }
 
+    
+    private func update(){
+        
+    }
+    
+    
 
     func goBack(){
 //        //go back to previous scene

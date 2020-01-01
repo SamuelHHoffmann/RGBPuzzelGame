@@ -289,7 +289,11 @@ class LevelMenu: SKScene {
         let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
         let lastLevel = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Last:\(menuNumber)")
         
+        print("Last Unlocked:", lastUnlocked)
+        print("Last Level:", lastLevel)
+        
         if(lastUnlocked >= numberOfLevels){ //error lastunlocked value is too large
+            print("error lastunlocked value is too large")
             currentLevelNumber = 0
             UserDefaults.standard.set(currentLevelNumber, forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
             UserDefaults.standard.set(currentLevelNumber, forKey: "Saved_Level_Record:Last:\(menuNumber)")
@@ -317,9 +321,11 @@ class LevelMenu: SKScene {
             
             if lastLevel <= lastUnlocked{
                 //lastUnlocked and lastLevel valid good data
-                
-                for _ in 0...lastLevel{
-                    nextLevel()
+                print("unlocking extra levels")
+                if lastLevel > 0{
+                    for _ in 0...lastLevel-1{
+                        nextLevel()
+                    }
                 }
             }
             
@@ -396,7 +402,7 @@ class LevelMenu: SKScene {
             levels[levelNumber].locked = false
             
             if UserDefaults.standard.integer(forKey: "Saved_Level_Record:Unlocked:\(menuNumber)") < levelNumber{
-                UserDefaults.standard.set(levelNumber, forKey: "Saved_Level_Record:Completed:\(menuNumber)")
+                UserDefaults.standard.set(levelNumber, forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
             }
         }
     }
@@ -470,17 +476,18 @@ class LevelMenu: SKScene {
                 
                 DispatchQueue.global(qos: .userInteractive).async {
                     //setup next level
-                    if self.currentLevelNumber+1 < self.levels.count{
-                        self.levels[self.currentLevelNumber+1] = self.setUpLevel(levelNum: self.currentLevelNumber+2)
+                    if self.levels[self.currentLevelNumber+1].setup == false{
+                        if self.currentLevelNumber+1 < self.levels.count{
+                            self.levels[self.currentLevelNumber+1] = self.setUpLevel(levelNum: self.currentLevelNumber+2)
+                        }
                     }
-                    
-                    //break down 2 back levels
-                    if self.currentLevelNumber-2 >= 0{
-                        let tempLevel = Level()
-                        tempLevel.locked = false
-                        self.levels[self.currentLevelNumber-2].removeFromParent()
-                        self.levels[self.currentLevelNumber-2] = tempLevel
-                    }
+//                    //break down 2 back levels
+//                    if self.currentLevelNumber-2 >= 0{
+//                        let tempLevel = Level()
+//                        tempLevel.locked = false
+//                        self.levels[self.currentLevelNumber-2].removeFromParent()
+//                        self.levels[self.currentLevelNumber-2] = tempLevel
+//                    }
                 }
                 
                 
@@ -515,20 +522,20 @@ class LevelMenu: SKScene {
             UserDefaults.standard.set(currentLevelNumber, forKey: "Saved_Level_Record:Last:\(menuNumber)")
             
             
-            DispatchQueue.global(qos: .userInteractive).async {
-                //set up previous level
-                if self.currentLevelNumber-1 >= 0{
-                    self.levels[self.currentLevelNumber-1] = self.setUpLevel(levelNum: self.currentLevelNumber)
-                }
-                
-                //break down 2 next levels
-                if self.currentLevelNumber+2 < self.levels.count{
-                    let tempLevel = Level()
-                    tempLevel.locked = false
-                    self.levels[self.currentLevelNumber+2].removeFromParent()
-                    self.levels[self.currentLevelNumber+2] = tempLevel
-                }
-            }
+//            DispatchQueue.global(qos: .userInteractive).async {
+//                //set up previous level
+//                if self.currentLevelNumber-1 >= 0{
+//                    self.levels[self.currentLevelNumber-1] = self.setUpLevel(levelNum: self.currentLevelNumber)
+//                }
+//
+//                //break down 2 next levels
+//                if self.currentLevelNumber+2 < self.levels.count{
+//                    let tempLevel = Level()
+//                    tempLevel.locked = false
+//                    self.levels[self.currentLevelNumber+2].removeFromParent()
+//                    self.levels[self.currentLevelNumber+2] = tempLevel
+//                }
+//            }
             
             
         }
@@ -548,6 +555,10 @@ class LevelMenu: SKScene {
                     
                     menuCasted.size = self.size
                     
+                    for level in menuCasted.levels{
+                        level.update()
+                    }
+                    
                     view.presentScene(menuCasted)
                 }
                 
@@ -564,8 +575,16 @@ class LevelMenu: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         isTopScene = false
         
-        if let view = self.view as SKView? {
-            view.presentScene(currentLevel)
+        if currentLevel.setup{
+            if let view = self.view as SKView? {
+                view.presentScene(currentLevel)
+            }
+        }else{
+            levels[currentLevelNumber] = self.setUpLevel(levelNum: self.currentLevelNumber)
+            currentLevel = levels[currentLevelNumber]
+            if let view = self.view as SKView? {
+                view.presentScene(currentLevel)
+            }
         }
     }
     

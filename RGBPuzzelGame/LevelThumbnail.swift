@@ -34,7 +34,7 @@ class levelThumbnail: SKNode {
             disabled = true
         }else{
             disabled = false
-            percentComplete = Double(lastUnlocked)/Double((totalPerLevel[level] ?? 0))
+            percentComplete = lastUnlocked > 1 ? Double(lastUnlocked)/Double((totalPerLevel[level] ?? 0)) : 0
         }
         
         //150 969696
@@ -98,20 +98,18 @@ class levelThumbnail: SKNode {
     }
     
     func update(){
-        
+        print("Updating...")
         let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Completed:\(level)")+1
         
         if (totalPerLevel[level] ?? 0) == 0 {
             disabled = true
         }else{
             disabled = false
-            percentComplete = Double(lastUnlocked)/Double((totalPerLevel[level] ?? 0))
+            percentComplete = lastUnlocked > 1 ? Double(lastUnlocked)/Double((totalPerLevel[level] ?? 0)) : 0
         }
         
-        
         let x : CGFloat = CGFloat(backgroundImage.frame.minX + completePercentOverlay.frame.width/2) - CGFloat(Double(backgroundImage.frame.width)*(1-percentComplete))
-        completePercentOverlay.run(SKAction.move(to: CGPoint(x: x, y: backgroundImage.frame.minY + completePercentOverlay.frame.height/2), duration: 0.25))
-        
+        completePercentOverlay.position = CGPoint(x: x, y: backgroundImage.frame.minY + completePercentOverlay.frame.height/2)
     }
     
     
