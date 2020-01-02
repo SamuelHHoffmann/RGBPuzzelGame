@@ -28,13 +28,14 @@ class levelThumbnail: SKNode {
     var disabled = false
     
     func setUp(level: Int, width: Double, height: Double){
-        let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Completed:\(level)")+1
+        self.level = level
+        let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Completed:\(level)")
         
         if (totalPerLevel[level] ?? 0) == 0 {
             disabled = true
         }else{
             disabled = false
-            percentComplete = lastUnlocked > 1 ? Double(lastUnlocked)/Double((totalPerLevel[level] ?? 0)) : 0
+            percentComplete = lastUnlocked > 0 ? Double(lastUnlocked)/Double((totalPerLevel[level] ?? 0)) : 0
         }
         
         //150 969696
@@ -46,7 +47,7 @@ class levelThumbnail: SKNode {
         self.addChild(backgroundImage)
         
         //completePercentOverlay = SKShapeNode(rectOf: CGSize(width: width/2, height: 80*height/290)) //Testing width
-        completePercentOverlay = SKShapeNode(rectOf: CGSize(width: width, height: 80*height/260)) //actual width
+        completePercentOverlay = SKShapeNode(rectOf: CGSize(width: width, height: 80*height/290)) //actual width
         completePercentOverlay.fillColor = UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 1)
         completePercentOverlay.strokeColor = UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 1)
         completePercentOverlay.zPosition = 1
@@ -99,7 +100,8 @@ class levelThumbnail: SKNode {
     
     func update(){
         print("Updating...")
-        let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Completed:\(level)")+1
+        let lastUnlocked = Standards.lastCompletedLocal+1
+        print(lastUnlocked)
         
         if (totalPerLevel[level] ?? 0) == 0 {
             disabled = true
@@ -108,8 +110,14 @@ class levelThumbnail: SKNode {
             percentComplete = lastUnlocked > 1 ? Double(lastUnlocked)/Double((totalPerLevel[level] ?? 0)) : 0
         }
         
-        let x : CGFloat = CGFloat(backgroundImage.frame.minX + completePercentOverlay.frame.width/2) - CGFloat(Double(backgroundImage.frame.width)*(1-percentComplete))
-        completePercentOverlay.position = CGPoint(x: x, y: backgroundImage.frame.minY + completePercentOverlay.frame.height/2)
+        
+        let x = backgroundImage.frame.minX + completePercentOverlay.frame.width/2 - CGFloat(backgroundImage.frame.width*CGFloat((1-percentComplete)))
+        completePercentOverlay.run(SKAction.move(to: CGPoint(x: x, y: backgroundImage.frame.minY + completePercentOverlay.frame.height/2), duration: 0.25))
+        
+    }
+    
+    func getLevel() -> Int{
+        return level
     }
     
     

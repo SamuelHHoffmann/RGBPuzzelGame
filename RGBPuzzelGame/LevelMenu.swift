@@ -323,7 +323,7 @@ class LevelMenu: SKScene {
                 //lastUnlocked and lastLevel valid good data
                 print("unlocking extra levels")
                 if lastLevel > 0{
-                    for _ in 0...lastLevel-1{
+                    for _ in 0...lastLevel{
                         nextLevel()
                     }
                 }
@@ -353,12 +353,16 @@ class LevelMenu: SKScene {
     
     public func unlockNextLevel(){
         
-        if UserDefaults.standard.integer(forKey: "Saved_Level_Record:Completed:\(menuNumber)") < currentLevelNumber{
-            UserDefaults.standard.set(currentLevelNumber, forKey: "Saved_Level_Record:Completed:\(menuNumber)")
+        if UserDefaults.standard.integer(forKey: "Saved_Level_Record:Completed:\(menuNumber)") < currentLevelNumber+1{
+            UserDefaults.standard.set(currentLevelNumber+1, forKey: "Saved_Level_Record:Completed:\(menuNumber)")
+            Standards.lastCompletedLocal = currentLevelNumber+1
         }
         
         setNextGraphics(levelNumber: currentLevelNumber)
-        setUnlockedGraphics(levelNumber: currentLevelNumber+1)
+        
+        if currentLevelNumber+1 < levels.count && levels[currentLevelNumber+1].locked{ //dont update graphics if levels are already unl
+            setUnlockedGraphics(levelNumber: currentLevelNumber+1)
+        }
         
         unlockLevel(levelNumber: currentLevelNumber+1)
         
@@ -476,8 +480,8 @@ class LevelMenu: SKScene {
                 
                 DispatchQueue.global(qos: .userInteractive).async {
                     //setup next level
-                    if self.levels[self.currentLevelNumber+1].setup == false{
-                        if self.currentLevelNumber+1 < self.levels.count{
+                    if self.currentLevelNumber+1 < self.levels.count {
+                        if self.levels[self.currentLevelNumber+1].setup == false{
                             self.levels[self.currentLevelNumber+1] = self.setUpLevel(levelNum: self.currentLevelNumber+2)
                         }
                     }
@@ -554,12 +558,8 @@ class LevelMenu: SKScene {
                 if let view = self.view as SKView? {
                     
                     menuCasted.size = self.size
-                    
-                    for level in menuCasted.levels{
-                        level.update()
-                    }
-                    
                     view.presentScene(menuCasted)
+                    
                 }
                 
             }
@@ -580,7 +580,7 @@ class LevelMenu: SKScene {
                 view.presentScene(currentLevel)
             }
         }else{
-            levels[currentLevelNumber] = self.setUpLevel(levelNum: self.currentLevelNumber)
+            levels[currentLevelNumber] = self.setUpLevel(levelNum: self.currentLevelNumber+1)
             currentLevel = levels[currentLevelNumber]
             if let view = self.view as SKView? {
                 view.presentScene(currentLevel)

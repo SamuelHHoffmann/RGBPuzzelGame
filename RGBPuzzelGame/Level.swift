@@ -341,10 +341,16 @@ class Level: SKScene, SKPhysicsContactDelegate {
         blueCollision.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         blueCollision.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         
+        var alphaValue : CGFloat = 0.0
+        if Standards.debugMode{
+            alphaValue = 0.5
+        }else{
+            alphaValue = 0.001
+        }
+        redCollision.alpha = alphaValue
+        greenCollision.alpha = alphaValue
+        blueCollision.alpha = alphaValue
         
-        redCollision.alpha = 0.5
-        greenCollision.alpha = 0.5
-        blueCollision.alpha = 0.5
         
         self.addChild(redCollision)
         self.addChild(greenCollision)

@@ -37,6 +37,9 @@ class MenuMenu: SKScene {
     var level1MenuLoaded = false
     
     
+    var menuClicked = levelThumbnail()
+    
+    
     
     var type = SceneType.none
 
@@ -118,8 +121,23 @@ class MenuMenu: SKScene {
     override func didMove(to view: SKView) {
         super.didMove(to: self.view!)
         
-        for level in levels{
-            level.update()
+        if menuClicked.getLevel() != -1{
+            menuClicked.removeFromParent()
+            let newThumbnail = levelThumbnail()
+            newThumbnail.setUp(level: menuClicked.getLevel(), width: Double(self.frame.height), height: Double(self.frame.width)/4)
+            newThumbnail.position = menuClicked.position
+            newThumbnail.zRotation = -1 * CGFloat(Double.pi/2)
+            self.addChild(newThumbnail)
+            if menuClicked.getLevel() == 0{
+                level0Button = newThumbnail
+            }else if menuClicked.getLevel() == 1{
+                level1Button = newThumbnail
+            }else if menuClicked.getLevel() == 2{
+                level2Button = newThumbnail
+            }else if menuClicked.getLevel() == 3{
+                level3Button = newThumbnail
+            }
+            
         }
         
     }
@@ -168,25 +186,17 @@ class MenuMenu: SKScene {
 
             }else if node == level0Button {
 
-                if level0MenuLoaded == false{ //stupid ram
-                    
-                    level0MenuLoaded = true
-                }
-                
                 if let view = self.view as SKView? {
                     level0Menu.previousScene = self
+                    menuClicked = level0Button
                     view.presentScene(level0Menu)
                 }
 
             }else if node == level1Button {
 
-                if level1MenuLoaded == false{
-                    
-                    level1MenuLoaded = true
-                }
-                
                 if let view = self.view as SKView? {
                     level1Menu.previousScene = self
+                    menuClicked = level1Button
                     view.presentScene(level1Menu)
                 }
 
@@ -212,5 +222,7 @@ class MenuMenu: SKScene {
         // Called before each frame is rendered
     }
 
+    
+    
 
 }

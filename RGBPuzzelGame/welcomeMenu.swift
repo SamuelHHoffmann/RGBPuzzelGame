@@ -60,19 +60,7 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
     }
     
     func setUp(sceneSize: CGSize){
-        //currently used level code
-        
-        //start testing edit edit
-        
-//        //set up for leaving the scene (might as well do it now...)
-//        self.sceneSize = sceneSize
-//        //if first time...
-//        if(previousScene == nil){
-//            menu.size = sceneSize
-//            menu.initializeMenu(NumberOfLevels: 4, Restricted: true, MenuNumber: 1)
-//            menu.scaleMode = .fill
-//            //menu.unlockNextLevel()
-//
+
 //            //reset code: uncomment and run once to reset saved values
 //            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(1)")
 //            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(1)")
@@ -80,16 +68,12 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
 //            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(0)")
 //            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(0)")
 //            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Completed:\(0)")
-//        }else{
-//            menu = (previousScene as? LevelMenu)!
-//        }
+
         
         menu.size = sceneSize
         menu.scaleMode = .fill
         menu.setUpMenu()
         
-        
-        //end testing edit
         
         
         self.packageNumber = -1
