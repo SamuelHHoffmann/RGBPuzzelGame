@@ -42,22 +42,22 @@ class GameViewController: UIViewController {
         }
         
         
-//        if let view = self.game_view { //used for testing RGBAScene's
-//
-//            let temp = RGBAScene()
-//            temp.size = self.game_view.frame.size
-//            temp.setUp(redLayerStr: "1,1R", greenLayerStr: "1,1G", blueLayerStr: "1,1B", physics: false)
-//            temp.scaleMode = .fill
-//
-//            view.presentScene(temp)
-//            view.ignoresSiblingOrder = true
-//            view.showsFPS = true
-//            view.showsNodeCount = true
-//        }
+        if let view = self.game_view { //testing start and end position abstraction
+
+            let temp = Level()
+            temp.size = self.game_view.frame.size
+            temp.setUp(package: 0, numberInPackage: 1, locked: false, menu: LevelMenu())
+            temp.scaleMode = .fill
+
+            view.presentScene(temp)
+            view.ignoresSiblingOrder = true
+            view.showsFPS = true
+            view.showsNodeCount = true
+        }
         
+//
 //        if let view = self.game_view {
 //            // Load the SKScene from 'GameScene.sks'
-//
 //
 //            home = welcomeMenu()
 //            home.size = self.game_view.frame.size
@@ -70,22 +70,6 @@ class GameViewController: UIViewController {
 //            view.showsFPS = false
 //            view.showsNodeCount = false
 //        }
-        
-        if let view = self.game_view {
-            // Load the SKScene from 'GameScene.sks'
-            
-            
-            home = welcomeMenu()
-            home.size = self.game_view.frame.size
-            home.setUp(sceneSize: self.game_view.frame.size)
-            home.scaleMode = .fill
-            view.presentScene(home)
-            
-            view.ignoresSiblingOrder = true
-            
-            view.showsFPS = false
-            view.showsNodeCount = false
-        }
         
         
     }

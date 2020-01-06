@@ -47,8 +47,10 @@ class Level: SKScene, SKPhysicsContactDelegate {
     var packageNumber = 0
     var levelNumber = 0
     
-    var startingPoint = CGPoint(x: 0, y: 0)
-    var endingPoint = CGPoint(x: 0, y: 0)
+    var startingPointOffset = CGPoint(x: 0, y: 0)
+    var endingPointOffset = CGPoint(x: 0, y: 0)
+    
+    
     
     var locked = true
     var setup = false
@@ -137,8 +139,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         //self.endingPoint = GlobalStaticLookup(package, numberinPackage)
         
         //with multiple packages will use lookup scheme. currently hardwired
-        self.startingPoint = CGPoint(x: 170, y: 607.49)
-        self.endingPoint = CGPoint(x: 145, y: 37.0)
+        self.startingPointOffset = (Standards.startPositions["\(package),\(numberInPackage)"] ?? CGPoint(x: 0.0, y: 0.0))
+        self.endingPointOffset = (Standards.endPositions["\(package),\(numberInPackage)"] ?? CGPoint(x: 0.0, y: 0.0))
         
         setUpLayers()
         setUpButtons()
@@ -155,18 +157,18 @@ class Level: SKScene, SKPhysicsContactDelegate {
     */
     func setUpLayers(){
         
-        //print(self.frame.width)
-        //print(self.frame.height)
+        print(self.frame.width)
+        print(self.frame.height)
         
-        var size = CGSize(width: self.frame.height, height: self.frame.width)
+        let size = CGSize(width: self.frame.width*667/375, height: self.frame.width)
         
-        if self.size.width == 375 {
-            size = CGSize(width: 667, height: 375) //x xr
-        }else if self.size.width == 414 {
-            size = CGSize(width: 736, height: 414) //xs max
-        }else{
-            //properly images scaleable
-        }
+        //scale start and end positions//
+        var temp = CGPoint(x: startingPointOffset.x*size.width/667, y: startingPointOffset.y*size.height/375)
+        startingPointOffset = temp
+        temp = CGPoint(x: endingPointOffset.x*size.width/667, y: endingPointOffset.y*size.height/375)
+        endingPointOffset = temp
+        
+
         
         redLayer.size = size
         greenLayer.size = size
@@ -470,7 +472,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         player.zPosition = 4
 
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        player.position = startingPoint
+        player.position = CGPoint(x: 0.0, y: 0.0) //*** CGPoint(x: self.frame.midX + startingPointOffset.y, y: self.frame.midY + startingPointOffset.x)
 
         player.alpha = 1
 
@@ -496,7 +498,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         end.zPosition = 3
         
         end.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        end.position = endingPoint
+        end.position = CGPoint(x: self.frame.midX + endingPointOffset.y, y: self.frame.midY + endingPointOffset.x) //***
         
         end.alpha = 1
         
@@ -735,7 +737,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         player.zPosition = 3
         
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        player.position = startingPoint
+        player.position = startingPointOffset
         
         player.alpha = 1
         
@@ -745,7 +747,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
     }
     
     func levelComplete(){
-        if(menu == nil){ //if level has no menu then just reset
+        if(menu == SKScene()){ //if level has no menu then just reset
             resetLevel()
             return
         }
@@ -764,7 +766,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
     }
     
     func quitLevel(){
-        if(menu == nil){ //if level has no menu then just reset
+        if(menu == SKScene()){ //if level has no menu then just reset
             resetLevel()
             return
         }

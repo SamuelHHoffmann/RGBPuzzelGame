@@ -583,7 +583,7 @@ class RGBALevel: RGBAScene, SKPhysicsContactDelegate {
     }
     
     func levelComplete(){
-        if(menu == nil){ //if level has no menu then just reset
+        if(menu == SKScene()){ //if level has no menu then just reset
             resetLevel()
             return
         }
@@ -602,7 +602,7 @@ class RGBALevel: RGBAScene, SKPhysicsContactDelegate {
     }
     
     func quitLevel(){
-        if(menu == nil){ //if level has no menu then just reset
+        if(menu == SKScene()){ //if level has no menu then just reset
             resetLevel()
             return
         }
