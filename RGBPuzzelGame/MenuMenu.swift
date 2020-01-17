@@ -23,10 +23,10 @@ class MenuMenu: SKScene {
     var settingsButton = SKShapeNode()
     var settingsButton_img = SKSpriteNode()
     
-    var level0Button = levelThumbnail()
-    var level1Button = levelThumbnail()
-    var level2Button = levelThumbnail()
-    var level3Button = levelThumbnail()
+    private var level0Button = levelThumbnail()
+    private var level1Button = levelThumbnail()
+    private var level2Button = levelThumbnail()
+    private var level3Button = levelThumbnail()
     var levels : [levelThumbnail] = []
 
     var level0Menu = LevelMenu()
@@ -187,6 +187,7 @@ class MenuMenu: SKScene {
             }else if node == level0Button {
 
                 if let view = self.view as SKView? {
+                    playClickSound()
                     level0Menu.previousScene = self
                     menuClicked = level0Button
                     view.presentScene(level0Menu)
@@ -195,6 +196,7 @@ class MenuMenu: SKScene {
             }else if node == level1Button {
 
                 if let view = self.view as SKView? {
+                    playClickSound()
                     level1Menu.previousScene = self
                     menuClicked = level1Button
                     view.presentScene(level1Menu)
@@ -217,6 +219,12 @@ class MenuMenu: SKScene {
 
 
 
+    private func playClickSound(){
+
+        run(SKAction.playSoundFileNamed("secondaryClick.m4a", waitForCompletion: true))
+        
+    }
+    
 
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered

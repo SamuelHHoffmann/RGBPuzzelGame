@@ -20,12 +20,13 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        //setup background/overflow scene
         if let backgroundView = self.view as? SKView {
             
             let tempScene = SKScene(size: self.view.frame.size)
             tempScene.backgroundColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
             tempScene.scaleMode = .fill
-            
             
             //generate background music
             var musicSeq = [SKAction.run{}]
@@ -35,50 +36,55 @@ class GameViewController: UIViewController {
             tempScene.run(SKAction.sequence(musicSeq))
             
             
+            Standards.backgroundSKScene = tempScene
             backgroundView.presentScene(tempScene)
-            
-            
-            
         }
         
         
-        if let view = self.game_view { //testing start and end position abstraction
 
-            let temp = Level()
-            temp.size = self.game_view.frame.size
-            temp.setUp(package: 0, numberInPackage: 1, locked: false, menu: LevelMenu())
-            temp.scaleMode = .fill
-
-            view.presentScene(temp)
-            view.ignoresSiblingOrder = true
-            view.showsFPS = true
-            view.showsNodeCount = true
+        //show user their first scene
+        if UserDefaults.standard.bool(forKey: "isNotFirstTime") == true {
+            //not first time
+            if let view = self.game_view {
+                home = welcomeMenu()
+                home.size = self.game_view.frame.size
+                home.setUp(sceneSize: self.game_view.frame.size)
+                home.scaleMode = .fill
+                view.presentScene(home)
+                view.ignoresSiblingOrder = true
+                view.showsFPS = false
+                view.showsNodeCount = false
+            }
+        }else{
+            //is first time or has been reset
+            UserDefaults.standard.set(true, forKey: "isNotFirstTime")
+            
+            let menuMenuTemp = MenuMenu()
+            menuMenuTemp.size = self.game_view.frame.size
+            menuMenuTemp.setUpMenu()
+            menuMenuTemp.previousScene = menuMenuTemp
+            
+            
+            menuMenuTemp.level0Menu.previousScene = menuMenuTemp
+            
+            let firstLevel = Level()
+            firstLevel.size = self.game_view.frame.size
+            firstLevel.setUp(package: 0, numberInPackage: 1, locked: false, menu: menuMenuTemp.level0Menu)
+            
+            sleep(2) //slow down for a couple seconds
+            
+            if let view = self.game_view {
+                firstLevel.scaleMode = .fill
+                view.presentScene(firstLevel)
+                view.ignoresSiblingOrder = true
+                view.showsFPS = false
+                view.showsNodeCount = false
+            }
         }
-        
-//
-//        if let view = self.game_view {
-//            // Load the SKScene from 'GameScene.sks'
-//
-//            home = welcomeMenu()
-//            home.size = self.game_view.frame.size
-//            home.setUp(sceneSize: self.game_view.frame.size)
-//            home.scaleMode = .fill
-//            view.presentScene(home)
-//
-//            view.ignoresSiblingOrder = true
-//
-//            view.showsFPS = false
-//            view.showsNodeCount = false
-//        }
         
         
     }
 
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    
     override var shouldAutorotate: Bool {
         return true
     }

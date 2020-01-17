@@ -164,9 +164,9 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         //scale start and end positions//
         var temp = CGPoint(x: startingPointOffset.x*size.width/667, y: startingPointOffset.y*size.height/375)
-        startingPointOffset = temp
+        startingPointOffset = CGPoint(x: temp.x, y: temp.y)
         temp = CGPoint(x: endingPointOffset.x*size.width/667, y: endingPointOffset.y*size.height/375)
-        endingPointOffset = temp
+        endingPointOffset = CGPoint(x: temp.x, y: temp.y)
         
 
         
@@ -448,7 +448,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         
         player = SKSpriteNode(imageNamed: "player")
-        player.size = CGSize(width: 45, height: 45)
+        player.size = CGSize(width: 45, height: 45) //TODO: Scale issue
 
         
         player.physicsBody = SKPhysicsBody(circleOfRadius: 22.5)
@@ -472,8 +472,10 @@ class Level: SKScene, SKPhysicsContactDelegate {
         player.zPosition = 4
 
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        player.position = CGPoint(x: 0.0, y: 0.0) //*** CGPoint(x: self.frame.midX + startingPointOffset.y, y: self.frame.midY + startingPointOffset.x)
-
+        player.position = CGPoint(x: self.frame.midX + startingPointOffset.y, y: self.frame.midY + startingPointOffset.x)
+        //player.position = CGPoint(x: 170, y: 607.49)
+        
+        print(player.position)
         player.alpha = 1
 
         self.addChild(player)
@@ -499,6 +501,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         end.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         end.position = CGPoint(x: self.frame.midX + endingPointOffset.y, y: self.frame.midY + endingPointOffset.x) //***
+        //end.position = CGPoint(x: self.frame.midX + startingPointOffset.y, y: self.frame.midY + startingPointOffset.x)
         
         end.alpha = 1
         
@@ -737,7 +740,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         player.zPosition = 3
         
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        player.position = startingPointOffset
+        player.position = CGPoint(x: self.frame.midX + startingPointOffset.y, y: self.frame.midY + startingPointOffset.x)
         
         player.alpha = 1
         
@@ -809,8 +812,6 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         //audio setup
         
-        
-        
         for node in nodes(at: (touches.first?.location(in: self))!) {
             
             if node == redButton {
@@ -853,6 +854,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
                     //debug
                     print(self.player.position)
                     print(self.frame.size)
+                    
+                    //player.position = touches.first!.location(in: self.view)
                     
                     print()
                     

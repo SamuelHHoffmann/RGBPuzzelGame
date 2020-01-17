@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SpriteKit
 
 class Standards{
     
@@ -19,12 +20,20 @@ class Standards{
     static let startPositions = ["0,1" : CGPoint(x: 290, y: -50),
                                 "0,2" : CGPoint(x: 290, y: -50),
                                 "0,3" : CGPoint(x: 290, y: -50),
-                                "0,4" : CGPoint(x: 290, y: -50)]
+                                "0,4" : CGPoint(x: 290, y: -50),
+                                "1,1" : CGPoint(x: 300, y: -35),
+                                "1,2" : CGPoint(x: 300, y: -35),
+                                "1,3" : CGPoint(x: 300, y: -35),
+                                "1,4" : CGPoint(x: 300, y: -35)]
     
     static let endPositions = ["0,1" : CGPoint(x: -290, y: -50),
                                "0,2" : CGPoint(x: -290, y: -50),
                                "0,3" : CGPoint(x: -290, y: -50),
-                               "0,4" : CGPoint(x: -290, y: -50)]
+                               "0,4" : CGPoint(x: -290, y: -50),
+                               "1,1" : CGPoint(x: -290, y: -35),
+                               "1,2" : CGPoint(x: -290, y: -35),
+                               "1,3" : CGPoint(x: -290, y: -35),
+                               "1,4" : CGPoint(x: -290, y: -35)]
     
     
     
@@ -32,6 +41,9 @@ class Standards{
     static var lastCompletedLocal = 0 //local value for UserDefaults.standard.set(levelNum, forKey: "Saved_Level_Record:Completed:\(packageNum)")
     
     
+    
+    //Background SKScene//
+    static var backgroundSKScene = SKScene()
     
     
     
