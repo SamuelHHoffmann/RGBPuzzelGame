@@ -1,4 +1,5 @@
 # RGBA : A Color Puzzle Game
+![GitHub Logo](/MetaData/Screen Shot 2020-05-26 at 4.30.11 PM.png)
 
 ## About: 
 
