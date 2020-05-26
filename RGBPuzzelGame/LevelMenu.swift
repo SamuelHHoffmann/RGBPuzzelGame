@@ -22,10 +22,11 @@ class LevelMenu: SKScene {
     
     var restricted = false
     
-    var levels : [Level] = []
+//    var levels : [Level] = []
+    var lockedLevelData : [Int : Bool] = [:]
     
     var currentLevel = Level()
-    var currentLevelNumber = 0
+    var currentLevelNumber = 1
     
     var numbers : [SKNode] = [] //useless (but use positioning for layers)
     
@@ -234,18 +235,19 @@ class LevelMenu: SKScene {
      
      */
     func setUpLevelMenu(){
-        for _ in 1...numberOfLevels {
+        for x in 1...numberOfLevels {
             //placeholder levels
-            levels.append(Level())
+            lockedLevelData[x] = false
+//            levels.append(Level())
         }
         
-        currentLevelNumber = 0
+        currentLevelNumber = 1
         
         //setup level 0 and 1
-        levels[currentLevelNumber] = setUpLevel(levelNum: currentLevelNumber+1)
-        if currentLevelNumber+1 < levels.count-1{
-            levels[currentLevelNumber+1] = setUpLevel(levelNum: currentLevelNumber+2)
-        }
+//        levels[currentLevelNumber] = setUpLevel(levelNum: currentLevelNumber+1)
+//        if currentLevelNumber+1 < levels.count-1{
+//            levels[currentLevelNumber+1] = setUpLevel(levelNum: currentLevelNumber+2)
+//        }
         
         //load other levels
         
@@ -272,7 +274,7 @@ class LevelMenu: SKScene {
             tempRestrict = false
         }
         
-        let TempLevel = Level()
+        let TempLevel = currentLevel
         
         //FutureTodo: optimize menu so that only next level is initalized so it doesn't take up memory
         TempLevel.size = self.size
@@ -292,38 +294,38 @@ class LevelMenu: SKScene {
         print("Last Unlocked:", lastUnlocked)
         print("Last Level:", lastLevel)
         
-        if(lastUnlocked >= numberOfLevels){ //error lastunlocked value is too large
+        if(lastUnlocked >= numberOfLevels || lastUnlocked == 0){ //error lastunlocked value is too large, or first time load and is 0
             print("error lastunlocked value is too large")
-            currentLevelNumber = 0
+            currentLevelNumber = 1
             UserDefaults.standard.set(currentLevelNumber, forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
             UserDefaults.standard.set(currentLevelNumber, forKey: "Saved_Level_Record:Last:\(menuNumber)")
             
             setUnlockedGraphics(levelNumber: currentLevelNumber)
             unlockLevel(levelNumber: currentLevelNumber)
             
-            currentLevel = levels[currentLevelNumber]
+//            currentLevel = levels[currentLevelNumber]
             
         }else{
             
-            if lastUnlocked > 0{
-                for tempLevel in 0...lastUnlocked-1{
+            if lastUnlocked > 1{
+                for tempLevel in 1...lastUnlocked-1{
                     setNextGraphics(levelNumber: tempLevel)
                 }
             }
             setUnlockedGraphics(levelNumber: lastUnlocked)
             
-            for tempLevel in 0...lastUnlocked{
+            for tempLevel in 1...lastUnlocked{
                 unlockLevel(levelNumber: tempLevel)
             }
             
-            currentLevelNumber = 0
-            currentLevel = levels[0]
+            currentLevelNumber = 1
+//            currentLevel = levels[0]
             
             if lastLevel <= lastUnlocked{
                 //lastUnlocked and lastLevel valid good data
                 print("unlocking extra levels")
-                if lastLevel > 0{
-                    for _ in 0...lastLevel{
+                if lastLevel > 1{
+                    for _ in 1...lastLevel{
                         nextLevel()
                     }
                 }
@@ -336,31 +338,31 @@ class LevelMenu: SKScene {
     //Loads the Menu if the resitrcted value is false meaning all the levels should be unlocked without requiring progression
     private func loadMenuUnrestricted(){
         
-        for tempLevel in 0...levels.count-2{
+        for tempLevel in 1...lockedLevelData.count-1{
             setNextGraphics(levelNumber: tempLevel)
         }
-        setUnlockedGraphics(levelNumber: levels.count-1)
+        setUnlockedGraphics(levelNumber: lockedLevelData.count)
         
-        for tempLevel in 0...levels.count-1{
+        for tempLevel in 1...lockedLevelData.count{
             unlockLevel(levelNumber: tempLevel)
         }
         
-        currentLevelNumber = 0
-        currentLevel = levels[0]
+        currentLevelNumber = 1
+//        currentLevel = levels[0]
         
     }
     
     
     public func unlockNextLevel(){
         
-        if UserDefaults.standard.integer(forKey: "Saved_Level_Record:Completed:\(menuNumber)") < currentLevelNumber+1{
-            UserDefaults.standard.set(currentLevelNumber+1, forKey: "Saved_Level_Record:Completed:\(menuNumber)")
-            Standards.lastCompletedLocal = currentLevelNumber+1
+        if UserDefaults.standard.integer(forKey: "Saved_Level_Record:Completed:\(menuNumber)") < currentLevelNumber{
+            UserDefaults.standard.set(currentLevelNumber, forKey: "Saved_Level_Record:Completed:\(menuNumber)")
+            Standards.lastCompletedLocal = currentLevelNumber
         }
         
         setNextGraphics(levelNumber: currentLevelNumber)
         
-        if currentLevelNumber+1 < levels.count && levels[currentLevelNumber+1].locked{ //dont update graphics if levels are already unl
+        if lockedLevelData[currentLevelNumber+1] == false{ //dont update graphics if levels are already unlocked
             setUnlockedGraphics(levelNumber: currentLevelNumber+1)
         }
         
@@ -370,14 +372,14 @@ class LevelMenu: SKScene {
     
     //unlocks level number in levels list
     private func setUnlockedGraphics(levelNumber: Int){
-        if levelNumber < levels.count {
+        if lockedLevelData[currentLevelNumber] != nil {
             
-            redLayers[levelNumber].texture = SKTexture(imageNamed: "ls-r-1-\(levelNumber+1)-U") //*
-            redLayers[levelNumber].name = "ls-r-1-\(levelNumber+1)-U" //*
-            greenLayers[levelNumber].texture = SKTexture(imageNamed: "ls-g-1-\(levelNumber+1)-U") //*
-            greenLayers[levelNumber].name = "ls-g-1-\(levelNumber+1)-U" //*
-            blueLayers[levelNumber].texture = SKTexture(imageNamed: "ls-b-1-\(levelNumber+1)-U") //*
-            blueLayers[levelNumber].name = "ls-b-1-\(levelNumber+1)-U" //*
+            redLayers[levelNumber-1].texture = SKTexture(imageNamed: "ls-r-1-\(levelNumber)-U") //*
+            redLayers[levelNumber-1].name = "ls-r-1-\(levelNumber)-U" //*
+            greenLayers[levelNumber-1].texture = SKTexture(imageNamed: "ls-g-1-\(levelNumber)-U") //*
+            greenLayers[levelNumber-1].name = "ls-g-1-\(levelNumber)-U" //*
+            blueLayers[levelNumber-1].texture = SKTexture(imageNamed: "ls-b-1-\(levelNumber)-U") //*
+            blueLayers[levelNumber-1].name = "ls-b-1-\(levelNumber)-U" //*
             
         }else{
             //out of range
@@ -386,14 +388,14 @@ class LevelMenu: SKScene {
     
     //unlocks level number in levels list
     private func setNextGraphics(levelNumber: Int){
-        if levelNumber < levels.count-1 {
+        if lockedLevelData[currentLevelNumber+1] != nil {
             
-            redLayers[levelNumber].texture = SKTexture(imageNamed: "ls-r-1-\(levelNumber+1)-N") //*
-            redLayers[levelNumber].name = "ls-r-1-\(levelNumber+1)-N" //*
-            greenLayers[levelNumber].texture = SKTexture(imageNamed: "ls-g-1-\(levelNumber+1)-N") //*
-            greenLayers[levelNumber].name = "ls-g-1-\(levelNumber+1)-N" //*
-            blueLayers[levelNumber].texture = SKTexture(imageNamed: "ls-b-1-\(levelNumber+1)-N") //*
-            blueLayers[levelNumber].name = "ls-b-1-\(levelNumber+1)-N" //*
+            redLayers[levelNumber-1].texture = SKTexture(imageNamed: "ls-r-1-\(levelNumber)-N") //*
+            redLayers[levelNumber-1].name = "ls-r-1-\(levelNumber)-N" //*
+            greenLayers[levelNumber-1].texture = SKTexture(imageNamed: "ls-g-1-\(levelNumber)-N") //*
+            greenLayers[levelNumber-1].name = "ls-g-1-\(levelNumber)-N" //*
+            blueLayers[levelNumber-1].texture = SKTexture(imageNamed: "ls-b-1-\(levelNumber)-N") //*
+            blueLayers[levelNumber-1].name = "ls-b-1-\(levelNumber)-N" //*
             
         }else{
             //out of range
@@ -402,8 +404,8 @@ class LevelMenu: SKScene {
     
     //actually unlocks the level variable in the levels array.
     private func unlockLevel(levelNumber: Int){
-        if levelNumber < levels.count{
-            levels[levelNumber].locked = false
+        if lockedLevelData[levelNumber] != nil{
+            lockedLevelData[levelNumber] = true
             
             if UserDefaults.standard.integer(forKey: "Saved_Level_Record:Unlocked:\(menuNumber)") < levelNumber{
                 UserDefaults.standard.set(levelNumber, forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
@@ -448,11 +450,11 @@ class LevelMenu: SKScene {
     }
     
     func nextLevel(){
-        if currentLevelNumber == levels.count-1 { // last level
+        if currentLevelNumber == lockedLevelData.count { // last level
             //dont move
             print("last level")
         }else{
-            if levels[currentLevelNumber+1].locked { //next level locked
+            if lockedLevelData[currentLevelNumber+1] == false { //next level locked
                 //dont move
                 print("level locked")
             }else{
@@ -473,18 +475,19 @@ class LevelMenu: SKScene {
                     playerLeft = false
                 }
                 currentLevelNumber += 1
-                currentLevel = levels[currentLevelNumber]
+//                currentLevel = levels[currentLevelNumber]
                 
                 //update current level
                 UserDefaults.standard.set(currentLevelNumber, forKey: "Saved_Level_Record:Last:\(menuNumber)")
                 
-                DispatchQueue.global(qos: .userInteractive).async {
-                    //setup next level
-                    if self.currentLevelNumber+1 < self.levels.count {
-                        if self.levels[self.currentLevelNumber+1].setup == false{
-                            self.levels[self.currentLevelNumber+1] = self.setUpLevel(levelNum: self.currentLevelNumber+2)
-                        }
-                    }
+                
+//                DispatchQueue.global(qos: .userInteractive).async { //Removed for lockedLevelData update setup of levels will happen when tapped
+//                    //setup next level
+//                    if self.currentLevelNumber+1 < self.levels.count {
+//                        if self.levels[self.currentLevelNumber+1].setup == false{
+//                            self.levels[self.currentLevelNumber+1] = self.setUpLevel(levelNum: self.currentLevelNumber+2)
+//                        }
+//                    }
 //                    //break down 2 back levels
 //                    if self.currentLevelNumber-2 >= 0{
 //                        let tempLevel = Level()
@@ -492,7 +495,7 @@ class LevelMenu: SKScene {
 //                        self.levels[self.currentLevelNumber-2].removeFromParent()
 //                        self.levels[self.currentLevelNumber-2] = tempLevel
 //                    }
-                }
+//                }
                 
                 
             }
@@ -500,8 +503,8 @@ class LevelMenu: SKScene {
     }
     
     func previousLevel(){
-        if currentLevelNumber == 0 { //last level
-            
+        if currentLevelNumber == 1 { //last level
+            print("first level")
         }else{
             if playerLeft == false { //aka player right
                 //just move ball back one
@@ -520,7 +523,7 @@ class LevelMenu: SKScene {
                 
             }
             currentLevelNumber -= 1
-            currentLevel = levels[currentLevelNumber]
+//            currentLevel = levels[currentLevelNumber]
             
             //update current level
             UserDefaults.standard.set(currentLevelNumber, forKey: "Saved_Level_Record:Last:\(menuNumber)")
@@ -575,16 +578,10 @@ class LevelMenu: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         isTopScene = false
         
-        if currentLevel.setup{
-            if let view = self.view as SKView? {
-                view.presentScene(currentLevel)
-            }
-        }else{
-            levels[currentLevelNumber] = self.setUpLevel(levelNum: self.currentLevelNumber+1)
-            currentLevel = levels[currentLevelNumber]
-            if let view = self.view as SKView? {
-                view.presentScene(currentLevel)
-            }
+        currentLevel = self.setUpLevel(levelNum: self.currentLevelNumber)
+        
+        if let view = self.view as SKView? {
+            view.presentScene(currentLevel)
         }
     }
     

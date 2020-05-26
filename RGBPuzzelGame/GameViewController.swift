@@ -20,6 +20,18 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//                UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(1)")
+//                UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(1)")
+//                UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Completed:\(1)")
+//                UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(0)")
+//                UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(0)")
+//                UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Completed:\(0)")
+//                UserDefaults.standard.set(false, forKey: "isNotFirstTime")
+//                while true {
+//                    print("UserDefaults reset. Please comment out the reset lines and run the code again")
+//                    sleep(5)
+//                }
+        
         
         //setup background/overflow scene
         if let backgroundView = self.view as? SKView {
@@ -39,6 +51,8 @@ class GameViewController: UIViewController {
             Standards.backgroundSKScene = tempScene
             backgroundView.presentScene(tempScene)
         }
+        
+        
         
         
 

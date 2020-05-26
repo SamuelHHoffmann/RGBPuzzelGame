@@ -94,6 +94,10 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         self.locked = locked
         
+        if self.setup {
+            self.removeAllChildren()
+        }
+        
         if UIImage(named: "\(package),\(numberInPackage)Background") != nil{ //check if background art exists
             let background = SKSpriteNode(imageNamed: "\(package),\(numberInPackage)Background")
             background.zPosition = 0
@@ -804,6 +808,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         settingsOverlay.run(SKAction.moveTo(x: -(self.frame.midX), duration: 0))
         settingsShown = false
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -922,6 +927,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
                 self.addChild(greenCollision)
             }
         }
+        
     }
     
     
