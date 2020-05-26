@@ -1,0 +1,3 @@
+RGBA does not, has not, and will never collect any private personal information about users. All information collected will be game state related, stored locally with no external connections, and have no external relations to the user or any other identifying information. 
+
+For questions, comments, or concerns please contact Samuel Hoffmann at samuelhoffmann.development@gmail.com
