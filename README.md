@@ -1,5 +1,5 @@
 # RGBA : A Color Puzzle Game
-![img](https://github.com/SamuelHHoffmann/RGBPuzzelGame/blob/master/MetaData/Screen%20Shot%202020-05-26%20at%204.30.11%20PM.png)
+[![img](https://github.com/SamuelHHoffmann/RGBPuzzelGame/blob/master/MetaData/Screen%20Shot%202020-05-26%20at%204.30.11%20PM.png)](https://apps.apple.com/app/rgba-color-puzzle-game/id1406870365?l=en)
 
 ## About: 
 
