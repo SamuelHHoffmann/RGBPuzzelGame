@@ -12,7 +12,9 @@ RGBA is a 2D puzzle game based around the main computer color scale of red, gree
 ## Team: 
 
 **Samuel Hoffmann** - Owner | Creator | Lead Developer | Designer
+
 [Email](mailto:samuelhoffmann.development@gmail.com)
+
 [LinkedIn](https://www.linkedin.com/in/samuel-hoffmann-991131134/)
 
 *At this time this is one man team. Maybe in the future it will grow.*
