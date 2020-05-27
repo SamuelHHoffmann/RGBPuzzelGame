@@ -294,7 +294,7 @@ class LevelMenu: SKScene {
         print("Last Unlocked:", lastUnlocked)
         print("Last Level:", lastLevel)
         
-        if(lastUnlocked >= numberOfLevels || lastUnlocked == 0){ //error lastunlocked value is too large, or first time load and is 0
+        if(lastUnlocked > numberOfLevels || lastUnlocked == 0){ //error lastunlocked value is too large, or first time load and is 0
             print("error lastunlocked value is too large")
             currentLevelNumber = 1
             UserDefaults.standard.set(currentLevelNumber, forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
