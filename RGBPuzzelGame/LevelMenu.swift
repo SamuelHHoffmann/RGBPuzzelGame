@@ -103,8 +103,8 @@ class LevelMenu: SKScene {
         
         for i in 1...(numberOfLevels) {
             //red layer
-            let tempRed = SKSpriteNode(imageNamed: "ls-r-1-\(i)-L") //* find "-1-" replace "-1-"
-            tempRed.name = "ls-r-1-\(i)-L" //*
+            let tempRed = UIImage(named: "ls-r-\(menuNumber)-\(i)-L") != nil ? SKSpriteNode(imageNamed: "ls-r-\(menuNumber)-\(i)-L") : SKSpriteNode(imageNamed: "ls-r-x-\(i)-L")
+            tempRed.name = UIImage(named: "ls-r-\(menuNumber)-\(i)-L") != nil ? "ls-r-\(menuNumber)-\(i)-L" : "ls-r-x-\(i)-L"
             tempRed.size = CGSize(width: self.frame.height/2, height: self.frame.width)
             tempRed.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
             tempRed.zRotation = CGFloat(-Double.pi/2)
@@ -135,8 +135,8 @@ class LevelMenu: SKScene {
             }
             
             //green layer
-            let tempGreen = SKSpriteNode(imageNamed: "ls-g-1-\(i)-L") //*
-            tempGreen.name = "ls-g-1-\(i)-L" //*
+            let tempGreen = UIImage(named: "ls-g-\(menuNumber)-\(i)-L") != nil ? SKSpriteNode(imageNamed: "ls-g-\(menuNumber)-\(i)-L") : SKSpriteNode(imageNamed: "ls-g-x-\(i)-L")
+            tempGreen.name = UIImage(named: "ls-g-\(menuNumber)-\(i)-L") != nil ? "ls-g-\(menuNumber)-\(i)-L" : "ls-g-x-\(i)-L"
             tempGreen.size = CGSize(width: self.frame.height/2, height: self.frame.width)
             tempGreen.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
             tempGreen.zRotation = CGFloat(-Double.pi/2)
@@ -167,8 +167,8 @@ class LevelMenu: SKScene {
             }
             
             //blue layer
-            let tempBlue = SKSpriteNode(imageNamed: "ls-b-1-\(i)-L") //*
-            tempBlue.name = "ls-b-1-\(i)-L"//*
+            let tempBlue = UIImage(named: "ls-b-\(menuNumber)-\(i)-L") != nil ? SKSpriteNode(imageNamed: "ls-b-\(menuNumber)-\(i)-L") : SKSpriteNode(imageNamed: "ls-b-x-\(i)-L")
+            tempBlue.name = UIImage(named: "ls-b-\(menuNumber)-\(i)-L") != nil ? "ls-b-\(menuNumber)-\(i)-L" : "ls-b-x-\(i)-L"
             tempBlue.size = CGSize(width: self.frame.height/2, height: self.frame.width)
             tempBlue.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
             tempBlue.zRotation = CGFloat(-Double.pi/2)
@@ -225,15 +225,7 @@ class LevelMenu: SKScene {
         
     }
     
-    /*
-     So we've got an issue...
-     Loading all the levels and all the graphics in the game at once is not possible.
-     There is just not enought RAMs.
-     We have to modify the code to smartly load graphics and elements so it can load less.
-     Think about it this way: Once you beat a level you are less likely to play it so it
-     doesn't make sense to load beginner packages once you're at the end.
-     
-     */
+    
     func setUpLevelMenu(){
         for x in 1...numberOfLevels {
             //placeholder levels
@@ -374,12 +366,13 @@ class LevelMenu: SKScene {
     private func setUnlockedGraphics(levelNumber: Int){
         if lockedLevelData[currentLevelNumber] != nil {
             
-            redLayers[levelNumber-1].texture = SKTexture(imageNamed: "ls-r-1-\(levelNumber)-U") //*
-            redLayers[levelNumber-1].name = "ls-r-1-\(levelNumber)-U" //*
-            greenLayers[levelNumber-1].texture = SKTexture(imageNamed: "ls-g-1-\(levelNumber)-U") //*
-            greenLayers[levelNumber-1].name = "ls-g-1-\(levelNumber)-U" //*
-            blueLayers[levelNumber-1].texture = SKTexture(imageNamed: "ls-b-1-\(levelNumber)-U") //*
-            blueLayers[levelNumber-1].name = "ls-b-1-\(levelNumber)-U" //*
+            redLayers[levelNumber-1].texture = UIImage(named: "ls-r-\(menuNumber)-\(levelNumber)-U") != nil ? SKTexture(imageNamed: "ls-r-\(menuNumber)-\(levelNumber)-U") : SKTexture(imageNamed: "ls-r-x-\(levelNumber)-U")
+            redLayers[levelNumber-1].name = UIImage(named: "ls-r-\(menuNumber)-\(levelNumber)-U") != nil ? "ls-r-\(menuNumber)-\(levelNumber)-U" : "ls-r-x-\(levelNumber)-U"
+            greenLayers[levelNumber-1].texture = UIImage(named: "ls-g-\(menuNumber)-\(levelNumber)-U") != nil ? SKTexture(imageNamed: "ls-g-\(menuNumber)-\(levelNumber)-U") : SKTexture(imageNamed: "ls-g-x-\(levelNumber)-U")
+            greenLayers[levelNumber-1].name = UIImage(named: "ls-g-\(menuNumber)-\(levelNumber)-U") != nil ? "ls-g-\(menuNumber)-\(levelNumber)-U" : "ls-g-x-\(levelNumber)-U"
+            blueLayers[levelNumber-1].texture = UIImage(named: "ls-b-\(menuNumber)-\(levelNumber)-U") != nil ? SKTexture(imageNamed: "ls-b-\(menuNumber)-\(levelNumber)-U") : SKTexture(imageNamed: "ls-b-x-\(levelNumber)-U")
+            blueLayers[levelNumber-1].name = UIImage(named: "ls-b-\(menuNumber)-\(levelNumber)-U") != nil ? "ls-b-\(menuNumber)-\(levelNumber)-U" : "ls-b-x-\(levelNumber)-U"
+            
             
         }else{
             //out of range
@@ -390,12 +383,12 @@ class LevelMenu: SKScene {
     private func setNextGraphics(levelNumber: Int){
         if lockedLevelData[currentLevelNumber+1] != nil {
             
-            redLayers[levelNumber-1].texture = SKTexture(imageNamed: "ls-r-1-\(levelNumber)-N") //*
-            redLayers[levelNumber-1].name = "ls-r-1-\(levelNumber)-N" //*
-            greenLayers[levelNumber-1].texture = SKTexture(imageNamed: "ls-g-1-\(levelNumber)-N") //*
-            greenLayers[levelNumber-1].name = "ls-g-1-\(levelNumber)-N" //*
-            blueLayers[levelNumber-1].texture = SKTexture(imageNamed: "ls-b-1-\(levelNumber)-N") //*
-            blueLayers[levelNumber-1].name = "ls-b-1-\(levelNumber)-N" //*
+            redLayers[levelNumber-1].texture = UIImage(named: "ls-r-\(menuNumber)-\(levelNumber)-N") != nil ? SKTexture(imageNamed: "ls-r-\(menuNumber)-\(levelNumber)-N") : SKTexture(imageNamed: "ls-r-x-\(levelNumber)-N")
+            redLayers[levelNumber-1].name = UIImage(named: "ls-r-\(menuNumber)-\(levelNumber)-N") != nil ? "ls-r-\(menuNumber)-\(levelNumber)-N" : "ls-r-x-\(levelNumber)-N"
+            greenLayers[levelNumber-1].texture = UIImage(named: "ls-g-\(menuNumber)-\(levelNumber)-N") != nil ? SKTexture(imageNamed: "ls-g-\(menuNumber)-\(levelNumber)-N") : SKTexture(imageNamed: "ls-g-x-\(levelNumber)-N")
+            greenLayers[levelNumber-1].name = UIImage(named: "ls-g-\(menuNumber)-\(levelNumber)-N") != nil ? "ls-g-\(menuNumber)-\(levelNumber)-N" : "ls-g-x-\(levelNumber)-N"
+            blueLayers[levelNumber-1].texture = UIImage(named: "ls-b-\(menuNumber)-\(levelNumber)-N") != nil ? SKTexture(imageNamed: "ls-b-\(menuNumber)-\(levelNumber)-N") : SKTexture(imageNamed: "ls-b-x-\(levelNumber)-N")
+            blueLayers[levelNumber-1].name = UIImage(named: "ls-b-\(menuNumber)-\(levelNumber)-N") != nil ? "ls-b-\(menuNumber)-\(levelNumber)-N" : "ls-b-x-\(levelNumber)-N"
             
         }else{
             //out of range
@@ -437,10 +430,10 @@ class LevelMenu: SKScene {
     @objc func swipeAction(swipe: UISwipeGestureRecognizer){
         if(isTopScene){
             //print("swipe")
-            if swipe.direction == UISwipeGestureRecognizer.Direction.up {
+            if swipe.direction == UISwipeGestureRecognizer.Direction.down {
                 //move to next level
                 nextLevel()
-            }else if swipe.direction == UISwipeGestureRecognizer.Direction.down {
+            }else if swipe.direction == UISwipeGestureRecognizer.Direction.up {
                 //go back a level
                 previousLevel()
             }else {

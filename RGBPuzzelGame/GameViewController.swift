@@ -31,7 +31,7 @@ class GameViewController: UIViewController {
 //                    print("UserDefaults reset. Please comment out the reset lines and run the code again")
 //                    sleep(5)
 //                }
-        
+//        
         
         //setup background/overflow scene
         if let backgroundView = self.view as? SKView {
@@ -81,15 +81,15 @@ class GameViewController: UIViewController {
             
             menuMenuTemp.level0Menu.previousScene = menuMenuTemp
             
-            let firstLevel = Level()
-            firstLevel.size = self.game_view.frame.size
-            firstLevel.setUp(package: 0, numberInPackage: 1, locked: false, menu: menuMenuTemp.level0Menu)
+//            let firstLevel = Level()
+//            firstLevel.size = self.game_view.frame.size
+//            firstLevel.setUp(package: 0, numberInPackage: 1, locked: false, menu: menuMenuTemp.level0Menu)
             
             sleep(2) //slow down for a couple seconds
             
             if let view = self.game_view {
-                firstLevel.scaleMode = .fill
-                view.presentScene(firstLevel)
+                menuMenuTemp.level0Menu.scaleMode = .fill
+                view.presentScene(menuMenuTemp.level0Menu)
                 view.ignoresSiblingOrder = true
                 view.showsFPS = false
                 view.showsNodeCount = false

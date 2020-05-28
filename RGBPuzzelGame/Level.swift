@@ -489,7 +489,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         let end = SKSpriteNode(imageNamed: "end")
         end.size = CGSize(width: 45, height: 45)
         
-        end.physicsBody = SKPhysicsBody(circleOfRadius: 22.5)
+        end.physicsBody = SKPhysicsBody(circleOfRadius: 22)
         end.name = "end"
         
         
