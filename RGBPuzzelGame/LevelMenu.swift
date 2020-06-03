@@ -26,6 +26,8 @@ class LevelMenu: SKScene {
     var lockedLevelData : [Int : Bool] = [:]
     
     var currentLevel = Level()
+//    var secondaryLevel = Level()
+//    var tertiaryLevel = Level()
     var currentLevelNumber = 1
     
     var numbers : [SKNode] = [] //useless (but use positioning for layers)
@@ -442,14 +444,25 @@ class LevelMenu: SKScene {
         }
     }
     
+    func bounceLeft(){
+        pointer.run(SKAction.sequence([SKAction.playSoundFileNamed("bounceSound.mp3", waitForCompletion: false), SKAction.moveBy(x: 0, y: 50, duration: 0.175), SKAction.moveBy(x: 0, y: -50, duration: 0.175)]))
+    }
+    
+    func bounceRight(){
+        pointer.run(SKAction.sequence([SKAction.playSoundFileNamed("bounceSound.mp3", waitForCompletion: false), SKAction.moveBy(x: 0, y: -50, duration: 0.175), SKAction.moveBy(x: 0, y: 50, duration: 0.175)]))
+    }
+    
+    
     func nextLevel(){
         if currentLevelNumber == lockedLevelData.count { // last level
             //dont move
             print("last level")
+            bounceRight()
         }else{
             if lockedLevelData[currentLevelNumber+1] == false { //next level locked
                 //dont move
                 print("level locked")
+                bounceRight()
             }else{
                 if playerLeft == false { //aka player right
                     //even
@@ -498,6 +511,7 @@ class LevelMenu: SKScene {
     func previousLevel(){
         if currentLevelNumber == 1 { //last level
             print("first level")
+            bounceLeft()
         }else{
             if playerLeft == false { //aka player right
                 //just move ball back one
@@ -571,11 +585,13 @@ class LevelMenu: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         isTopScene = false
         
-        currentLevel = self.setUpLevel(levelNum: self.currentLevelNumber)
-        
-        if let view = self.view as SKView? {
-            view.presentScene(currentLevel)
-        }
+        run(SKAction.sequence([SKAction.playSoundFileNamed("levelStart.mp3", waitForCompletion: true), SKAction.run {
+            self.currentLevel = self.setUpLevel(levelNum: self.currentLevelNumber)
+            
+            if let view = self.view as SKView? {
+                view.presentScene(self.currentLevel)
+            }
+        }]))
     }
     
     
