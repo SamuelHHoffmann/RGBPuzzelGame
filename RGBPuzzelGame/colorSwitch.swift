@@ -143,18 +143,22 @@ class colorSwitch: SKNode {
             }
         }else if(color == COLOR.GREEN){
             if green == .ON {
-                greenSwitchOverlay.position = CGPoint(x: greenSwitchBackground.position.x, y: greenSwitchBackground.position.y+greenSwitchOverlay.frame.width/2-offset)
+                let slide = SKAction.move(to: CGPoint(x: greenSwitchBackground.position.x, y: greenSwitchBackground.position.y+greenSwitchOverlay.frame.width/2-offset), duration: 0.025)
+                greenSwitchOverlay.run(slide)
                 green = .OFF
             }else{
-                greenSwitchOverlay.position = CGPoint(x: greenSwitchBackground.position.x, y: greenSwitchBackground.position.y+origin)
+                let slide_back = SKAction.move(to: CGPoint(x: greenSwitchBackground.position.x, y: greenSwitchBackground.position.y+origin), duration: 0.025)
+                greenSwitchOverlay.run(slide_back)
                 green = .ON
             }
         }else if(color == COLOR.BLUE){
             if blue == .ON {
-                blueSwitchOverlay.position = CGPoint(x: blueSwitchBackground.position.x, y: blueSwitchBackground.position.y+blueSwitchOverlay.frame.width/2-offset)
+                let slide = SKAction.move(to: CGPoint(x: blueSwitchBackground.position.x, y: blueSwitchBackground.position.y+blueSwitchOverlay.frame.width/2-offset), duration: 0.025)
+                blueSwitchOverlay.run(slide)
                 blue = .OFF
             }else{
-                blueSwitchOverlay.position = CGPoint(x: blueSwitchBackground.position.x, y: blueSwitchBackground.position.y+origin)
+                let slide_back = SKAction.move(to: CGPoint(x: blueSwitchBackground.position.x, y: blueSwitchBackground.position.y+origin), duration: 0.025)
+                blueSwitchOverlay.run(slide_back)
                 blue = .ON
             }
         }else{

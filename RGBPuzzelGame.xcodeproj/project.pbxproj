@@ -25,6 +25,7 @@
 		907D5E6223D0D91900C5E307 /* secondaryClick.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 907D5E6123D0D91900C5E307 /* secondaryClick.m4a */; };
 		9082DFB023006D0B00CB15E0 /* RGBAScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082DFAF23006D0B00CB15E0 /* RGBAScene.swift */; };
 		90A3867423424EA50082704A /* MenuMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A3867323424EA50082704A /* MenuMenu.swift */; };
+		90A51079248ECA1B006A30DF /* settingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A51078248ECA1B006A30DF /* settingsButton.swift */; };
 		90A74A1E229DCE2000AC302E /* welcomeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A74A1D229DCE2000AC302E /* welcomeMenu.swift */; };
 		90A7A9652314331600900A84 /* RGBALevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A7A9642314331600900A84 /* RGBALevel.swift */; };
 		90ABED4C20DAFDDC00F00422 /* LevelMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90ABED4B20DAFDDC00F00422 /* LevelMenu.swift */; };
@@ -54,6 +55,7 @@
 		907D5E6123D0D91900C5E307 /* secondaryClick.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = secondaryClick.m4a; sourceTree = "<group>"; };
 		9082DFAF23006D0B00CB15E0 /* RGBAScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBAScene.swift; sourceTree = "<group>"; };
 		90A3867323424EA50082704A /* MenuMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuMenu.swift; sourceTree = "<group>"; };
+		90A51078248ECA1B006A30DF /* settingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsButton.swift; sourceTree = "<group>"; };
 		90A74A1D229DCE2000AC302E /* welcomeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = welcomeMenu.swift; sourceTree = "<group>"; };
 		90A7A9642314331600900A84 /* RGBALevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBALevel.swift; sourceTree = "<group>"; };
 		90ABED4B20DAFDDC00F00422 /* LevelMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelMenu.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				9003505E22985FC4003A7344 /* colorSwitch.swift */,
 				90510A7B23B164590027FC6C /* LevelThumbnail.swift */,
 				9019CBF923B3BB6D00353D31 /* backButton.swift */,
+				90A51078248ECA1B006A30DF /* settingsButton.swift */,
 				902B5B9223B52E0D00ED6070 /* Audio */,
 				9082DFAF23006D0B00CB15E0 /* RGBAScene.swift */,
 				90A7A9642314331600900A84 /* RGBALevel.swift */,
@@ -214,6 +217,7 @@
 				905C3EBA20B76024001BCBE9 /* Level.swift in Sources */,
 				905C3EA020B70456001BCBE9 /* AppDelegate.swift in Sources */,
 				9082DFB023006D0B00CB15E0 /* RGBAScene.swift in Sources */,
+				90A51079248ECA1B006A30DF /* settingsButton.swift in Sources */,
 				90A74A1E229DCE2000AC302E /* welcomeMenu.swift in Sources */,
 				90E8338123D1364100C7B380 /* TestingViewController.swift in Sources */,
 				9000BD9A22FB21570010DCAA /* settings.swift in Sources */,
@@ -368,6 +372,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = USZ9T5YBZQ;
 				INFOPLIST_FILE = RGBPuzzelGame/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -375,7 +380,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.6;
+				MARKETING_VERSION = 0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SamuelHoffmann.IOSDev.RGBA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -391,6 +396,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = USZ9T5YBZQ;
 				INFOPLIST_FILE = RGBPuzzelGame/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -398,7 +404,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.6;
+				MARKETING_VERSION = 0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SamuelHoffmann.IOSDev.RGBA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

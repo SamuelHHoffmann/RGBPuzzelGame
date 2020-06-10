@@ -441,11 +441,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         hideSettingsMenu()
         
         
-        settingsScene = Settings()
-        settingsScene.size = self.size
-        settingsScene.setUpSettings()
-        settingsScene.previousScene = self
-        settingsScene.previousSceneType = SceneType.Level
+        settingsScene = Standards.settingsScene
+        
     }
     
     func setUpStartAndEnd(){
@@ -790,16 +787,17 @@ class Level: SKScene, SKPhysicsContactDelegate {
     
     func showSettingsMenu(){
         //pause scene so ball doesnt move
+        settingsScene.previousScene = self
+        settingsScene.previousSceneType = SceneType.Level
         
         settingsShown = true
         
-        settingsOverlay.run(SKAction.sequence([SKAction.moveTo(x: (self.frame.midX), duration: 0.75), SKAction.run {
-                if let view = self.view as SKView? {
-                    view.presentScene(self.settingsScene)
-                }
-            }, SKAction.run {
+        settingsOverlay.run(SKAction.sequence([SKAction.run {
                 self.comingBackFromSettings = true
-                self.isPaused = true
+                
+                if let view = self.view as SKView? {
+                    view.presentScene(self.settingsScene, transition: SKTransition.fade(with: UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1), duration: 0.75))
+                }
             }]))
         
     }

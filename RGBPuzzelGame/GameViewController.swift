@@ -53,8 +53,9 @@ class GameViewController: UIViewController {
         }
         
         
-        
-        
+        //Setup Standards.swift
+        Standards.settingsScene.size = self.game_view.frame.size
+        Standards.settingsScene.setUpSettings()
 
         //show user their first scene
         if UserDefaults.standard.bool(forKey: "isNotFirstTime") == true {

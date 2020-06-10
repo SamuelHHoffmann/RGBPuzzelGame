@@ -106,12 +106,12 @@ class MenuMenu: SKScene {
         
         
         level0Menu.size = self.size
-        level0Menu.initializeMenu(NumberOfLevels: 4, Restricted: true, MenuNumber: 0)
+        level0Menu.initializeMenu(NumberOfLevels: (Standards.levelCountPerPackage[0] ?? 0), Restricted: true, MenuNumber: 0)
         level0Menu.scaleMode = .fill
         
         //TODO: factor out to standards file
         level1Menu.size = self.size
-        level1Menu.initializeMenu(NumberOfLevels: 6, Restricted: true, MenuNumber: 1)
+        level1Menu.initializeMenu(NumberOfLevels: (Standards.levelCountPerPackage[1] ?? 0), Restricted: true, MenuNumber: 1)
         level1Menu.scaleMode = .fill
         
         

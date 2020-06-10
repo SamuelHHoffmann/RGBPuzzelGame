@@ -13,10 +13,17 @@ import SpriteKit
 class Standards{
     
     //Music and Sounds//
+    static var musicOn = true
+    static var soundFXON = true
     static let music = ["RGBA music - synth background.m4a", "background music piano,guitar.m4a"]
     
     
     //Level Data//
+    static let levelCountPerPackage = [0 : 4,
+                                       1 : 6,
+                                       2 : 0,
+                                       3 : 0]
+    
     static let startPositions = ["0,1" : CGPoint(x: 290, y: -50),
                                 "0,2" : CGPoint(x: 290, y: -50),
                                 "0,3" : CGPoint(x: 290, y: -50),
@@ -24,7 +31,9 @@ class Standards{
                                 "1,1" : CGPoint(x: 300, y: -35),
                                 "1,2" : CGPoint(x: 300, y: -35),
                                 "1,3" : CGPoint(x: 300, y: -35),
-                                "1,4" : CGPoint(x: 300, y: -35)]
+                                "1,4" : CGPoint(x: 300, y: -35),
+                                "1,5" : CGPoint(x: 300, y: -35),
+                                "1,6" : CGPoint(x: 300, y: -35)]
     
     static let endPositions = ["0,1" : CGPoint(x: -290, y: -50),
                                "0,2" : CGPoint(x: -290, y: -50),
@@ -33,7 +42,11 @@ class Standards{
                                "1,1" : CGPoint(x: -290, y: -35),
                                "1,2" : CGPoint(x: -290, y: -35),
                                "1,3" : CGPoint(x: -290, y: -35),
-                               "1,4" : CGPoint(x: -290, y: -35)]
+                               "1,4" : CGPoint(x: -290, y: -35),
+                               "1,5" : CGPoint(x: -290, y: -35),
+                               "1,6" : CGPoint(x: -290, y: -35)]
+    
+    
     
     
     
@@ -45,7 +58,7 @@ class Standards{
     //Background SKScene//
     static var backgroundSKScene = SKScene()
     
-    
+    static let settingsScene = Settings()
     
     
     //DEBUG TOOLS//

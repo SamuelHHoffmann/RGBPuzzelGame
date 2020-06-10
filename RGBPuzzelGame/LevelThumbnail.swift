@@ -14,7 +14,7 @@ import UIKit
 
 class levelThumbnail: SKNode { 
 
-    let totalPerLevel = [0 : 4, 1 : 4, 2 : 0, 3 : 0]
+    let totalPerLevel = Standards.levelCountPerPackage
     
     private var backgroundImage = SKSpriteNode()
     private var completePercentOverlay = SKShapeNode()
