@@ -86,16 +86,23 @@ class Settings: RGBAScene {
     }
 
     func toggleMusic(){
-        
         let state = self.musicButton.flip()
-        if state == .ON { }
-        
+        if state == .ON {
+            Standards.musicOn = true
+            Standards.backgroundSKScene.run(SKAction.repeatForever(SKAction.playSoundFileNamed(Standards.music[Int.random(in: 0...Standards.music.count-1)], waitForCompletion: true)), withKey: "music")
+        }else{
+            Standards.backgroundSKScene.removeAction(forKey: "music")
+            Standards.musicOn = false
+        }
     }
     
     func toggleFX(){
-        
         let state = self.fxButton.flip()
-        
+        if state == .ON {
+            Standards.soundFXON = true
+        }else{
+            Standards.soundFXON = false
+        }
     }
     
     

@@ -36,20 +36,16 @@ class GameViewController: UIViewController {
         //setup background/overflow scene
         if let backgroundView = self.view as? SKView {
             
-            let tempScene = SKScene(size: self.view.frame.size)
-            tempScene.backgroundColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
-            tempScene.scaleMode = .fill
+            Standards.backgroundSKScene = SKScene(size: self.view.frame.size)
+            Standards.backgroundSKScene.backgroundColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
+            Standards.backgroundSKScene.scaleMode = .fill
+            
             
             //generate background music
-            var musicSeq = [SKAction.run{}]
-            for _ in 0...20{
-                musicSeq.append(SKAction.playSoundFileNamed(Standards.music[Int.random(in: 0...Standards.music.count-1)], waitForCompletion: true))
-            }
-            tempScene.run(SKAction.sequence(musicSeq))
+            Standards.backgroundSKScene.run(SKAction.repeatForever(SKAction.playSoundFileNamed(Standards.music[Int.random(in: 0...Standards.music.count-1)], waitForCompletion: true)), withKey: "music")
             
             
-            Standards.backgroundSKScene = tempScene
-            backgroundView.presentScene(tempScene)
+            backgroundView.presentScene(Standards.backgroundSKScene)
         }
         
         
