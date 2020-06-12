@@ -33,6 +33,8 @@ class GameViewController: UIViewController {
 //                }
 //        
         
+        Standards.load()
+        
         //setup background/overflow scene
         if let backgroundView = self.view as? SKView {
             
@@ -42,7 +44,14 @@ class GameViewController: UIViewController {
             
             
             //generate background music
-            Standards.backgroundSKScene.run(SKAction.repeatForever(SKAction.playSoundFileNamed(Standards.music[Int.random(in: 0...Standards.music.count-1)], waitForCompletion: true)), withKey: "music")
+            if Standards.musicOn{
+                Standards.backgroundSKScene.run(SKAction.repeatForever(SKAction.playSoundFileNamed(Standards.music[Int.random(in: 0...Standards.music.count-1)], waitForCompletion: true)), withKey: "music")
+            }
+//            Standards.backgroundSKScene.run(SKAction.repeatForever(SKAction.run {
+//                if Standards.backgroundSKScene.action(forKey: "music") == nil && Standards.musicOn{
+//                    Standards.backgroundSKScene.run(SKAction.playSoundFileNamed(Standards.music[Int.random(in: 0...Standards.music.count-1)], waitForCompletion: false), withKey: "music")
+//                }
+//            }))
             
             
             backgroundView.presentScene(Standards.backgroundSKScene)

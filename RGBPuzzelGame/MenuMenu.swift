@@ -220,9 +220,10 @@ class MenuMenu: SKScene {
 
 
     private func playClickSound(){
-
-        run(SKAction.playSoundFileNamed("secondaryClick.m4a", waitForCompletion: true))
         
+        if Standards.soundFXON {
+            run(SKAction.playSoundFileNamed("secondaryClick.m4a", waitForCompletion: true))
+        }
     }
     
 

@@ -37,16 +37,16 @@ class Settings: RGBAScene {
         back.zRotation = CGFloat(-1*(Double.pi/2))
         self.addChild(back)
         
-        let fxState = UserDefaults.standard.bool(forKey: "Saved_Data_Record:SoundFX")
-        if fxState == true{fxButton.turnOff()}
+        let fxState = Standards.soundFXON
+        if fxState == false{fxButton.turnOff()}
         self.fxButton.zPosition = 3
         self.fxButton.setScale(0.35)
         self.fxButton.zRotation = CGFloat(-1*(Double.pi/2))
         self.fxButton.position = CGPoint(x: self.frame.midX - (self.frame.maxX/4), y: self.frame.midY + (self.frame.maxY/4))
         self.addChild(self.fxButton)
         
-        let musicState = UserDefaults.standard.bool(forKey: "Saved_Data_Record:Music")
-        if musicState == true{musicButton.turnOff()}
+        let musicState = Standards.musicOn
+        if musicState == false{musicButton.turnOff()}
         self.musicButton.zPosition = 3
         self.musicButton.setScale(0.35)
         self.musicButton.zRotation = CGFloat(-1*(Double.pi/2))
@@ -89,7 +89,15 @@ class Settings: RGBAScene {
         let state = self.musicButton.flip()
         if state == .ON {
             Standards.musicOn = true
-            Standards.backgroundSKScene.run(SKAction.repeatForever(SKAction.playSoundFileNamed(Standards.music[Int.random(in: 0...Standards.music.count-1)], waitForCompletion: true)), withKey: "music")
+            if Standards.backgroundSKScene.action(forKey: "music") == nil{
+                Standards.backgroundSKScene.run(SKAction.repeatForever(SKAction.playSoundFileNamed(Standards.music[Int.random(in: 0...Standards.music.count-1)], waitForCompletion: true)), withKey: "music")
+            }
+            
+//            Standards.backgroundSKScene.run(SKAction.repeatForever(SKAction.run {
+//                if Standards.backgroundSKScene.action(forKey: "music") == nil && Standards.musicOn{
+//                    Standards.backgroundSKScene.run(SKAction.playSoundFileNamed(Standards.music[Int.random(in: 0...Standards.music.count-1)], waitForCompletion: false), withKey: "music")
+//                }
+//            }))
         }else{
             Standards.backgroundSKScene.removeAction(forKey: "music")
             Standards.musicOn = false

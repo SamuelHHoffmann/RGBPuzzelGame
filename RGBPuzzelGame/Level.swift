@@ -94,8 +94,10 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         self.locked = locked
         
-        if self.setup {
+        if !self.setup {
             self.removeAllChildren()
+        }else{
+            return
         }
         
         if UIImage(named: "\(package),\(numberInPackage)Background") != nil{ //check if background art exists
@@ -874,14 +876,16 @@ class Level: SKScene, SKPhysicsContactDelegate {
     
     private func playSwitchSound(){
 
-        run(SKAction.playSoundFileNamed("switch.mp3", waitForCompletion: false))
-        
+        if Standards.soundFXON {
+            run(SKAction.playSoundFileNamed("switch.mp3", waitForCompletion: false))
+        }
     }
     
     private func playSquishedSound(){
-
-        run(SKAction.playSoundFileNamed("squished.mp3", waitForCompletion: true))
         
+        if Standards.soundFXON {
+            run(SKAction.playSoundFileNamed("squished.mp3", waitForCompletion: true))
+        }
     }
     
     func toggleRedLayer(checkForCollision: Bool){ //could be abstracted with the blue and green similar functions below

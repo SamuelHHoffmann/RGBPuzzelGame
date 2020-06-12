@@ -67,12 +67,22 @@ class Standards{
     
     
     
-    func update(){
+    static func update(){
         
         
     }
     
-    func save(){
+    static func load(){
+        
+        soundFXON = !UserDefaults.standard.bool(forKey: "Saved_Data_Record:SoundFX")
+        musicOn = !UserDefaults.standard.bool(forKey: "Saved_Data_Record:Music")
+        
+    }
+    
+    static func save(){
+        
+        UserDefaults.standard.set(!soundFXON, forKey: "Saved_Data_Record:SoundFX")
+        UserDefaults.standard.set(!musicOn, forKey: "Saved_Data_Record:Music")
         
     }
     

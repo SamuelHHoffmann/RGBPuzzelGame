@@ -54,7 +54,6 @@ class LevelMenu: SKScene {
         
         
         
-        
         menuNumber = MenuNumber
         restricted = Restricted
         numberOfLevels = NumberOfLevels
@@ -254,7 +253,7 @@ class LevelMenu: SKScene {
     }
     
     
-    private func setUpLevel(levelNum: Int) -> Level{
+    func setUpLevel(levelNum: Int) -> Level{
      
         let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
         
@@ -434,9 +433,11 @@ class LevelMenu: SKScene {
             //print("swipe")
             if swipe.direction == UISwipeGestureRecognizer.Direction.down {
                 //move to next level
+                self.currentLevel.setup = false
                 nextLevel()
             }else if swipe.direction == UISwipeGestureRecognizer.Direction.up {
                 //go back a level
+                self.currentLevel.setup = false
                 previousLevel()
             }else {
                 //impossible
@@ -445,11 +446,17 @@ class LevelMenu: SKScene {
     }
     
     func bounceLeft(){
-        pointer.run(SKAction.sequence([SKAction.playSoundFileNamed("bounceSound.mp3", waitForCompletion: false), SKAction.moveBy(x: 0, y: 50, duration: 0.175), SKAction.moveBy(x: 0, y: -50, duration: 0.175)]))
+        if Standards.soundFXON {
+            pointer.run(SKAction.playSoundFileNamed("bounceSound.mp3", waitForCompletion: false))
+        }
+        pointer.run(SKAction.sequence([SKAction.moveBy(x: 0, y: 50, duration: 0.175), SKAction.moveBy(x: 0, y: -50, duration: 0.175)]))
     }
     
     func bounceRight(){
-        pointer.run(SKAction.sequence([SKAction.playSoundFileNamed("bounceSound.mp3", waitForCompletion: false), SKAction.moveBy(x: 0, y: -50, duration: 0.175), SKAction.moveBy(x: 0, y: 50, duration: 0.175)]))
+        if Standards.soundFXON {
+            pointer.run(SKAction.playSoundFileNamed("bounceSound.mp3", waitForCompletion: false))
+        }
+        pointer.run(SKAction.sequence([SKAction.moveBy(x: 0, y: -50, duration: 0.175), SKAction.moveBy(x: 0, y: 50, duration: 0.175)]))
     }
     
     
@@ -584,17 +591,35 @@ class LevelMenu: SKScene {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         isTopScene = false
+        let loadTransitionScene = LevelLoadingScene()
+        loadTransitionScene.size = self.size
+        loadTransitionScene.setUp()
         
-        run(SKAction.sequence([SKAction.playSoundFileNamed("levelStart.mp3", waitForCompletion: true), SKAction.run {
-            self.currentLevel = self.setUpLevel(levelNum: self.currentLevelNumber)
+        run(SKAction.group([
+            Standards.soundFXON ? SKAction.playSoundFileNamed("levelStart.mp3", waitForCompletion: false) : SKAction.run {},
+//            SKAction.run {
+//                self.loadTransitionScene.nextScene = self.currentLevel
+//                self.currentLevel = self.setUpLevel(levelNum: self.currentLevelNumber)
+//            },
+            SKAction.run {
+                loadTransitionScene.nextScene = self.currentLevel
+                loadTransitionScene.previousScene = self
+//                self.currentLevel = self.setUpLevel(levelNum: self.currentLevelNumber)
             
-            if let view = self.view as SKView? {
-                view.presentScene(self.currentLevel)
+                if let view = self.view as SKView? {
+                    let transition = SKTransition.push(with: .right, duration: 0.65)
+//                    transition.pausesIncomingScene = true
+                    view.presentScene(loadTransitionScene, transition: transition)
+                    //push(with: .right, duration: 0.55)
+                }
+                
             }
-        }]))
+        ]))
     }
     
-    
+    override func willMove(from view: SKView) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Transition Complete:From:LevelMenu"), object: nil)
+    }
     
     
     override func update(_ currentTime: TimeInterval) {

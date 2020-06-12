@@ -589,7 +589,9 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
     
     private func playSwitchSound(){
 
-        run(SKAction.playSoundFileNamed("switch.mp3", waitForCompletion: false))
+        if Standards.soundFXON{
+            run(SKAction.playSoundFileNamed("switch.mp3", waitForCompletion: false))    
+        }
         
     }
     
