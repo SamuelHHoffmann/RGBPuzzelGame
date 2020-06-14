@@ -18,6 +18,9 @@ class LevelLoadingScene: RGBAScene {
     func setUp(){
         super.setUp(redLayerStr: "settingsRed", greenLayerStr: "settingsGreen", blueLayerStr: "settingsBlue", physics: false)
         super.cs.alpha = 0
+        super.redButton.removeFromParent()
+        super.greenButton.removeFromParent()
+        super.blueButton.removeFromParent()
         
         self.type = .none
         

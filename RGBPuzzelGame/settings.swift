@@ -9,18 +9,16 @@
 import Foundation
 import SpriteKit
 import GameplayKit
-
-
-
+import AVFoundation
 
 class Settings: RGBAScene {
 
     var previousScene = SKScene()
     var previousSceneType = SceneType.none
     
-    var back = backButton()
-    var fxButton = SettingsButton(name: "Sound FX", initState: .ON)
-    var musicButton = SettingsButton(name: "Music", initState: .ON)
+    var backButton = BackButton()
+    var fxButton = SettingsSwitch(name: "Sound FX", initState: .ON)
+    var musicButton = SettingsSwitch(name: "Music", initState: .ON)
     
     
     func setUpSettings(){
@@ -33,9 +31,9 @@ class Settings: RGBAScene {
     
     private func setUpSettingsButtons(){
         
-        back.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY+(self.frame.height/2)-(self.frame.height/16))
-        back.zRotation = CGFloat(-1*(Double.pi/2))
-        self.addChild(back)
+        backButton.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY+(self.frame.height/2)-(self.frame.height/16))
+        backButton.zRotation = CGFloat(-1*(Double.pi/2))
+        self.addChild(backButton)
         
         let fxState = Standards.soundFXON
         if fxState == false{fxButton.turnOff()}
@@ -89,17 +87,10 @@ class Settings: RGBAScene {
         let state = self.musicButton.flip()
         if state == .ON {
             Standards.musicOn = true
-            if Standards.backgroundSKScene.action(forKey: "music") == nil{
-                Standards.backgroundSKScene.run(SKAction.repeatForever(SKAction.playSoundFileNamed(Standards.music[Int.random(in: 0...Standards.music.count-1)], waitForCompletion: true)), withKey: "music")
-            }
+            MusicPlayer.play(continuous: true)
             
-//            Standards.backgroundSKScene.run(SKAction.repeatForever(SKAction.run {
-//                if Standards.backgroundSKScene.action(forKey: "music") == nil && Standards.musicOn{
-//                    Standards.backgroundSKScene.run(SKAction.playSoundFileNamed(Standards.music[Int.random(in: 0...Standards.music.count-1)], waitForCompletion: false), withKey: "music")
-//                }
-//            }))
         }else{
-            Standards.backgroundSKScene.removeAction(forKey: "music")
+            MusicPlayer.stop()
             Standards.musicOn = false
         }
     }
@@ -118,7 +109,7 @@ class Settings: RGBAScene {
         
         for node in nodes(at: (touches.first?.location(in: self))!) {
             
-            if node == self.back {
+            if node == self.backButton {
                 
                 goBack()
                 

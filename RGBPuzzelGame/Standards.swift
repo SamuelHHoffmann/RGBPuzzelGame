@@ -15,7 +15,6 @@ class Standards{
     //Music and Sounds//
     static var musicOn = true
     static var soundFXON = true
-    static let music = ["RGBA music - synth background.m4a", "background music piano,guitar.m4a"]
     
     
     //Level Data//

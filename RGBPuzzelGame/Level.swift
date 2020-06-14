@@ -33,16 +33,11 @@ class Level: SKScene, SKPhysicsContactDelegate {
     var greenButton = SKShapeNode()
     var blueButton = SKShapeNode()
     
-    var backButton_img = SKSpriteNode()
-    var backButton = SKShapeNode()
+    var backButton = BackButton()
+    var settingsButton = SettingsButton()
     
-    var settingsButton_img = SKSpriteNode()
-    var settingsButton = SKShapeNode()
-    
-    var settingsOverlay = SKShapeNode()
-    var settingsShown = true
     var comingBackFromSettings = false
-    
+    var settingsScene = Settings()
     
     var packageNumber = 0
     var levelNumber = 0
@@ -57,7 +52,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
     
     
     var menu = SKScene()
-    var settingsScene = Settings()
+    
     
     
     
@@ -401,47 +396,13 @@ class Level: SKScene, SKPhysicsContactDelegate {
         self.addChild(blueButton)
         
         
-        
-        backButton_img = SKSpriteNode(imageNamed: "back button")
-        backButton_img.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY+(self.frame.height/2)-(self.frame.height/16))
-        backButton_img.zPosition = 4
-        backButton_img.zRotation = CGFloat(-1*(Double.pi/2))
-        backButton_img.setScale(0.35)
-        self.addChild(backButton_img)
-        
-        backButton = SKShapeNode(rectOf: CGSize(width: (backButton_img.frame.width)*2, height: (backButton_img.frame.height)*2))
-        backButton.fillColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.001)
-        backButton.position = backButton_img.position
-        backButton.strokeColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 0.001)
-        backButton.zPosition = 5
+        backButton.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY+(self.frame.height/2)-(self.frame.height/16))
+        backButton.zRotation = CGFloat(-1*(Double.pi/2))
         self.addChild(backButton)
         
-        
-        
-        settingsButton_img = SKSpriteNode(imageNamed: "settingsGear")
-        settingsButton_img.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY-(self.frame.height/2)+(self.frame.height/16))
-        settingsButton_img.zPosition = 4
-        settingsButton_img.zRotation = CGFloat(-1*(Double.pi/2))
-        settingsButton_img.setScale(0.35)
-        self.addChild(settingsButton_img)
-        
-        settingsButton = SKShapeNode(rectOf: CGSize(width: (settingsButton_img.frame.width)*2, height: (settingsButton_img.frame.height)*2))
-        settingsButton.fillColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.001)
-        settingsButton.position = settingsButton_img.position
-        settingsButton.strokeColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 0.001)
-        settingsButton.zPosition = 5
+        settingsButton.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY-(self.frame.height/2)+(self.frame.height/16))
+        settingsButton.zRotation = CGFloat(-1*(Double.pi/2))
         self.addChild(settingsButton)
-        
-        //settings overlay
-        
-        settingsOverlay = SKShapeNode(rectOf: size)
-        settingsOverlay.fillColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
-        settingsOverlay.strokeColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
-        settingsOverlay.zPosition = 3.5
-        settingsOverlay.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        self.addChild(settingsOverlay)
-        hideSettingsMenu()
-        
         
         settingsScene = Standards.settingsScene
         
@@ -623,7 +584,6 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         if(comingBackFromSettings){
             comingBackFromSettings = false
-            hideSettingsMenu()
         }else{
             
             self.physicsWorld.contactDelegate = self
@@ -695,10 +655,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
     
     func resetLevel(){
         //notes: reseting is a little jaring and fast. Maybe add an artificial delay to make things seem slower
-        
-        if(settingsShown == true){
-            hideSettingsMenu()
-        }
+    
         
         cs.reset()
         
@@ -792,22 +749,11 @@ class Level: SKScene, SKPhysicsContactDelegate {
         settingsScene.previousScene = self
         settingsScene.previousSceneType = SceneType.Level
         
-        settingsShown = true
+        self.comingBackFromSettings = true
         
-        settingsOverlay.run(SKAction.sequence([SKAction.run {
-                self.comingBackFromSettings = true
-                
-                if let view = self.view as SKView? {
-                    view.presentScene(self.settingsScene, transition: SKTransition.fade(with: UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1), duration: 0.75))
-                }
-            }]))
-        
-    }
-    
-    func hideSettingsMenu(){
-        
-        settingsOverlay.run(SKAction.moveTo(x: -(self.frame.midX), duration: 0))
-        settingsShown = false
+        if let view = self.view as SKView? {
+            view.presentScene(self.settingsScene, transition: SKTransition.fade(with: UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1), duration: 0.75))
+        }
         
     }
     

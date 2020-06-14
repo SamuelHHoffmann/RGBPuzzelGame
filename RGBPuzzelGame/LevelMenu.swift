@@ -32,22 +32,21 @@ class LevelMenu: SKScene {
     
     var numbers : [SKNode] = [] //useless (but use positioning for layers)
     
-    
     var redLayers : [SKSpriteNode] = []
     var greenLayers : [SKSpriteNode] = []
     var blueLayers : [SKSpriteNode] = []
     
-    
     private var playerLeft = true
-    
     
     var pointer = SKSpriteNode()
     
     var isTopScene = false
     
-    var back = backButton()
+    var backButton = BackButton()
     
-    
+    var settingsButton = SettingsButton()
+    var comingBackFromSettings = false
+    var settingsScene = Settings()
     
     
     func initializeMenu(NumberOfLevels: Int, Restricted: Bool, MenuNumber: Int){
@@ -76,9 +75,15 @@ class LevelMenu: SKScene {
         cs.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY)
         //dont actually add, just use for back button spacing// self.addChild(cs)
         
-        back.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY+(self.frame.height/2)-(self.frame.height/16))
-        back.zRotation = CGFloat(-1*(Double.pi/2))
-        self.addChild(back)
+        backButton.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY+(self.frame.height/2)-(self.frame.height/16))
+        backButton.zRotation = CGFloat(-1*(Double.pi/2))
+        self.addChild(backButton)
+        
+        settingsButton.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY-(self.frame.height/2)+(self.frame.height/16))
+        settingsButton.zRotation = CGFloat(-1*(Double.pi/2))
+        self.addChild(settingsButton)
+        
+        settingsScene = Standards.settingsScene
     }
     
     func setUpSecondaryGraphics(){
@@ -413,18 +418,15 @@ class LevelMenu: SKScene {
         //first responder for negating swipes
         isTopScene = true
         
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction(swipe:)))
-        leftSwipe.direction = UISwipeGestureRecognizer.Direction.up
-        self.view?.addGestureRecognizer(leftSwipe)
-        
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction(swipe:)))
-        rightSwipe.direction = UISwipeGestureRecognizer.Direction.down
-        self.view?.addGestureRecognizer(rightSwipe)
-        
-        
-        //load levels
-        
-        
+        if !comingBackFromSettings {
+            let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction(swipe:)))
+            leftSwipe.direction = UISwipeGestureRecognizer.Direction.up
+            self.view?.addGestureRecognizer(leftSwipe)
+            
+            let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction(swipe:)))
+            rightSwipe.direction = UISwipeGestureRecognizer.Direction.down
+            self.view?.addGestureRecognizer(rightSwipe)
+        }
     }
     
     
@@ -568,7 +570,7 @@ class LevelMenu: SKScene {
         
         for node in nodes(at: (touches.first?.location(in: self))!) {
 
-            if node == back {
+            if node == backButton {
 
                 
                 let menuCasted = previousScene as! MenuMenu
@@ -577,6 +579,17 @@ class LevelMenu: SKScene {
                     menuCasted.size = self.size
                     view.presentScene(menuCasted)
                     
+                }
+                
+            }else if node == settingsButton{
+                
+                settingsScene.previousScene = self
+                settingsScene.previousSceneType = SceneType.LevelSelect
+                
+                self.comingBackFromSettings = true
+                
+                if let view = self.view as SKView? {
+                    view.presentScene(self.settingsScene, transition: SKTransition.fade(with: UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1), duration: 0.75))
                 }
                 
             }

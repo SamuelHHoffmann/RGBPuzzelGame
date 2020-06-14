@@ -42,10 +42,11 @@ class GameViewController: UIViewController {
             Standards.backgroundSKScene.backgroundColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
             Standards.backgroundSKScene.scaleMode = .fill
             
+            MusicPlayer.setUp()
             
             //generate background music
             if Standards.musicOn{
-                Standards.backgroundSKScene.run(SKAction.repeatForever(SKAction.playSoundFileNamed(Standards.music[Int.random(in: 0...Standards.music.count-1)], waitForCompletion: true)), withKey: "music")
+                MusicPlayer.play(continuous: true)
             }
 //            Standards.backgroundSKScene.run(SKAction.repeatForever(SKAction.run {
 //                if Standards.backgroundSKScene.action(forKey: "music") == nil && Standards.musicOn{

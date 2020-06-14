@@ -10,17 +10,20 @@ import Foundation
 import SpriteKit
 import UIKit
 
-class backButton: SKNode {
+class BackButton: SKNode {
+    
+    var backButton_img = SKSpriteNode()
+    var backButton = SKShapeNode()
     
     override init() {
         super.init()
         
-        let backButton_img = SKSpriteNode(imageNamed: "back button")
+        backButton_img = SKSpriteNode(imageNamed: "back button")
         backButton_img.zPosition = 4
         backButton_img.setScale(0.35)
         self.addChild(backButton_img)
         
-        let backButton = SKShapeNode(rectOf: CGSize(width: (backButton_img.frame.width)*2, height: (backButton_img.frame.height)*2))
+        backButton = SKShapeNode(rectOf: CGSize(width: (backButton_img.frame.width)*2, height: (backButton_img.frame.height)*2))
         backButton.fillColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.001)
         backButton.position = backButton_img.position
         backButton.strokeColor = UIColor(displayP3Red: 0/255, green: 0/255, blue: 0/255, alpha: 0.001)
