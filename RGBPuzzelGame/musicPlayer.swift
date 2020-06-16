@@ -19,10 +19,6 @@ class MusicPlayer{
     
     static private var musicNode = SKAudioNode()
     
-    static func setUp(){
-        
-    }
-    
     static func play(continuous: Bool){
         
         Standards.backgroundSKScene.removeAllChildren()

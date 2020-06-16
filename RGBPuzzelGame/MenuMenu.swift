@@ -75,7 +75,6 @@ class MenuMenu: SKScene {
         level3Button.zRotation = -1 * CGFloat(Double.pi/2)
         self.addChild(level3Button)
 
-        
         levels.append(level0Button)
         levels.append(level1Button)
         levels.append(level2Button)

@@ -462,6 +462,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         end.physicsBody?.contactTestBitMask = playerCat
         
         end.zPosition = 3
+        end.zRotation = CGFloat(-1*(Double.pi/2))
         
         end.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         end.position = CGPoint(x: self.frame.midX + endingPointOffset.y, y: self.frame.midY + endingPointOffset.x) //***

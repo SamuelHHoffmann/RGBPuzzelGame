@@ -323,8 +323,8 @@ class LevelMenu: SKScene {
                 //lastUnlocked and lastLevel valid good data
                 print("unlocking extra levels")
                 if lastLevel > 1{
-                    for _ in 1...lastLevel{
-                        nextLevel()
+                    for _ in 1...lastLevel-1{
+                        nextLevel(animated: false)
                     }
                 }
             }
@@ -346,7 +346,6 @@ class LevelMenu: SKScene {
         }
         
         currentLevelNumber = 1
-//        currentLevel = levels[0]
         
     }
     
@@ -355,7 +354,6 @@ class LevelMenu: SKScene {
         
         if UserDefaults.standard.integer(forKey: "Saved_Level_Record:Completed:\(menuNumber)") < currentLevelNumber{
             UserDefaults.standard.set(currentLevelNumber, forKey: "Saved_Level_Record:Completed:\(menuNumber)")
-            Standards.lastCompletedLocal = currentLevelNumber
         }
         
         setNextGraphics(levelNumber: currentLevelNumber)
@@ -365,21 +363,17 @@ class LevelMenu: SKScene {
         }
         
         unlockLevel(levelNumber: currentLevelNumber+1)
-        
     }
     
     //unlocks level number in levels list
     private func setUnlockedGraphics(levelNumber: Int){
         if lockedLevelData[currentLevelNumber] != nil {
-            
             redLayers[levelNumber-1].texture = UIImage(named: "ls-r-\(menuNumber)-\(levelNumber)-U") != nil ? SKTexture(imageNamed: "ls-r-\(menuNumber)-\(levelNumber)-U") : SKTexture(imageNamed: "ls-r-x-\(levelNumber)-U")
             redLayers[levelNumber-1].name = UIImage(named: "ls-r-\(menuNumber)-\(levelNumber)-U") != nil ? "ls-r-\(menuNumber)-\(levelNumber)-U" : "ls-r-x-\(levelNumber)-U"
             greenLayers[levelNumber-1].texture = UIImage(named: "ls-g-\(menuNumber)-\(levelNumber)-U") != nil ? SKTexture(imageNamed: "ls-g-\(menuNumber)-\(levelNumber)-U") : SKTexture(imageNamed: "ls-g-x-\(levelNumber)-U")
             greenLayers[levelNumber-1].name = UIImage(named: "ls-g-\(menuNumber)-\(levelNumber)-U") != nil ? "ls-g-\(menuNumber)-\(levelNumber)-U" : "ls-g-x-\(levelNumber)-U"
             blueLayers[levelNumber-1].texture = UIImage(named: "ls-b-\(menuNumber)-\(levelNumber)-U") != nil ? SKTexture(imageNamed: "ls-b-\(menuNumber)-\(levelNumber)-U") : SKTexture(imageNamed: "ls-b-x-\(levelNumber)-U")
             blueLayers[levelNumber-1].name = UIImage(named: "ls-b-\(menuNumber)-\(levelNumber)-U") != nil ? "ls-b-\(menuNumber)-\(levelNumber)-U" : "ls-b-x-\(levelNumber)-U"
-            
-            
         }else{
             //out of range
         }
@@ -388,14 +382,12 @@ class LevelMenu: SKScene {
     //unlocks level number in levels list
     private func setNextGraphics(levelNumber: Int){
         if lockedLevelData[currentLevelNumber+1] != nil {
-            
             redLayers[levelNumber-1].texture = UIImage(named: "ls-r-\(menuNumber)-\(levelNumber)-N") != nil ? SKTexture(imageNamed: "ls-r-\(menuNumber)-\(levelNumber)-N") : SKTexture(imageNamed: "ls-r-x-\(levelNumber)-N")
             redLayers[levelNumber-1].name = UIImage(named: "ls-r-\(menuNumber)-\(levelNumber)-N") != nil ? "ls-r-\(menuNumber)-\(levelNumber)-N" : "ls-r-x-\(levelNumber)-N"
             greenLayers[levelNumber-1].texture = UIImage(named: "ls-g-\(menuNumber)-\(levelNumber)-N") != nil ? SKTexture(imageNamed: "ls-g-\(menuNumber)-\(levelNumber)-N") : SKTexture(imageNamed: "ls-g-x-\(levelNumber)-N")
             greenLayers[levelNumber-1].name = UIImage(named: "ls-g-\(menuNumber)-\(levelNumber)-N") != nil ? "ls-g-\(menuNumber)-\(levelNumber)-N" : "ls-g-x-\(levelNumber)-N"
             blueLayers[levelNumber-1].texture = UIImage(named: "ls-b-\(menuNumber)-\(levelNumber)-N") != nil ? SKTexture(imageNamed: "ls-b-\(menuNumber)-\(levelNumber)-N") : SKTexture(imageNamed: "ls-b-x-\(levelNumber)-N")
             blueLayers[levelNumber-1].name = UIImage(named: "ls-b-\(menuNumber)-\(levelNumber)-N") != nil ? "ls-b-\(menuNumber)-\(levelNumber)-N" : "ls-b-x-\(levelNumber)-N"
-            
         }else{
             //out of range
         }
@@ -405,7 +397,6 @@ class LevelMenu: SKScene {
     private func unlockLevel(levelNumber: Int){
         if lockedLevelData[levelNumber] != nil{
             lockedLevelData[levelNumber] = true
-            
             if UserDefaults.standard.integer(forKey: "Saved_Level_Record:Unlocked:\(menuNumber)") < levelNumber{
                 UserDefaults.standard.set(levelNumber, forKey: "Saved_Level_Record:Unlocked:\(menuNumber)")
             }
@@ -436,7 +427,7 @@ class LevelMenu: SKScene {
             if swipe.direction == UISwipeGestureRecognizer.Direction.down {
                 //move to next level
                 self.currentLevel.setup = false
-                nextLevel()
+                nextLevel(animated: true)
             }else if swipe.direction == UISwipeGestureRecognizer.Direction.up {
                 //go back a level
                 self.currentLevel.setup = false
@@ -462,7 +453,7 @@ class LevelMenu: SKScene {
     }
     
     
-    func nextLevel(){
+    func nextLevel(animated: Bool){
         if currentLevelNumber == lockedLevelData.count { // last level
             //dont move
             print("last level")
@@ -476,18 +467,33 @@ class LevelMenu: SKScene {
                 if playerLeft == false { //aka player right
                     //even
                     //move to next page
-                    var x = 0
-                    for _ in redLayers {
-                        redLayers[x].run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
-                        greenLayers[x].run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
-                        blueLayers[x].run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
-                        x = x + 1
+                    if animated{
+                        var x = 0
+                        for _ in redLayers {
+                            redLayers[x].run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
+                            greenLayers[x].run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
+                            blueLayers[x].run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
+                            x += 1
+                        }
+                    }else{
+                        var x = 0
+                        for _ in redLayers {
+                            redLayers[x].position = CGPoint(x: redLayers[x].position.x, y: redLayers[x].position.y + (self.frame.height/2))
+                            greenLayers[x].position = CGPoint(x: greenLayers[x].position.x, y: greenLayers[x].position.y + (self.frame.height/2))
+                            blueLayers[x].position = CGPoint(x: blueLayers[x].position.x, y: blueLayers[x].position.y + (self.frame.height/2))
+                            x += 1
+                        }
                     }
                     
                 }else{
                     //just move ball over
-                    pointer.run(SKAction.moveBy(x: 0, y: -(self.frame.height/2), duration: 0.35))
-                    playerLeft = false
+                    if animated{
+                        pointer.run(SKAction.moveBy(x: 0, y: -(self.frame.height/2), duration: 0.35))
+                        playerLeft = false
+                    }else{
+                        pointer.position = CGPoint(x: pointer.position.x, y: pointer.position.y - (self.frame.height/2))
+                        playerLeft = false
+                    }
                 }
                 currentLevelNumber += 1
 //                currentLevel = levels[currentLevelNumber]

@@ -19,7 +19,7 @@ class Standards{
     
     //Level Data//
     static let levelCountPerPackage = [0 : 4,
-                                       1 : 6,
+                                       1 : 7,
                                        2 : 0,
                                        3 : 0]
     
@@ -32,7 +32,8 @@ class Standards{
                                 "1,3" : CGPoint(x: 300, y: -35),
                                 "1,4" : CGPoint(x: 300, y: -35),
                                 "1,5" : CGPoint(x: 300, y: -35),
-                                "1,6" : CGPoint(x: 300, y: -35)]
+                                "1,6" : CGPoint(x: 300, y: -35),
+                                "1,7" : CGPoint(x: 300, y: -35)]
     
     static let endPositions = ["0,1" : CGPoint(x: -290, y: -50),
                                "0,2" : CGPoint(x: -290, y: -50),
@@ -43,14 +44,15 @@ class Standards{
                                "1,3" : CGPoint(x: -290, y: -35),
                                "1,4" : CGPoint(x: -290, y: -35),
                                "1,5" : CGPoint(x: -290, y: -35),
-                               "1,6" : CGPoint(x: -290, y: -35)]
+                               "1,6" : CGPoint(x: -290, y: -35),
+                               "1,7" : CGPoint(x: -290, y: -35)]
     
     
     
     
     
     //Misc//
-    static var lastCompletedLocal = 0 //local value for UserDefaults.standard.set(levelNum, forKey: "Saved_Level_Record:Completed:\(packageNum)")
+//    static var lastCompletedLocal = 0 //local value for UserDefaults.standard.set(levelNum, forKey: "Saved_Level_Record:Completed:\(packageNum)")
     
     
     
@@ -62,8 +64,9 @@ class Standards{
     
     //DEBUG TOOLS//
     static let editmode = false //prints location of touches
+//    #warning("Edit Mode On! Please turn off before deploying.")
     static let debugMode = false //shows collision layers
-    
+//    #warning("Debug Mode On! Please turn off before deploying.")
     
     
     static func update(){

@@ -19,19 +19,19 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+//        UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(1)")
+//        UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(1)")
+//        UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Completed:\(1)")
+//        UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(0)")
+//        UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(0)")
+//        UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Completed:\(0)")
+//        UserDefaults.standard.set(false, forKey: "isNotFirstTime")
+//        while true {
+//            print("UserDefaults reset. Please comment out the reset lines and run the code again")
+//            sleep(5)
+//        }
         
-//                UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(1)")
-//                UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(1)")
-//                UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Completed:\(1)")
-//                UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(0)")
-//                UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(0)")
-//                UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Completed:\(0)")
-//                UserDefaults.standard.set(false, forKey: "isNotFirstTime")
-//                while true {
-//                    print("UserDefaults reset. Please comment out the reset lines and run the code again")
-//                    sleep(5)
-//                }
-//        
         
         Standards.load()
         
@@ -42,22 +42,20 @@ class GameViewController: UIViewController {
             Standards.backgroundSKScene.backgroundColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
             Standards.backgroundSKScene.scaleMode = .fill
             
-            MusicPlayer.setUp()
-            
             //generate background music
             if Standards.musicOn{
                 MusicPlayer.play(continuous: true)
             }
-//            Standards.backgroundSKScene.run(SKAction.repeatForever(SKAction.run {
-//                if Standards.backgroundSKScene.action(forKey: "music") == nil && Standards.musicOn{
-//                    Standards.backgroundSKScene.run(SKAction.playSoundFileNamed(Standards.music[Int.random(in: 0...Standards.music.count-1)], waitForCompletion: false), withKey: "music")
-//                }
-//            }))
-            
-            
+    
             backgroundView.presentScene(Standards.backgroundSKScene)
         }
         
+        
+//        if ((self.game_view.frame.height * 375)/667) <= self.game_view.frame.width{
+//            self.game_view.frame.size = CGSize(width: self.game_view.frame.height, height: (self.game_view.frame.height * 375)/667)
+//        }else{
+//            self.game_view.frame.size = CGSize(width: self.game_view.frame.width, height: (self.game_view.frame.width * 667)/375)
+//        }
         
         //Setup Standards.swift
         Standards.settingsScene.size = self.game_view.frame.size
@@ -70,7 +68,7 @@ class GameViewController: UIViewController {
                 home = welcomeMenu()
                 home.size = self.game_view.frame.size
                 home.setUp(sceneSize: self.game_view.frame.size)
-                home.scaleMode = .fill
+                home.scaleMode = .aspectFit
                 view.presentScene(home)
                 view.ignoresSiblingOrder = true
                 view.showsFPS = false
