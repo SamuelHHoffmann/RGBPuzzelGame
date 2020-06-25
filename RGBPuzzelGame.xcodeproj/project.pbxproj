@@ -34,6 +34,7 @@
 		90ABED4C20DAFDDC00F00422 /* LevelMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90ABED4B20DAFDDC00F00422 /* LevelMenu.swift */; };
 		90C04CA52486DEBB0071969F /* bounceSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 90C04CA32486DEBB0071969F /* bounceSound.mp3 */; };
 		90C04CA62486DEBB0071969F /* levelStart.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 90C04CA42486DEBB0071969F /* levelStart.mp3 */; };
+		90CC89CB24A3CE3E0000E8EB /* miniMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CC89CA24A3CE3E0000E8EB /* miniMap.swift */; };
 		90E8338123D1364100C7B380 /* TestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E8338023D1364100C7B380 /* TestingViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		90ABED4B20DAFDDC00F00422 /* LevelMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelMenu.swift; sourceTree = "<group>"; };
 		90C04CA32486DEBB0071969F /* bounceSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bounceSound.mp3; sourceTree = "<group>"; };
 		90C04CA42486DEBB0071969F /* levelStart.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = levelStart.mp3; sourceTree = "<group>"; };
+		90CC89CA24A3CE3E0000E8EB /* miniMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = miniMap.swift; sourceTree = "<group>"; };
 		90E8338023D1364100C7B380 /* TestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,6 +124,7 @@
 				9019CBF923B3BB6D00353D31 /* backButton.swift */,
 				9017D651249667550093066D /* settingsButton.swift */,
 				90A51078248ECA1B006A30DF /* settingsSwitch.swift */,
+				90CC89CA24A3CE3E0000E8EB /* miniMap.swift */,
 				902B5B9223B52E0D00ED6070 /* Audio */,
 				9082DFAF23006D0B00CB15E0 /* RGBAScene.swift */,
 				90A7A9642314331600900A84 /* RGBALevel.swift */,
@@ -233,6 +236,7 @@
 				90E8338123D1364100C7B380 /* TestingViewController.swift in Sources */,
 				9006C8892492C78A00DDF23D /* loadingScene.swift in Sources */,
 				9000BD9A22FB21570010DCAA /* settings.swift in Sources */,
+				90CC89CB24A3CE3E0000E8EB /* miniMap.swift in Sources */,
 				90A3867423424EA50082704A /* MenuMenu.swift in Sources */,
 				9003505F22985FC4003A7344 /* colorSwitch.swift in Sources */,
 				9019CBFA23B3BB6D00353D31 /* backButton.swift in Sources */,
@@ -392,7 +396,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7;
+				MARKETING_VERSION = 0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SamuelHoffmann.IOSDev.RGBA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -416,7 +420,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7;
+				MARKETING_VERSION = 0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SamuelHoffmann.IOSDev.RGBA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

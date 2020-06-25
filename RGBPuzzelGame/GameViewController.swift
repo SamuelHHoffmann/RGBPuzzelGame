@@ -33,6 +33,20 @@ class GameViewController: UIViewController {
 //        }
         
         
+//        if let view = self.game_view {
+//
+//            let temp = Level()
+//            temp.size = self.game_view.frame.size
+//            temp.setUp(package: 1, numberInPackage: 13, locked: false, menu: LevelMenu())
+//            temp.scaleMode = .fill
+//
+//            view.presentScene(temp)
+//            view.ignoresSiblingOrder = true
+//            view.showsFPS = true
+//            view.showsNodeCount = true
+//        }
+//
+        
         Standards.load()
         
         //setup background/overflow scene

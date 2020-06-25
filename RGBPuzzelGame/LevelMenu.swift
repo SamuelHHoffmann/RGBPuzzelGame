@@ -39,6 +39,7 @@ class LevelMenu: SKScene {
     private var playerLeft = true
     
     var pointer = SKSpriteNode()
+    var playButton = SKSpriteNode()
     
     var isTopScene = false
     
@@ -100,6 +101,16 @@ class LevelMenu: SKScene {
         self.addChild(pointer)
         
         
+        playButton = SKSpriteNode(imageNamed: "playButton")
+        
+        playButton.name = "playButton"
+        playButton.zPosition = 4
+        playButton.setScale(0.35)
+        playButton.position = CGPoint(x: redLayers[0].position.x - (redLayers[0].frame.width/4) - (redLayers[0].frame.width/8), y: redLayers[0].position.y)
+        playButton.alpha = 1
+        playButton.zRotation = CGFloat(-Double.pi/2)
+
+        self.addChild(playButton)
         
     }
     
@@ -468,6 +479,7 @@ class LevelMenu: SKScene {
                     //even
                     //move to next page
                     if animated{
+                        playButton.run(SKAction.sequence([SKAction.scale(to: CGFloat(0), duration: 0.175), SKAction.scale(to: CGFloat(0.35), duration: 0.175)]))
                         var x = 0
                         for _ in redLayers {
                             redLayers[x].run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
@@ -489,9 +501,11 @@ class LevelMenu: SKScene {
                     //just move ball over
                     if animated{
                         pointer.run(SKAction.moveBy(x: 0, y: -(self.frame.height/2), duration: 0.35))
+                        playButton.run(SKAction.sequence([SKAction.scale(to: CGFloat(0), duration: 0.175), SKAction.moveBy(x: 0, y: -(self.frame.height/2), duration: 0), SKAction.scale(to: CGFloat(0.35), duration: 0.175)]))
                         playerLeft = false
                     }else{
                         pointer.position = CGPoint(x: pointer.position.x, y: pointer.position.y - (self.frame.height/2))
+                        playButton.position = CGPoint(x: playButton.position.x, y: playButton.position.y - (self.frame.height/2))
                         playerLeft = false
                     }
                 }
@@ -531,9 +545,11 @@ class LevelMenu: SKScene {
             if playerLeft == false { //aka player right
                 //just move ball back one
                 pointer.run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
+                playButton.run(SKAction.sequence([SKAction.scale(to: CGFloat(0), duration: 0.175), SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0), SKAction.scale(to: CGFloat(0.35), duration: 0.175)]))
                 playerLeft = true
             }else{
                 //go back a page
+                playButton.run(SKAction.sequence([SKAction.scale(to: CGFloat(0), duration: 0.175), SKAction.scale(to: CGFloat(0.35), duration: 0.175)]))
                 var x = 0
                 for _ in redLayers {
                     redLayers[x].run(SKAction.moveBy(x: 0, y: -(self.frame.height/2), duration: 0.35))
@@ -598,43 +614,30 @@ class LevelMenu: SKScene {
                     view.presentScene(self.settingsScene, transition: SKTransition.fade(with: UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1), duration: 0.75))
                 }
                 
+            }else if node == playButton{
+                isTopScene = false
+                let loadTransitionScene = LevelLoadingScene()
+                loadTransitionScene.size = self.size
+                loadTransitionScene.setUp()
+                
+                run(SKAction.group([
+                    Standards.soundFXON ? SKAction.playSoundFileNamed("levelStart.mp3", waitForCompletion: false) : SKAction.run {},
+                    SKAction.run {
+                        loadTransitionScene.nextScene = self.currentLevel
+                        loadTransitionScene.previousScene = self
+                        if let view = self.view as SKView? {
+                            let transition = SKTransition.push(with: .right, duration: 0.65)
+                            view.presentScene(loadTransitionScene, transition: transition)
+                        }
+                    }
+                ]))
             }
             
         }
         
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        isTopScene = false
-        let loadTransitionScene = LevelLoadingScene()
-        loadTransitionScene.size = self.size
-        loadTransitionScene.setUp()
-        
-        run(SKAction.group([
-            Standards.soundFXON ? SKAction.playSoundFileNamed("levelStart.mp3", waitForCompletion: false) : SKAction.run {},
-//            SKAction.run {
-//                self.loadTransitionScene.nextScene = self.currentLevel
-//                self.currentLevel = self.setUpLevel(levelNum: self.currentLevelNumber)
-//            },
-            SKAction.run {
-                loadTransitionScene.nextScene = self.currentLevel
-                loadTransitionScene.previousScene = self
-//                self.currentLevel = self.setUpLevel(levelNum: self.currentLevelNumber)
-            
-                if let view = self.view as SKView? {
-                    let transition = SKTransition.push(with: .right, duration: 0.65)
-//                    transition.pausesIncomingScene = true
-                    view.presentScene(loadTransitionScene, transition: transition)
-                    //push(with: .right, duration: 0.55)
-                }
-                
-            }
-        ]))
-    }
     
     override func willMove(from view: SKView) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Transition Complete:From:LevelMenu"), object: nil)

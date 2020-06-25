@@ -118,7 +118,6 @@ class Level: SKScene, SKPhysicsContactDelegate {
         self.blueLayer.name = "\(package),\(numberInPackage)B"
         self.blueLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "\(package),\(numberInPackage)B"), size:CGSize(width: self.blueLayer.size.width, height: self.blueLayer.size.height))
         
-        
         //set up collision layers
         self.redCollision = SKSpriteNode(imageNamed: "\(package),\(numberInPackage)RC")
         self.redCollision.name = "\(package),\(numberInPackage)RC"
@@ -140,8 +139,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         //self.endingPoint = GlobalStaticLookup(package, numberinPackage)
         
         //with multiple packages will use lookup scheme. currently hardwired
-        self.startingPointOffset = (Standards.startPositions["\(package),\(numberInPackage)"] ?? CGPoint(x: 0.0, y: 0.0))
-        self.endingPointOffset = (Standards.endPositions["\(package),\(numberInPackage)"] ?? CGPoint(x: 0.0, y: 0.0))
+        self.startingPointOffset = (Standards.startPositions["\(package),\(numberInPackage)"] ?? CGPoint(x: 300, y: -35))
+        self.endingPointOffset = (Standards.endPositions["\(package),\(numberInPackage)"] ?? CGPoint(x: -290, y: -35))
         
         setUpLayers()
         setUpButtons()
@@ -267,99 +266,102 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         ///////////////////////////////////////////////////////////////
         
-        redCollision.size = size
-        greenCollision.size = size
-        blueCollision.size = size
+        guard UIImage(named: redCollision.name!) == nil else {
         
-        //red
-        redCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: redCollision.name!), size: redCollision.size)
-        redCollision.name = "redCollision"
-        
-        redCollision.physicsBody?.affectedByGravity = false
-        redCollision.physicsBody?.allowsRotation = false
-        redCollision.physicsBody?.isDynamic = false
-        redCollision.physicsBody?.pinned = false
-        
-        redCollision.physicsBody?.friction = 0.2
-        redCollision.physicsBody?.restitution = 0.2
-        redCollision.physicsBody?.angularDamping = 0.1
-        redCollision.physicsBody?.linearDamping = 0.1
-        
-        redCollision.physicsBody?.categoryBitMask = colliiderCat
-        redCollision.physicsBody?.collisionBitMask = playerCat
-        redCollision.physicsBody?.contactTestBitMask = playerCat
-        
-        redCollision.zPosition = 2.1
-        
-        //green
-        greenCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: greenCollision.name!), size: greenCollision.size)
-        greenCollision.name = "greenCollision"
-        
-        greenCollision.physicsBody?.affectedByGravity = false
-        greenCollision.physicsBody?.allowsRotation = false
-        greenCollision.physicsBody?.isDynamic = false
-        greenCollision.physicsBody?.pinned = false
-        
-        greenCollision.physicsBody?.friction = 0.2
-        greenCollision.physicsBody?.restitution = 0.2
-        greenCollision.physicsBody?.angularDamping = 0.1
-        greenCollision.physicsBody?.linearDamping = 0.1
-        
-        greenCollision.physicsBody?.categoryBitMask = colliiderCat
-        greenCollision.physicsBody?.collisionBitMask = playerCat
-        greenCollision.physicsBody?.contactTestBitMask = playerCat
-        
-        greenCollision.zPosition = 2.2
-        
-        //blue
-        blueCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: blueCollision.name!), size: blueCollision.size)
-        blueCollision.name = "blueCollision"
-        
-        blueCollision.physicsBody?.affectedByGravity = false
-        blueCollision.physicsBody?.allowsRotation = false
-        blueCollision.physicsBody?.isDynamic = false
-        blueCollision.physicsBody?.pinned = false
-        
-        blueCollision.physicsBody?.friction = 0.2
-        blueCollision.physicsBody?.restitution = 0.2
-        blueCollision.physicsBody?.angularDamping = 0.1
-        blueCollision.physicsBody?.linearDamping = 0.1
-        
-        blueCollision.physicsBody?.categoryBitMask = colliiderCat
-        blueCollision.physicsBody?.collisionBitMask = playerCat
-        blueCollision.physicsBody?.contactTestBitMask = playerCat
-        
-        blueCollision.zPosition = 2.3
-        
-        
-        redCollision.zRotation = CGFloat(-Double.pi/2)
-        redCollision.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        redCollision.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        
-        greenCollision.zRotation = CGFloat(-Double.pi/2)
-        greenCollision.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        greenCollision.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        
-        blueCollision.zRotation = CGFloat(-Double.pi/2)
-        blueCollision.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        blueCollision.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        
-        var alphaValue : CGFloat = 0.0
-        if Standards.debugMode{
-            alphaValue = 0.5
-        }else{
-            alphaValue = 0.001
+            redCollision.size = size
+            greenCollision.size = size
+            blueCollision.size = size
+            
+            //red
+            redCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: redCollision.name!), size: redCollision.size)
+            redCollision.name = "redCollision"
+            
+            redCollision.physicsBody?.affectedByGravity = false
+            redCollision.physicsBody?.allowsRotation = false
+            redCollision.physicsBody?.isDynamic = false
+            redCollision.physicsBody?.pinned = false
+            
+            redCollision.physicsBody?.friction = 0.2
+            redCollision.physicsBody?.restitution = 0.2
+            redCollision.physicsBody?.angularDamping = 0.1
+            redCollision.physicsBody?.linearDamping = 0.1
+            
+            redCollision.physicsBody?.categoryBitMask = colliiderCat
+            redCollision.physicsBody?.collisionBitMask = playerCat
+            redCollision.physicsBody?.contactTestBitMask = playerCat
+            
+            redCollision.zPosition = 2.1
+            
+            //green
+            greenCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: greenCollision.name!), size: greenCollision.size)
+            greenCollision.name = "greenCollision"
+            
+            greenCollision.physicsBody?.affectedByGravity = false
+            greenCollision.physicsBody?.allowsRotation = false
+            greenCollision.physicsBody?.isDynamic = false
+            greenCollision.physicsBody?.pinned = false
+            
+            greenCollision.physicsBody?.friction = 0.2
+            greenCollision.physicsBody?.restitution = 0.2
+            greenCollision.physicsBody?.angularDamping = 0.1
+            greenCollision.physicsBody?.linearDamping = 0.1
+            
+            greenCollision.physicsBody?.categoryBitMask = colliiderCat
+            greenCollision.physicsBody?.collisionBitMask = playerCat
+            greenCollision.physicsBody?.contactTestBitMask = playerCat
+            
+            greenCollision.zPosition = 2.2
+            
+            //blue
+            blueCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: blueCollision.name!), size: blueCollision.size)
+            blueCollision.name = "blueCollision"
+            
+            blueCollision.physicsBody?.affectedByGravity = false
+            blueCollision.physicsBody?.allowsRotation = false
+            blueCollision.physicsBody?.isDynamic = false
+            blueCollision.physicsBody?.pinned = false
+            
+            blueCollision.physicsBody?.friction = 0.2
+            blueCollision.physicsBody?.restitution = 0.2
+            blueCollision.physicsBody?.angularDamping = 0.1
+            blueCollision.physicsBody?.linearDamping = 0.1
+            
+            blueCollision.physicsBody?.categoryBitMask = colliiderCat
+            blueCollision.physicsBody?.collisionBitMask = playerCat
+            blueCollision.physicsBody?.contactTestBitMask = playerCat
+            
+            blueCollision.zPosition = 2.3
+            
+            
+            redCollision.zRotation = CGFloat(-Double.pi/2)
+            redCollision.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            redCollision.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+            
+            greenCollision.zRotation = CGFloat(-Double.pi/2)
+            greenCollision.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            greenCollision.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+            
+            blueCollision.zRotation = CGFloat(-Double.pi/2)
+            blueCollision.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            blueCollision.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+            
+            var alphaValue : CGFloat = 0.0
+            if Standards.debugMode{
+                alphaValue = 0.5
+            }else{
+                alphaValue = 0.001
+            }
+            redCollision.alpha = alphaValue
+            greenCollision.alpha = alphaValue
+            blueCollision.alpha = alphaValue
+            
+            
+            self.addChild(redCollision)
+            self.addChild(greenCollision)
+            self.addChild(blueCollision)
+            
+            return
         }
-        redCollision.alpha = alphaValue
-        greenCollision.alpha = alphaValue
-        blueCollision.alpha = alphaValue
-        
-        
-        self.addChild(redCollision)
-        self.addChild(greenCollision)
-        self.addChild(blueCollision)
-        
-        
         
     }
     
