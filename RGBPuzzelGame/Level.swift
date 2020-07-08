@@ -105,7 +105,6 @@ class Level: SKScene, SKPhysicsContactDelegate {
         }
         
         
-        
         self.redLayer = SKSpriteNode(imageNamed: "\(package),\(numberInPackage)R")
         self.redLayer.name = "\(package),\(numberInPackage)R"
         self.redLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "\(package),\(numberInPackage)R"), size:CGSize(width: self.redLayer.size.width, height: self.redLayer.size.height))

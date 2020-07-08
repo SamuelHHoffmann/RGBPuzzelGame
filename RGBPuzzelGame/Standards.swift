@@ -19,7 +19,7 @@ class Standards{
     
     //Level Data//
     static let levelCountPerPackage = [0 : 4,
-                                       1 : 7,
+                                       1 : 10,
                                        2 : 0,
                                        3 : 0]
     
@@ -33,7 +33,10 @@ class Standards{
                                 "1,4" : CGPoint(x: 300, y: -35),
                                 "1,5" : CGPoint(x: 300, y: -35),
                                 "1,6" : CGPoint(x: 300, y: -35),
-                                "1,7" : CGPoint(x: 300, y: -35)]
+                                "1,7" : CGPoint(x: 300, y: -35),
+                                "1,8" : CGPoint(x: 300, y: -35),
+                                "1,9" : CGPoint(x: 300, y: -35),
+                                "1,10" : CGPoint(x: 300, y: -35)]
     
     static let endPositions = ["0,1" : CGPoint(x: -290, y: -50),
                                "0,2" : CGPoint(x: -290, y: -50),
@@ -45,7 +48,10 @@ class Standards{
                                "1,4" : CGPoint(x: -290, y: -35),
                                "1,5" : CGPoint(x: -290, y: -35),
                                "1,6" : CGPoint(x: -290, y: -35),
-                               "1,7" : CGPoint(x: -290, y: -35)]
+                               "1,7" : CGPoint(x: -290, y: -35),
+                               "1,8" : CGPoint(x: -290, y: -35),
+                               "1,9" : CGPoint(x: -290, y: -35),
+                               "1,10" : CGPoint(x: -290, y: -35)]
     
     
     
