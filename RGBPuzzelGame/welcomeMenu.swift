@@ -520,8 +520,6 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
         
         
         //check if a layer is turned on a kills a player
-        
-        
     }
     
     func resetLevel(){
@@ -544,17 +542,12 @@ class welcomeMenu : SKScene, SKPhysicsContactDelegate {
     }
     
     func levelComplete(){
-        
         if let view = self.view as SKView? {
-            
             view.presentScene(menu)
         }
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        
         
         for node in nodes(at: (touches.first?.location(in: self))!) {
             if node == redButton {

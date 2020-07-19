@@ -470,10 +470,28 @@ class LevelMenu: SKScene {
             print("last level")
             bounceRight()
         }else{
-            if lockedLevelData[currentLevelNumber+1] == false { //next level locked
-                //dont move
+            if lockedLevelData[currentLevelNumber+1] == false && !playerLeft{ //next level locked
+                print("level locked")
+//                bounceRight()
+                // Move player to the left and show the next locked level
+                // Move player
+                pointer.run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
+                playButton.run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
+                playerLeft = true
+                
+                // Show next level locked artwork
+                var x = 0
+                for _ in redLayers {
+                    redLayers[x].run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
+                    greenLayers[x].run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
+                    blueLayers[x].run(SKAction.moveBy(x: 0, y: (self.frame.height/2), duration: 0.35))
+                    x += 1
+                }
+                
+            }else if lockedLevelData[currentLevelNumber+1] == false && playerLeft{
                 print("level locked")
                 bounceRight()
+                
             }else{
                 if playerLeft == false { //aka player right
                     //even
@@ -594,26 +612,20 @@ class LevelMenu: SKScene {
 
             if node == backButton {
 
-                
                 let menuCasted = previousScene as! MenuMenu
                 if let view = self.view as SKView? {
-                    
                     menuCasted.size = self.size
-                    view.presentScene(menuCasted)
-                    
+                    view.presentScene(menuCasted, transition: SKTransition.push(with: .down, duration: 0.65))
                 }
-                
             }else if node == settingsButton{
                 
                 settingsScene.previousScene = self
                 settingsScene.previousSceneType = SceneType.LevelSelect
-                
                 self.comingBackFromSettings = true
                 
                 if let view = self.view as SKView? {
                     view.presentScene(self.settingsScene, transition: SKTransition.fade(with: UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1), duration: 0.75))
                 }
-                
             }else if node == playButton{
                 isTopScene = false
                 let loadTransitionScene = LevelLoadingScene()

@@ -49,7 +49,7 @@ class Standards{
                                "1,5" : CGPoint(x: -290, y: -35),
                                "1,6" : CGPoint(x: -290, y: -35),
                                "1,7" : CGPoint(x: -290, y: -35),
-                               "1,8" : CGPoint(x: -290, y: -35),
+                               "1,8" : CGPoint(x: -290, y: -2),
                                "1,9" : CGPoint(x: -290, y: -35),
                                "1,10" : CGPoint(x: -290, y: -35)]
     

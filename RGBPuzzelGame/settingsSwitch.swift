@@ -58,6 +58,17 @@ class SettingsSwitch: SKNode {
         self.addChild(self.label)
         self.label.position = CGPoint(x: self.switchBackground.position.x, y: self.switchBackground.position.y + self.switchBackground.frame.height)
         
+//        let attributes:[NSAttributedString.Key:Any] = [.strokeColor: UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1), .strokeWidth: 4, .font: UIFont(name: "AvenirNext-Bold", size: 64.0)!]
+//               let attributedString = NSMutableAttributedString(string: name, attributes: attributes)
+//
+//        let stroke = SKLabelNode(text: name)
+//        stroke.attributedText = attributedString
+//        stroke.zPosition = 2.1
+//        stroke.preferredMaxLayoutWidth = self.switchBackground.frame.width + 100
+//        stroke.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
+//        self.addChild(stroke)
+//        stroke.position = CGPoint(x: self.switchBackground.position.x, y: self.switchBackground.position.y + self.switchBackground.frame.height)
+        
         self.state = initState ?? SWITCH_STATE.ON
     }
     

@@ -100,19 +100,21 @@ class levelThumbnail: SKNode {
     
     func update(){
         print("Updating...")
-        let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Completed:\(level)")+1
+        let lastUnlocked = UserDefaults.standard.integer(forKey: "Saved_Level_Record:Completed:\(level)")
         print(lastUnlocked)
-        
+
         if (totalPerLevel[level] ?? 0) == 0 {
             disabled = true
         }else{
             disabled = false
             percentComplete = lastUnlocked > 1 ? Double(lastUnlocked)/Double((totalPerLevel[level] ?? 0)) : 0
         }
-        
-        
+
         let x = backgroundImage.frame.minX + completePercentOverlay.frame.width/2 - CGFloat(backgroundImage.frame.width*CGFloat((1-percentComplete)))
-        completePercentOverlay.position = CGPoint(x: x, y: backgroundImage.frame.minY + completePercentOverlay.frame.height/2)
+        
+        completePercentOverlay.run(SKAction.move(to: CGPoint(x: x, y: backgroundImage.frame.minY + completePercentOverlay.frame.height/2), duration: 0.25))
+        
+        percentOverlay.text = "\(Int(percentComplete*100))%"
         
     }
     

@@ -69,7 +69,7 @@ class Settings: RGBAScene {
         }else if(previousSceneType == .LevelSelect){
             scene = previousScene as! LevelMenu
         }else if(previousSceneType == .MainMenu){
-            scene = previousScene as! welcomeMenu
+            scene = previousScene as! MenuMenu
         }else{
             //type is none or settings
             print("Fatal Error Detection: Trying to transition Settings -> Settings or Settings -> none")

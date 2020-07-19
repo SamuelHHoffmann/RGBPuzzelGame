@@ -19,8 +19,9 @@ class MenuMenu: SKScene {
     var previousSceneType = SceneType.none
 
     var backButton = BackButton()
-
     var settingsButton = SettingsButton()
+    var settingsScene = Settings()
+    var comingBackFromSettings = false
     
     private var level0Button = levelThumbnail()
     private var level1Button = levelThumbnail()
@@ -31,14 +32,10 @@ class MenuMenu: SKScene {
     var level0Menu = LevelMenu()
     var level1Menu = LevelMenu()
     
-    
     var level0MenuLoaded = false
     var level1MenuLoaded = false
-    
-    
+
     var menuClicked = levelThumbnail()
-    
-    
     
     var type = SceneType.none
 
@@ -90,9 +87,9 @@ class MenuMenu: SKScene {
         backButton.zRotation = CGFloat(-1*(Double.pi/2))
         //self.addChild(back) //don't want a back button
 
-        settingsButton.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY-(self.frame.height/2)+(self.frame.height/16))
-        settingsButton.zRotation = CGFloat(-1*(Double.pi/2))
-        self.addChild(settingsButton)
+//        settingsButton.position = CGPoint(x: self.frame.minX+cs.width/2, y: self.frame.midY-(self.frame.height/2)+(self.frame.height/16))
+//        settingsButton.zRotation = CGFloat(-1*(Double.pi/2))
+//        self.addChild(settingsButton)
         
         
         let menuFrame = SKSpriteNode(imageNamed: "menuframe")
@@ -118,31 +115,19 @@ class MenuMenu: SKScene {
         level1Menu.scaleMode = .fill
         
         
+        settingsScene = Standards.settingsScene
+        
     }
     
     
     override func didMove(to view: SKView) {
         super.didMove(to: self.view!)
         
-        if menuClicked.getLevel() != -1{
-            menuClicked.removeFromParent()
-            let newThumbnail = levelThumbnail()
-            newThumbnail.setUp(level: menuClicked.getLevel(), width: Double(self.frame.height), height: Double(self.frame.width)/4)
-            newThumbnail.position = menuClicked.position
-            newThumbnail.zRotation = -1 * CGFloat(Double.pi/2)
-            self.addChild(newThumbnail)
-            if menuClicked.getLevel() == 0{
-                level0Button = newThumbnail
-            }else if menuClicked.getLevel() == 1{
-                level1Button = newThumbnail
-            }else if menuClicked.getLevel() == 2{
-                level2Button = newThumbnail
-            }else if menuClicked.getLevel() == 3{
-                level3Button = newThumbnail
-            }
-            
+        //Update Thumbnail for the package the user just came back from
+        if menuClicked.getLevel() != -1 && !self.comingBackFromSettings{
+            menuClicked.update()
         }
-        
+        self.comingBackFromSettings = false
     }
 
     
@@ -181,7 +166,13 @@ class MenuMenu: SKScene {
 
             if node == settingsButton {
 
-
+                self.settingsScene.previousScene = self
+                self.settingsScene.previousSceneType = .MainMenu
+                self.comingBackFromSettings = true
+                
+                if let view = self.view as SKView? {
+                    view.presentScene(self.settingsScene, transition: SKTransition.fade(with: UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1), duration: 0.75))
+                }
 
             }else if node == backButton {
 
@@ -189,21 +180,13 @@ class MenuMenu: SKScene {
 
             }else if node == level0Button {
 
-                if let view = self.view as SKView? {
-                    playClickSound()
-                    level0Menu.previousScene = self
-                    menuClicked = level0Button
-                    view.presentScene(level0Menu)
-                }
+                menuClicked = level0Button
+                loadLevel(level: level0Menu)
 
             }else if node == level1Button {
 
-                if let view = self.view as SKView? {
-                    playClickSound()
-                    level1Menu.previousScene = self
-                    menuClicked = level1Button
-                    view.presentScene(level1Menu)
-                }
+                menuClicked = level1Button
+                loadLevel(level: level1Menu)
 
             }else if node == level2Button {
 
@@ -220,7 +203,14 @@ class MenuMenu: SKScene {
         }
     }
 
-
+    private func loadLevel(level: LevelMenu){
+        if let view = self.view as SKView? {
+            playClickSound()
+            level.previousScene = self
+            view.presentScene(level, transition: SKTransition.push(with: .up, duration: 0.65))
+        }
+    }
+    
 
     private func playClickSound(){
         
