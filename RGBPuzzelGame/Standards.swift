@@ -81,17 +81,26 @@ class Standards{
     }
     
     static func load(){
-        
         soundFXON = !UserDefaults.standard.bool(forKey: "Saved_Data_Record:SoundFX")
         musicOn = !UserDefaults.standard.bool(forKey: "Saved_Data_Record:Music")
-        
     }
     
     static func save(){
-        
         UserDefaults.standard.set(!soundFXON, forKey: "Saved_Data_Record:SoundFX")
         UserDefaults.standard.set(!musicOn, forKey: "Saved_Data_Record:Music")
-        
+    }
+    
+    static func reset(){
+        UserDefaults.standard.set(false, forKey: "Saved_Data_Record:SoundFX")
+        UserDefaults.standard.set(false, forKey: "Saved_Data_Record:Music")
+        for num in levelCountPerPackage.keys {
+            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(num)")
+            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(num)")
+            UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Completed:\(num)")
+        }
+        UserDefaults.standard.set(false, forKey: "isNotFirstTime")
+     
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Reset Game"), object: nil)
     }
     
 }

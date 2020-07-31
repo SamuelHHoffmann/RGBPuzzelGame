@@ -5,11 +5,6 @@
 //  Created by Samuel Hoffmann on 5/24/18.
 //  Copyright © 2018 Samuel Hoffmann. All rights reserved.
 //
-
-
-
-
-
 import SpriteKit
 import GameplayKit
 import CoreMotion
@@ -45,18 +40,10 @@ class Level: SKScene, SKPhysicsContactDelegate {
     var startingPointOffset = CGPoint(x: 0, y: 0)
     var endingPointOffset = CGPoint(x: 0, y: 0)
     
-    
-    
     var locked = true
     var setup = false
     
-    
     var menu = SKScene()
-    
-    
-    
-    
-    
     
     // categories:
     let playerCat: UInt32 = 0x1 << 1
@@ -68,15 +55,12 @@ class Level: SKScene, SKPhysicsContactDelegate {
     let wallCat : UInt32 = 0x1 << 7
     let bottomCat : UInt32 = 0x1 << 8
     
-    
     override init() {
         super.init()
     }
-    
     override init(size: CGSize) {
         super.init(size: size)
     }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -104,7 +88,6 @@ class Level: SKScene, SKPhysicsContactDelegate {
             self.addChild(background)
         }
         
-        
         self.redLayer = SKSpriteNode(imageNamed: "\(package),\(numberInPackage)R")
         self.redLayer.name = "\(package),\(numberInPackage)R"
         self.redLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "\(package),\(numberInPackage)R"), size:CGSize(width: self.redLayer.size.width, height: self.redLayer.size.height))
@@ -130,9 +113,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         self.blueCollision.name = "\(package),\(numberInPackage)BC"
         self.blueCollision.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "\(package),\(numberInPackage)BC"), size:CGSize(width: self.blueCollision.size.width, height: self.blueCollision.size.height))
         
-        
         self.menu = menu
-        
         
         //self.startingPoint = GlobalStaticLookup(package, numberinPackage)
         //self.endingPoint = GlobalStaticLookup(package, numberinPackage)
@@ -147,7 +128,6 @@ class Level: SKScene, SKPhysicsContactDelegate {
         miscSetUp()
         setup = true
     }
-    
     
     /*
      sets up the R,G,and B layers with their physics body and alpha values.
@@ -167,8 +147,6 @@ class Level: SKScene, SKPhysicsContactDelegate {
         temp = CGPoint(x: endingPointOffset.x*size.width/667, y: endingPointOffset.y*size.height/375)
         endingPointOffset = CGPoint(x: temp.x, y: temp.y)
         
-
-        
         redLayer.size = size
         greenLayer.size = size
         blueLayer.size = size
@@ -176,65 +154,50 @@ class Level: SKScene, SKPhysicsContactDelegate {
         //red
         redLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: redLayer.name!), size: redLayer.size)
         redLayer.name = "redLayer"
-        
         redLayer.physicsBody?.affectedByGravity = false
         redLayer.physicsBody?.allowsRotation = false
         redLayer.physicsBody?.isDynamic = false
         redLayer.physicsBody?.pinned = false
-        
         redLayer.physicsBody?.friction = 0.2
         redLayer.physicsBody?.restitution = 0.2
         redLayer.physicsBody?.angularDamping = 0.1
         redLayer.physicsBody?.linearDamping = 0.1
-        
         redLayer.physicsBody?.categoryBitMask = redCat
         redLayer.physicsBody?.collisionBitMask = playerCat
         redLayer.physicsBody?.contactTestBitMask = playerCat
-        
         redLayer.zPosition = 1.1
         
         //green
         greenLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: greenLayer.name!), size: greenLayer.size)
         greenLayer.name = "greenLayer"
-        
         greenLayer.physicsBody?.affectedByGravity = false
         greenLayer.physicsBody?.allowsRotation = false
         greenLayer.physicsBody?.isDynamic = false
         greenLayer.physicsBody?.pinned = false
-        
         greenLayer.physicsBody?.friction = 0.2
         greenLayer.physicsBody?.restitution = 0.2
         greenLayer.physicsBody?.angularDamping = 0.1
         greenLayer.physicsBody?.linearDamping = 0.1
-        
         greenLayer.physicsBody?.categoryBitMask = greenCat
         greenLayer.physicsBody?.collisionBitMask = playerCat
         greenLayer.physicsBody?.contactTestBitMask = playerCat
-        
         greenLayer.zPosition = 1.2
         
         //blue
         blueLayer.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: blueLayer.name!), size: blueLayer.size)
-        //blueLayer.name = "blueLayer"
-        
-        //blueLayer.physicsBody
-        
+        blueLayer.name = "blueLayer"
         blueLayer.physicsBody?.affectedByGravity = false
         blueLayer.physicsBody?.allowsRotation = false
         blueLayer.physicsBody?.isDynamic = false
         blueLayer.physicsBody?.pinned = false
-        
         blueLayer.physicsBody?.friction = 0.2
         blueLayer.physicsBody?.restitution = 0.2
         blueLayer.physicsBody?.angularDamping = 0.1
         blueLayer.physicsBody?.linearDamping = 0.1
-        
         blueLayer.physicsBody?.categoryBitMask = blueCat
         blueLayer.physicsBody?.collisionBitMask = playerCat
         blueLayer.physicsBody?.contactTestBitMask = playerCat
-        
         blueLayer.zPosition = 1.3
-        
         
         redLayer.zRotation = CGFloat(-Double.pi/2)
         redLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -248,7 +211,6 @@ class Level: SKScene, SKPhysicsContactDelegate {
         blueLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         blueLayer.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         
-        
         redLayer.alpha = 0.333
         greenLayer.alpha = 0.333
         blueLayer.alpha = 0.333
@@ -258,13 +220,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         self.addChild(blueLayer)
         
         ///////////////////////////////////////////////////////////////
-        
-        
         //set up collisions layers
-        
-        
         ///////////////////////////////////////////////////////////////
-        
         guard UIImage(named: redCollision.name!) == nil else {
         
             redCollision.size = size
@@ -445,149 +402,102 @@ class Level: SKScene, SKPhysicsContactDelegate {
 
         self.addChild(player)
         
-        
         //set up end point
         let end = SKSpriteNode(imageNamed: "end")
         end.size = CGSize(width: 45, height: 45)
-        
         end.physicsBody = SKPhysicsBody(circleOfRadius: 22)
         end.name = "end"
-        
-        
         end.physicsBody?.affectedByGravity = false
         end.physicsBody?.allowsRotation = false
         end.physicsBody?.isDynamic = false
         end.physicsBody?.pinned = false
-        
         end.physicsBody?.categoryBitMask = endCat
         end.physicsBody?.contactTestBitMask = playerCat
-        
         end.zPosition = 3
         end.zRotation = CGFloat(-1*(Double.pi/2))
-        
         end.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         end.position = CGPoint(x: self.frame.midX + endingPointOffset.y, y: self.frame.midY + endingPointOffset.x) //***
         //end.position = CGPoint(x: self.frame.midX + startingPointOffset.y, y: self.frame.midY + startingPointOffset.x)
-        
         end.alpha = 1
         
         self.addChild(end)
-        
     }
     
     func miscSetUp(){
-        
         //set up bounding walls
         
         let leftWall = SKSpriteNode()
         leftWall.size = CGSize(width: self.frame.width, height: 1)
         leftWall.color = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
         leftWall.position = CGPoint(x: self.frame.midX, y: self.frame.maxY)
-        
         leftWall.physicsBody = SKPhysicsBody(rectangleOf: leftWall.size)
-        
         leftWall.physicsBody?.affectedByGravity = false
         leftWall.physicsBody?.allowsRotation = false
         leftWall.physicsBody?.isDynamic = false
         leftWall.physicsBody?.pinned = false
-        
         leftWall.physicsBody?.categoryBitMask = wallCat
         leftWall.physicsBody?.collisionBitMask = playerCat
-        
-        
         leftWall.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         leftWall.zPosition = 5
         
-        
         self.addChild(leftWall)
-        
         
         let rightWall = SKSpriteNode()
         rightWall.size = CGSize(width: self.frame.width, height: 1)
         rightWall.color = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
         rightWall.position = CGPoint(x: self.frame.midX, y: self.frame.minY)
-        
         rightWall.physicsBody = SKPhysicsBody(rectangleOf: rightWall.size)
-        
         rightWall.physicsBody?.affectedByGravity = false
         rightWall.physicsBody?.allowsRotation = false
         rightWall.physicsBody?.isDynamic = false
         rightWall.physicsBody?.pinned = false
-        
         rightWall.physicsBody?.categoryBitMask = wallCat
         rightWall.physicsBody?.collisionBitMask = playerCat
-        
-        
         rightWall.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         rightWall.zPosition = 5
         
-        
         self.addChild(rightWall)
-        
-        
-        
+                
         let topWall = SKSpriteNode()
         topWall.size = CGSize(width: 1, height: self.frame.height)
         topWall.color = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
         topWall.position = CGPoint(x: self.frame.maxX, y: self.frame.midY)
-        
         topWall.physicsBody = SKPhysicsBody(rectangleOf: topWall.size)
-        
         topWall.physicsBody?.affectedByGravity = false
         topWall.physicsBody?.allowsRotation = false
         topWall.physicsBody?.isDynamic = false
         topWall.physicsBody?.pinned = false
-        
         topWall.physicsBody?.categoryBitMask = wallCat
         topWall.physicsBody?.collisionBitMask = playerCat
-        
-        
         topWall.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         topWall.zPosition = 5
         
-        
         self.addChild(topWall)
-        
-        
         
         let bottomWall = SKSpriteNode()
         bottomWall.name = "bottomWall"
         bottomWall.size = CGSize(width: 1, height: self.frame.height)
         bottomWall.color = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
         bottomWall.position = CGPoint(x: self.frame.minX, y: self.frame.midY)
-        
         bottomWall.physicsBody = SKPhysicsBody(rectangleOf: bottomWall.size)
-        
         bottomWall.physicsBody?.affectedByGravity = false
         bottomWall.physicsBody?.allowsRotation = false
         bottomWall.physicsBody?.isDynamic = false
         bottomWall.physicsBody?.pinned = false
-        
         bottomWall.physicsBody?.categoryBitMask = bottomCat
         bottomWall.physicsBody?.contactTestBitMask = playerCat
-        
-        
         bottomWall.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         bottomWall.zPosition = 5
         
-        
         self.addChild(bottomWall)
-        
-        
         self.backgroundColor = UIColor.white
-        
     }
     
     override func didMove(to view: SKView) {
-        
         //music should be playing from the main menu
-        
-        
-        
         if(comingBackFromSettings){
             comingBackFromSettings = false
         }else{
-            
             self.physicsWorld.contactDelegate = self
             
             resetLevel() //clean things when starting
@@ -596,19 +506,14 @@ class Level: SKScene, SKPhysicsContactDelegate {
             manager.accelerometerUpdateInterval = 0.1
             manager.startAccelerometerUpdates(to: OperationQueue.main){
                 (data, error) in
-                
                 self.physicsWorld.gravity = CGVector(dx: CGFloat(-7), dy: CGFloat((data?.acceleration.y)! * 10))
-                
             }
         }
-        
     }
-    
     
     func didBegin(_ contact: SKPhysicsContact) {
         let bodyA = contact.bodyA
         let bodyB = contact.bodyB
-        
         
         //debug
         //print("\(bodyA.node?.name), category mask \(bodyA.categoryBitMask) collided with \(bodyB.node?.name), category mask \(bodyB.categoryBitMask).")
@@ -617,9 +522,6 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         //see if hits bottom wall
         if (bodyA.categoryBitMask == bottomCat && bodyB.categoryBitMask == playerCat) || (bodyB.categoryBitMask == bottomCat && bodyA.categoryBitMask == playerCat){
-            
-            
-            
             resetLevel()
         }
 
@@ -630,19 +532,15 @@ class Level: SKScene, SKPhysicsContactDelegate {
             //resetLevel() moved into death sequence to require completion of animation
         }
         
-        
         //see if hits end marker
         if (bodyA.categoryBitMask == endCat && bodyB.categoryBitMask == playerCat) || (bodyA.categoryBitMask == playerCat && bodyB.categoryBitMask == endCat){
             levelComplete()
         }
-        
     }
     
     //animation time for being smushed by layer
     func animateDeath(){
-        
         playSquishedSound()
-        
         //freeze player
         player.physicsBody?.affectedByGravity = false
         player.physicsBody?.allowsRotation = false
@@ -653,12 +551,8 @@ class Level: SKScene, SKPhysicsContactDelegate {
         player.run(deathSequence)
     }
     
-    
-    
     func resetLevel(){
         //notes: reseting is a little jaring and fast. Maybe add an artificial delay to make things seem slower
-    
-        
         cs.reset()
         
         //turn on all layers again
@@ -680,35 +574,25 @@ class Level: SKScene, SKPhysicsContactDelegate {
         
         player = SKSpriteNode(imageNamed: "player")
         player.size = CGSize(width: 50, height: 50)
-        
-        
         player.physicsBody = SKPhysicsBody(circleOfRadius: 25)
         player.name = "player"
-        
         player.physicsBody?.affectedByGravity = true
         player.physicsBody?.allowsRotation = true
         player.physicsBody?.isDynamic = true
         player.physicsBody?.pinned = false
-        
         player.physicsBody?.friction = 1
         player.physicsBody?.restitution = 0.05
         player.physicsBody?.angularDamping = 0.1
         player.physicsBody?.linearDamping = 0.1
-        
         player.physicsBody?.categoryBitMask = playerCat
         player.physicsBody?.collisionBitMask = wallCat | redCat | blueCat | greenCat
         player.physicsBody?.contactTestBitMask = bottomCat | endCat
-        
         player.zPosition = 3
-        
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         player.position = CGPoint(x: self.frame.midX + startingPointOffset.y, y: self.frame.midY + startingPointOffset.x)
-        
         player.alpha = 1
         
         self.addChild(player)
-        
-        
     }
     
     func levelComplete(){
@@ -716,18 +600,13 @@ class Level: SKScene, SKPhysicsContactDelegate {
             resetLevel()
             return
         }
-        
         let menuCasted = menu as! LevelMenu
         menuCasted.isTopScene = true
         menuCasted.unlockNextLevel()
-        
         if let view = self.view as SKView? {
-           
             menuCasted.size = self.size
-            
             view.presentScene(menuCasted)
         }
-        
     }
     
     func quitLevel(){
@@ -735,13 +614,10 @@ class Level: SKScene, SKPhysicsContactDelegate {
             resetLevel()
             return
         }
-        
         let menuCasted = menu as! LevelMenu
         menuCasted.isTopScene = true
         if let view = self.view as SKView? {
-            
             menuCasted.size = self.size
-            
             view.presentScene(menuCasted)
         }
     }
@@ -750,87 +626,54 @@ class Level: SKScene, SKPhysicsContactDelegate {
         //pause scene so ball doesnt move
         settingsScene.previousScene = self
         settingsScene.previousSceneType = SceneType.Level
-        
+
         self.comingBackFromSettings = true
         
         if let view = self.view as SKView? {
             view.presentScene(self.settingsScene, transition: SKTransition.fade(with: UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1), duration: 0.75))
         }
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        //print(nodes(at: (touches.first?.location(in: self))!))
-        
-        //audio setup
-        
         for node in nodes(at: (touches.first?.location(in: self))!) {
-            
             if node == redButton {
-                
                 playSwitchSound()
-                
                 cs.flipColor(color: COLOR.RED)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleRedLayer(checkForCollision: false) //todo: should be 'true' in the future
-                
             }else if node == blueButton {
-                
                 playSwitchSound()
-                
                 cs.flipColor(color: COLOR.BLUE)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleBlueLayer(checkForCollision: false) //todo: should be 'true' in the future
-
-                
             }else if node == greenButton {
-                
                 playSwitchSound()
-                
                 cs.flipColor(color: COLOR.GREEN)
                 self.run(SKAction.wait(forDuration: 0.025))
                 toggleGreenLayer(checkForCollision: false) //todo: should be 'true' in the future
-                
             }else if node == backButton {
-                
                 playSquishedSound()
                 quitLevel()
-                
             }else if node == settingsButton {
-                
                 playSwitchSound()
                 showSettingsMenu()
-                
             }else{
                 if Standards.editmode{
                     //debug
                     print(self.player.position)
                     print(self.frame.size)
-                    
-                    //player.position = touches.first!.location(in: self.view)
-                    
-                    print()
-                    
                 }
             }
         }
     }
     
-    
-    private func checkSwitchPosition(touch: UITouch){
-        
-    }
-    
     private func playSwitchSound(){
-
         if Standards.soundFXON {
             run(SKAction.playSoundFileNamed("switch.mp3", waitForCompletion: false))
         }
     }
     
     private func playSquishedSound(){
-        
         if Standards.soundFXON {
             run(SKAction.playSoundFileNamed("squished.mp3", waitForCompletion: true))
         }
@@ -847,7 +690,6 @@ class Level: SKScene, SKPhysicsContactDelegate {
                 self.addChild(redLayer)
                 self.addChild(redCollision)
             }
-            
         }
     }
     
@@ -877,12 +719,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
                 self.addChild(greenCollision)
             }
         }
-        
     }
-    
-    
-    
-    
     
     
     override func update(_ currentTime: TimeInterval) {

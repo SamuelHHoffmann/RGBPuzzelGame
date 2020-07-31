@@ -19,58 +19,32 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(setupView), name: Notification.Name("Reset Game"), object: nil)
+        
+//        testLevel(package: 2, level: 10)
+        
+        setupView()
+
+        
+    }
     
-//        UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(1)")
-//        UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(1)")
-//        UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Completed:\(1)")
-//        UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Unlocked:\(0)")
-//        UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Last:\(0)")
-//        UserDefaults.standard.set(0, forKey: "Saved_Level_Record:Completed:\(0)")
-//        UserDefaults.standard.set(false, forKey: "isNotFirstTime")
-//        while true {
-//            print("UserDefaults reset. Please comment out the reset lines and run the code again")
-//            sleep(5)
-//        }
-        
-        
-//        if let view = self.game_view {
-//
-//            let temp = Level()
-//            temp.size = self.game_view.frame.size
-//            temp.setUp(package: 1, numberInPackage: 13, locked: false, menu: LevelMenu())
-//            temp.scaleMode = .fill
-//
-//            view.presentScene(temp)
-//            view.ignoresSiblingOrder = true
-//            view.showsFPS = true
-//            view.showsNodeCount = true
-//        }
-//
-        
+    @objc func setupView(){
+        //load standards data
         Standards.load()
-        
+
         //setup background/overflow scene
         if let backgroundView = self.view as? SKView {
-            
             Standards.backgroundSKScene = SKScene(size: self.view.frame.size)
             Standards.backgroundSKScene.backgroundColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
             Standards.backgroundSKScene.scaleMode = .fill
-            
             //generate background music
             if Standards.musicOn{
                 MusicPlayer.play(continuous: true)
             }
-    
             backgroundView.presentScene(Standards.backgroundSKScene)
         }
-        
-        
-//        if ((self.game_view.frame.height * 375)/667) <= self.game_view.frame.width{
-//            self.game_view.frame.size = CGSize(width: self.game_view.frame.height, height: (self.game_view.frame.height * 375)/667)
-//        }else{
-//            self.game_view.frame.size = CGSize(width: self.game_view.frame.width, height: (self.game_view.frame.width * 667)/375)
-//        }
-        
+
         //Setup Standards.swift
         Standards.settingsScene.size = self.game_view.frame.size
         Standards.settingsScene.setUpSettings()
@@ -91,21 +65,14 @@ class GameViewController: UIViewController {
         }else{
             //is first time or has been reset
             UserDefaults.standard.set(true, forKey: "isNotFirstTime")
-            
+
             let menuMenuTemp = MenuMenu()
             menuMenuTemp.size = self.game_view.frame.size
             menuMenuTemp.setUpMenu()
             menuMenuTemp.previousScene = menuMenuTemp
-            
-            
             menuMenuTemp.level0Menu.previousScene = menuMenuTemp
             
-//            let firstLevel = Level()
-//            firstLevel.size = self.game_view.frame.size
-//            firstLevel.setUp(package: 0, numberInPackage: 1, locked: false, menu: menuMenuTemp.level0Menu)
-            
             sleep(2) //slow down for a couple seconds
-            
             if let view = self.game_view {
                 menuMenuTemp.level0Menu.scaleMode = .fill
                 view.presentScene(menuMenuTemp.level0Menu)
@@ -114,10 +81,22 @@ class GameViewController: UIViewController {
                 view.showsNodeCount = false
             }
         }
-        
-        
     }
+    
+    func testLevel(package: Int, level: Int){
+        if let view = self.game_view {
+            let temp = Level()
+            temp.size = self.game_view.frame.size
+            temp.setUp(package: package, numberInPackage: level, locked: false, menu: LevelMenu())
+            temp.scaleMode = .fill
 
+            view.presentScene(temp)
+            view.ignoresSiblingOrder = true
+            view.showsFPS = true
+            view.showsNodeCount = true
+        }
+    }
+    
     override var shouldAutorotate: Bool {
         return true
     }

@@ -27,6 +27,8 @@
 		905C3EBA20B76024001BCBE9 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C3EB920B76024001BCBE9 /* Level.swift */; };
 		907D5E6223D0D91900C5E307 /* secondaryClick.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 907D5E6123D0D91900C5E307 /* secondaryClick.m4a */; };
 		9082DFB023006D0B00CB15E0 /* RGBAScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082DFAF23006D0B00CB15E0 /* RGBAScene.swift */; };
+		90A35C4624D33600001A02AB /* RGBPuzzelGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A35C4524D33600001A02AB /* RGBPuzzelGameUITests.swift */; };
+		90A35C5424D3362D001A02AB /* RGBPuzzelGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A35C5324D3362D001A02AB /* RGBPuzzelGameTests.swift */; };
 		90A3867423424EA50082704A /* MenuMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A3867323424EA50082704A /* MenuMenu.swift */; };
 		90A51079248ECA1B006A30DF /* settingsSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A51078248ECA1B006A30DF /* settingsSwitch.swift */; };
 		90A74A1E229DCE2000AC302E /* welcomeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A74A1D229DCE2000AC302E /* welcomeMenu.swift */; };
@@ -35,8 +37,24 @@
 		90C04CA52486DEBB0071969F /* bounceSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 90C04CA32486DEBB0071969F /* bounceSound.mp3 */; };
 		90C04CA62486DEBB0071969F /* levelStart.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 90C04CA42486DEBB0071969F /* levelStart.mp3 */; };
 		90CC89CB24A3CE3E0000E8EB /* miniMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CC89CA24A3CE3E0000E8EB /* miniMap.swift */; };
-		90E8338123D1364100C7B380 /* TestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E8338023D1364100C7B380 /* TestingViewController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		90A35C4824D33600001A02AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 905C3E9420B70456001BCBE9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 905C3E9B20B70456001BCBE9;
+			remoteInfo = RGBPuzzelGame;
+		};
+		90A35C5624D3362D001A02AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 905C3E9420B70456001BCBE9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 905C3E9B20B70456001BCBE9;
+			remoteInfo = RGBPuzzelGame;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9000BD9922FB21570010DCAA /* settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settings.swift; sourceTree = "<group>"; };
@@ -61,6 +79,12 @@
 		905C3EB920B76024001BCBE9 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		907D5E6123D0D91900C5E307 /* secondaryClick.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = secondaryClick.m4a; sourceTree = "<group>"; };
 		9082DFAF23006D0B00CB15E0 /* RGBAScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBAScene.swift; sourceTree = "<group>"; };
+		90A35C4324D33600001A02AB /* RGBPuzzelGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RGBPuzzelGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		90A35C4524D33600001A02AB /* RGBPuzzelGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBPuzzelGameUITests.swift; sourceTree = "<group>"; };
+		90A35C4724D33600001A02AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90A35C5124D3362D001A02AB /* RGBPuzzelGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RGBPuzzelGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		90A35C5324D3362D001A02AB /* RGBPuzzelGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBPuzzelGameTests.swift; sourceTree = "<group>"; };
+		90A35C5524D3362D001A02AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		90A3867323424EA50082704A /* MenuMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuMenu.swift; sourceTree = "<group>"; };
 		90A51078248ECA1B006A30DF /* settingsSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsSwitch.swift; sourceTree = "<group>"; };
 		90A74A1D229DCE2000AC302E /* welcomeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = welcomeMenu.swift; sourceTree = "<group>"; };
@@ -69,11 +93,24 @@
 		90C04CA32486DEBB0071969F /* bounceSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bounceSound.mp3; sourceTree = "<group>"; };
 		90C04CA42486DEBB0071969F /* levelStart.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = levelStart.mp3; sourceTree = "<group>"; };
 		90CC89CA24A3CE3E0000E8EB /* miniMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = miniMap.swift; sourceTree = "<group>"; };
-		90E8338023D1364100C7B380 /* TestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		905C3E9920B70456001BCBE9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		90A35C4024D33600001A02AB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		90A35C4E24D3362D001A02AB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -101,6 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				905C3E9E20B70456001BCBE9 /* RGBPuzzelGame */,
+				90A35C4424D33600001A02AB /* RGBPuzzelGameUITests */,
+				90A35C5224D3362D001A02AB /* RGBPuzzelGameTests */,
 				905C3E9D20B70456001BCBE9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -109,6 +148,8 @@
 			isa = PBXGroup;
 			children = (
 				905C3E9C20B70456001BCBE9 /* RGBPuzzelGame.app */,
+				90A35C4324D33600001A02AB /* RGBPuzzelGameUITests.xctest */,
+				90A35C5124D3362D001A02AB /* RGBPuzzelGameTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,13 +176,30 @@
 				90ABED4B20DAFDDC00F00422 /* LevelMenu.swift */,
 				90A74A1D229DCE2000AC302E /* welcomeMenu.swift */,
 				905C3EA720B70456001BCBE9 /* GameViewController.swift */,
-				90E8338023D1364100C7B380 /* TestingViewController.swift */,
 				905C3EA920B70456001BCBE9 /* Main.storyboard */,
 				905C3EAC20B70457001BCBE9 /* Assets.xcassets */,
 				905C3EAE20B70457001BCBE9 /* LaunchScreen.storyboard */,
 				905C3EB120B70457001BCBE9 /* Info.plist */,
 			);
 			path = RGBPuzzelGame;
+			sourceTree = "<group>";
+		};
+		90A35C4424D33600001A02AB /* RGBPuzzelGameUITests */ = {
+			isa = PBXGroup;
+			children = (
+				90A35C4524D33600001A02AB /* RGBPuzzelGameUITests.swift */,
+				90A35C4724D33600001A02AB /* Info.plist */,
+			);
+			path = RGBPuzzelGameUITests;
+			sourceTree = "<group>";
+		};
+		90A35C5224D3362D001A02AB /* RGBPuzzelGameTests */ = {
+			isa = PBXGroup;
+			children = (
+				90A35C5324D3362D001A02AB /* RGBPuzzelGameTests.swift */,
+				90A35C5524D3362D001A02AB /* Info.plist */,
+			);
+			path = RGBPuzzelGameTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,19 +222,63 @@
 			productReference = 905C3E9C20B70456001BCBE9 /* RGBPuzzelGame.app */;
 			productType = "com.apple.product-type.application";
 		};
+		90A35C4224D33600001A02AB /* RGBPuzzelGameUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 90A35C4A24D33600001A02AB /* Build configuration list for PBXNativeTarget "RGBPuzzelGameUITests" */;
+			buildPhases = (
+				90A35C3F24D33600001A02AB /* Sources */,
+				90A35C4024D33600001A02AB /* Frameworks */,
+				90A35C4124D33600001A02AB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				90A35C4924D33600001A02AB /* PBXTargetDependency */,
+			);
+			name = RGBPuzzelGameUITests;
+			productName = RGBPuzzelGameUITests;
+			productReference = 90A35C4324D33600001A02AB /* RGBPuzzelGameUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		90A35C5024D3362D001A02AB /* RGBPuzzelGameTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 90A35C5824D3362D001A02AB /* Build configuration list for PBXNativeTarget "RGBPuzzelGameTests" */;
+			buildPhases = (
+				90A35C4D24D3362D001A02AB /* Sources */,
+				90A35C4E24D3362D001A02AB /* Frameworks */,
+				90A35C4F24D3362D001A02AB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				90A35C5724D3362D001A02AB /* PBXTargetDependency */,
+			);
+			name = RGBPuzzelGameTests;
+			productName = RGBPuzzelGameTests;
+			productReference = 90A35C5124D3362D001A02AB /* RGBPuzzelGameTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		905C3E9420B70456001BCBE9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0930;
+				LastSwiftUpdateCheck = 1140;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Samuel Hoffmann";
 				TargetAttributes = {
 					905C3E9B20B70456001BCBE9 = {
 						CreatedOnToolsVersion = 9.3.1;
 						LastSwiftMigration = 1020;
+					};
+					90A35C4224D33600001A02AB = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = 905C3E9B20B70456001BCBE9;
+					};
+					90A35C5024D3362D001A02AB = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = 905C3E9B20B70456001BCBE9;
 					};
 				};
 			};
@@ -194,6 +296,8 @@
 			projectRoot = "";
 			targets = (
 				905C3E9B20B70456001BCBE9 /* RGBPuzzelGame */,
+				90A35C4224D33600001A02AB /* RGBPuzzelGameUITests */,
+				90A35C5024D3362D001A02AB /* RGBPuzzelGameTests */,
 			);
 		};
 /* End PBXProject section */
@@ -216,6 +320,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		90A35C4124D33600001A02AB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		90A35C4F24D3362D001A02AB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -233,7 +351,6 @@
 				9017D652249667550093066D /* settingsButton.swift in Sources */,
 				90A51079248ECA1B006A30DF /* settingsSwitch.swift in Sources */,
 				90A74A1E229DCE2000AC302E /* welcomeMenu.swift in Sources */,
-				90E8338123D1364100C7B380 /* TestingViewController.swift in Sources */,
 				9006C8892492C78A00DDF23D /* loadingScene.swift in Sources */,
 				9000BD9A22FB21570010DCAA /* settings.swift in Sources */,
 				90CC89CB24A3CE3E0000E8EB /* miniMap.swift in Sources */,
@@ -245,7 +362,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		90A35C3F24D33600001A02AB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90A35C4624D33600001A02AB /* RGBPuzzelGameUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		90A35C4D24D3362D001A02AB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90A35C5424D3362D001A02AB /* RGBPuzzelGameTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		90A35C4924D33600001A02AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 905C3E9B20B70456001BCBE9 /* RGBPuzzelGame */;
+			targetProxy = 90A35C4824D33600001A02AB /* PBXContainerItemProxy */;
+		};
+		90A35C5724D3362D001A02AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 905C3E9B20B70456001BCBE9 /* RGBPuzzelGame */;
+			targetProxy = 90A35C5624D3362D001A02AB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		905C3EA920B70456001BCBE9 /* Main.storyboard */ = {
@@ -396,7 +542,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8;
+				MARKETING_VERSION = 0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SamuelHoffmann.IOSDev.RGBA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -420,12 +566,100 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8;
+				MARKETING_VERSION = 0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SamuelHoffmann.IOSDev.RGBA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		90A35C4B24D33600001A02AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZM8773GJ6J;
+				INFOPLIST_FILE = RGBPuzzelGameUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SamuelHoffmann.IOSDev.RGBPuzzelGameUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = RGBPuzzelGame;
+			};
+			name = Debug;
+		};
+		90A35C4C24D33600001A02AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZM8773GJ6J;
+				INFOPLIST_FILE = RGBPuzzelGameUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SamuelHoffmann.IOSDev.RGBPuzzelGameUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = RGBPuzzelGame;
+			};
+			name = Release;
+		};
+		90A35C5924D3362D001A02AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZM8773GJ6J;
+				INFOPLIST_FILE = RGBPuzzelGameTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SamuelHoffmann.IOSDev.RGBPuzzelGameTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RGBPuzzelGame.app/RGBPuzzelGame";
+			};
+			name = Debug;
+		};
+		90A35C5A24D3362D001A02AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZM8773GJ6J;
+				INFOPLIST_FILE = RGBPuzzelGameTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SamuelHoffmann.IOSDev.RGBPuzzelGameTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RGBPuzzelGame.app/RGBPuzzelGame";
 			};
 			name = Release;
 		};
@@ -446,6 +680,24 @@
 			buildConfigurations = (
 				905C3EB520B70457001BCBE9 /* Debug */,
 				905C3EB620B70457001BCBE9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		90A35C4A24D33600001A02AB /* Build configuration list for PBXNativeTarget "RGBPuzzelGameUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90A35C4B24D33600001A02AB /* Debug */,
+				90A35C4C24D33600001A02AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		90A35C5824D3362D001A02AB /* Build configuration list for PBXNativeTarget "RGBPuzzelGameTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90A35C5924D3362D001A02AB /* Debug */,
+				90A35C5A24D3362D001A02AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
