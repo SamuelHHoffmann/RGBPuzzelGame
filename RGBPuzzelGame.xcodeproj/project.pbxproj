@@ -19,6 +19,7 @@
 		902B5B9E23B5570F00ED6070 /* switch.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 902B5B9C23B5570F00ED6070 /* switch.mp3 */; };
 		90510A7C23B164590027FC6C /* LevelThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90510A7B23B164590027FC6C /* LevelThumbnail.swift */; };
 		90510A7E23B167C90027FC6C /* Standards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90510A7D23B167C90027FC6C /* Standards.swift */; };
+		905C056824D7691C003AFBF4 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C056724D7691C003AFBF4 /* CustomAlert.swift */; };
 		905C3EA020B70456001BCBE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C3E9F20B70456001BCBE9 /* AppDelegate.swift */; };
 		905C3EA820B70456001BCBE9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C3EA720B70456001BCBE9 /* GameViewController.swift */; };
 		905C3EAB20B70456001BCBE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 905C3EA920B70456001BCBE9 /* Main.storyboard */; };
@@ -69,6 +70,7 @@
 		902B5B9C23B5570F00ED6070 /* switch.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = switch.mp3; sourceTree = "<group>"; };
 		90510A7B23B164590027FC6C /* LevelThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelThumbnail.swift; sourceTree = "<group>"; };
 		90510A7D23B167C90027FC6C /* Standards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Standards.swift; sourceTree = "<group>"; };
+		905C056724D7691C003AFBF4 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		905C3E9C20B70456001BCBE9 /* RGBPuzzelGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RGBPuzzelGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		905C3E9F20B70456001BCBE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		905C3EA720B70456001BCBE9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				9019CBF923B3BB6D00353D31 /* backButton.swift */,
 				9017D651249667550093066D /* settingsButton.swift */,
 				90A51078248ECA1B006A30DF /* settingsSwitch.swift */,
+				905C056724D7691C003AFBF4 /* CustomAlert.swift */,
 				90CC89CA24A3CE3E0000E8EB /* miniMap.swift */,
 				902B5B9223B52E0D00ED6070 /* Audio */,
 				9082DFAF23006D0B00CB15E0 /* RGBAScene.swift */,
@@ -347,6 +350,7 @@
 				90510A7E23B167C90027FC6C /* Standards.swift in Sources */,
 				905C3EBA20B76024001BCBE9 /* Level.swift in Sources */,
 				905C3EA020B70456001BCBE9 /* AppDelegate.swift in Sources */,
+				905C056824D7691C003AFBF4 /* CustomAlert.swift in Sources */,
 				9082DFB023006D0B00CB15E0 /* RGBAScene.swift in Sources */,
 				9017D652249667550093066D /* settingsButton.swift in Sources */,
 				90A51079248ECA1B006A30DF /* settingsSwitch.swift in Sources */,

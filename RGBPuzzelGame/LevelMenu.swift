@@ -468,6 +468,17 @@ class LevelMenu: SKScene {
         if currentLevelNumber == lockedLevelData.count { // last level
             //dont move
             print("last level")
+            let alert = CustomAlert(text: "You have reached the last level of this package. Would you like to go back to the Main Menu?", buttonCount: 2, button1: ("Yes", {() in
+                let menuCasted = self.previousScene as! MenuMenu
+                if let view = self.view as SKView? {
+                    menuCasted.size = self.size
+                    view.presentScene(menuCasted, transition: SKTransition.push(with: .down, duration: 0.65))
+                }
+                }), button2: ("No", {}))
+            alert.position = CGPoint(x: self.frame.midX - 100, y: self.frame.midY)
+            self.addChild(alert)
+            
+            
             bounceRight()
         }else{
             if lockedLevelData[currentLevelNumber+1] == false && !playerLeft{ //next level locked
@@ -643,6 +654,11 @@ class LevelMenu: SKScene {
                         }
                     }
                 ]))
+            }else{
+                if node.name == "alert"{
+                    let alert = node as! CustomAlert
+                    alert.alertTouchHandler(touch: touches.first!)
+                }
             }
             
         }

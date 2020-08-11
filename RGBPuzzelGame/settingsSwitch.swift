@@ -43,6 +43,7 @@ class SettingsSwitch: SKNode {
         self.addChild(self.switchBackground)
         self.switchBackground.position = CGPoint(x: 0, y: 0)
         
+        
         self.switchOverlay = SKSpriteNode(imageNamed: "switch_overlay")
         self.switchOverlay.zPosition = 2
         self.addChild(self.switchOverlay)
@@ -89,7 +90,6 @@ class SettingsSwitch: SKNode {
         switchOverlay.run(slide)
         return self.state
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

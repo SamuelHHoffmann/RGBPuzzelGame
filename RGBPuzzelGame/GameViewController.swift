@@ -84,10 +84,26 @@ class GameViewController: UIViewController {
     }
     
     func testLevel(package: Int, level: Int){
+        //setup background/overflow scene
+        if let backgroundView = self.view as? SKView {
+            Standards.backgroundSKScene = SKScene(size: self.view.frame.size)
+            Standards.backgroundSKScene.backgroundColor = UIColor(displayP3Red: 116/255, green: 133/255, blue: 160/255, alpha: 1)
+            Standards.backgroundSKScene.scaleMode = .fill
+            //generate background music
+            if Standards.musicOn{
+                MusicPlayer.play(continuous: true)
+            }
+            backgroundView.presentScene(Standards.backgroundSKScene)
+        }
+
+        //Setup Standards.swift
+        Standards.settingsScene.size = self.game_view.frame.size
+        Standards.settingsScene.setUpSettings()
+        
         if let view = self.game_view {
             let temp = Level()
             temp.size = self.game_view.frame.size
-            temp.setUp(package: package, numberInPackage: level, locked: false, menu: LevelMenu())
+            temp.setUp(package: package, numberInPackage: level, locked: false, menu: nil)
             temp.scaleMode = .fill
 
             view.presentScene(temp)

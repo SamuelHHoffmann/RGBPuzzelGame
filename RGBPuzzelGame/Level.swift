@@ -43,7 +43,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
     var locked = true
     var setup = false
     
-    var menu = SKScene()
+    var menu : SKScene? = nil
     
     // categories:
     let playerCat: UInt32 = 0x1 << 1
@@ -65,7 +65,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
         super.init(coder: aDecoder)
     }
     
-    func setUp(package: Int, numberInPackage: Int, locked: Bool, menu: LevelMenu){
+    func setUp(package: Int, numberInPackage: Int, locked: Bool, menu: LevelMenu?){
         //currently used level code
         
         self.packageNumber = package
@@ -596,7 +596,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
     }
     
     func levelComplete(){
-        if(menu == SKScene()){ //if level has no menu then just reset
+        if(menu == nil){ //if level has no menu then just reset
             resetLevel()
             return
         }
@@ -610,7 +610,7 @@ class Level: SKScene, SKPhysicsContactDelegate {
     }
     
     func quitLevel(){
-        if(menu == SKScene()){ //if level has no menu then just reset
+        if(menu == nil){ //if level has no menu then just reset
             resetLevel()
             return
         }
