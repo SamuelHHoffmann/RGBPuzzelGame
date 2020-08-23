@@ -62,10 +62,11 @@ class Standards{
     
     
     
-    //Background SKScene//
+    //Static Scenes// //technically should be in some sort of sceneManager
     static var backgroundSKScene = SKScene()
-    
     static let settingsScene = Settings()
+    static let alertScene = AlertScene()
+    
     
     
     //DEBUG TOOLS//

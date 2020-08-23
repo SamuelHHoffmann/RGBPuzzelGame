@@ -18,6 +18,8 @@ class CustomAlert: SKNode {
     var button2 : (String, () -> Void)
     var button2Label = SKLabelNode()
     
+    var textBody = SKLabelNode()
+    
     init(text: String, buttonCount: Int, button1: (String, () -> Void), button2: (String, () -> Void)?) {
         
         self.button1 = button1
@@ -25,17 +27,17 @@ class CustomAlert: SKNode {
         
         super.init()
         
-        let bodyText = SKLabelNode(text: text)
-        bodyText.zPosition = 21
-        bodyText.preferredMaxLayoutWidth = 800
-        bodyText.numberOfLines = 4
-        bodyText.fontSize = 64
-        bodyText.fontName = "AvenirNext-Bold"
-        bodyText.fontColor = UIColor.white
-        bodyText.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
-        bodyText.setScale(0.35)
-        self.addChild(bodyText)
-        bodyText.position = CGPoint(x: bodyText.position.x, y: bodyText.position.y)
+        textBody.text = text
+        textBody.zPosition = 21
+        textBody.preferredMaxLayoutWidth = 800
+        textBody.numberOfLines = 4
+        textBody.fontSize = 64
+        textBody.fontName = "AvenirNext-Bold"
+        textBody.fontColor = UIColor.white
+        textBody.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
+        textBody.setScale(0.35)
+        self.addChild(textBody)
+        textBody.position = CGPoint(x: textBody.position.x, y: textBody.position.y)
         
         
         
@@ -74,7 +76,7 @@ class CustomAlert: SKNode {
         
         self.button1Label.position = CGPoint(x: self.button1Label.position.x, y: self.button1Label.position.y + self.button1Label.frame.height)
         self.button2Label.position = CGPoint(x: self.button2Label.position.x, y: self.button2Label.position.y + self.button2Label.frame.height)
-        bodyText.position = CGPoint(x: bodyText.position.x, y: background.frame.maxY - bodyText.frame.height - CGFloat(spacer/2))
+        textBody.position = CGPoint(x: textBody.position.x, y: background.frame.maxY - textBody.frame.height - CGFloat(spacer/2))
         
         
         self.name = "alert"
@@ -86,16 +88,57 @@ class CustomAlert: SKNode {
     }
     
     
+    func reset(text: String, buttonCount: Int, button1: (String, () -> Void), button2: (String, () -> Void)?) {
+        
+        self.button1 = button1
+        self.button2 = button2 ?? ("", {})
+        
+        self.textBody.text = text
+        
+        self.button1Label.removeFromParent()
+        self.button2Label.removeFromParent()
+        
+        let spacer = 50
+        
+        self.button1Label.text = self.button1.0
+        self.button1Label.zPosition = 21
+        self.button1Label.preferredMaxLayoutWidth = 50
+        self.button1Label.fontSize = 64
+        self.button1Label.fontName = "AvenirNext-Bold"
+        self.button1Label.fontColor = UIColor(displayP3Red: 171/255, green: 255/255, blue: 171/255, alpha: 1)
+        self.button1Label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
+        self.button1Label.setScale(0.35)
+        self.addChild(button1Label)
+        self.button1Label.position = buttonCount == 2 ? CGPoint(x: self.button1Label.position.x - self.button1Label.frame.width - CGFloat(spacer), y: self.button1Label.position.y) : self.button1Label.position
+        
+        
+        if buttonCount == 2{
+            self.button2Label.text = self.button2.0
+            self.button2Label.zPosition = 21
+            self.button2Label.preferredMaxLayoutWidth = 50
+            self.button2Label.fontSize = 64
+            self.button2Label.fontName = "AvenirNext-Bold"
+            self.button2Label.fontColor = UIColor(displayP3Red: 255/255, green: 171/255, blue: 171/255, alpha: 1)
+            self.button2Label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
+            self.button2Label.setScale(0.35)
+            self.addChild(button2Label)
+            self.button2Label.position = CGPoint(x: self.button2Label.position.x + self.button2Label.frame.width + CGFloat(spacer), y: self.button2Label.position.y)
+        }
+        
+        self.button1Label.position = CGPoint(x: self.button1Label.position.x, y: self.button1Label.position.y + self.button1Label.frame.height)
+        self.button2Label.position = CGPoint(x: self.button2Label.position.x, y: self.button2Label.position.y + self.button2Label.frame.height)
+    }
     
-    func alertTouchHandler(touch: UITouch){
+    
+    func alertTouchHandler(touch: UITouch, successHandler: () -> Void){
         if self.nodes(at: touch.location(in: self)).contains(button1Label) {
             self.removeFromParent()
+            successHandler()
             button1.1()
         }else if self.nodes(at: touch.location(in: self)).contains(button2Label) {
             self.removeFromParent()
+            successHandler()
             button2.1()
-        }else{
-            
         }
     }
     

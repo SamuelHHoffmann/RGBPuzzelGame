@@ -657,7 +657,7 @@ class LevelMenu: SKScene {
             }else{
                 if node.name == "alert"{
                     let alert = node as! CustomAlert
-                    alert.alertTouchHandler(touch: touches.first!)
+                    alert.alertTouchHandler(touch: touches.first!, successHandler: {() in alert.alpha = 0; alert.setScale(0)})
                 }
             }
             

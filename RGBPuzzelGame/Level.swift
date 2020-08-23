@@ -8,6 +8,7 @@
 import SpriteKit
 import GameplayKit
 import CoreMotion
+
 class Level: SKScene, SKPhysicsContactDelegate {
     
     let manager = CMMotionManager()
@@ -640,17 +641,17 @@ class Level: SKScene, SKPhysicsContactDelegate {
                 playSwitchSound()
                 cs.flipColor(color: COLOR.RED)
                 self.run(SKAction.wait(forDuration: 0.025))
-                toggleRedLayer(checkForCollision: false) //todo: should be 'true' in the future
+                toggleRedLayer(checkForCollision: true) //todo: should be 'true' in the future
             }else if node == blueButton {
                 playSwitchSound()
                 cs.flipColor(color: COLOR.BLUE)
                 self.run(SKAction.wait(forDuration: 0.025))
-                toggleBlueLayer(checkForCollision: false) //todo: should be 'true' in the future
+                toggleBlueLayer(checkForCollision: true) //todo: should be 'true' in the future
             }else if node == greenButton {
                 playSwitchSound()
                 cs.flipColor(color: COLOR.GREEN)
                 self.run(SKAction.wait(forDuration: 0.025))
-                toggleGreenLayer(checkForCollision: false) //todo: should be 'true' in the future
+                toggleGreenLayer(checkForCollision: true) //todo: should be 'true' in the future
             }else if node == backButton {
                 playSquishedSound()
                 quitLevel()
@@ -686,6 +687,14 @@ class Level: SKScene, SKPhysicsContactDelegate {
         }else{
             if checkForCollision {
                 //grab position before and after and compare
+                let playerPos = player.position
+                self.addChild(redLayer)
+                self.addChild(redCollision)
+                
+                let collided = checkCollisionPoints(layer: redLayer, playerPos: playerPos)
+                if collided {
+                    animateDeath()
+                }
             }else{
                 self.addChild(redLayer)
                 self.addChild(redCollision)
@@ -700,6 +709,14 @@ class Level: SKScene, SKPhysicsContactDelegate {
         }else{
             if checkForCollision {
                 //collisions happens when the collision layer makes contact with the
+                let playerPos = player.position
+                self.addChild(blueLayer)
+                self.addChild(blueCollision)
+                
+                let collided = checkCollisionPoints(layer: blueLayer, playerPos: playerPos)
+                if collided {
+                    animateDeath()
+                }
             }else{
                 self.addChild(blueLayer)
                 self.addChild(blueCollision)
@@ -714,12 +731,44 @@ class Level: SKScene, SKPhysicsContactDelegate {
         }else{
             if checkForCollision {
                 //grab position before and after and compare
+                let playerPos = player.position
+                self.addChild(greenLayer)
+                self.addChild(greenCollision)
+                
+                let collided = checkCollisionPoints(layer: greenLayer, playerPos: playerPos)
+                if collided {
+                    animateDeath()
+                }
             }else{
                 self.addChild(greenLayer)
                 self.addChild(greenCollision)
             }
         }
     }
+    
+    func checkCollisionPoints(layer: SKSpriteNode, playerPos: CGPoint) -> Bool{
+        
+        let testPoints = [CGPoint(x: playerPos.x + 20, y: playerPos.y),
+                          CGPoint(x: playerPos.x + 20, y: playerPos.y + 20),
+                          CGPoint(x: playerPos.x, y: playerPos.y - 20),
+                          CGPoint(x: playerPos.x - 20, y: playerPos.y - 20),
+                          CGPoint(x: playerPos.x + cos(45)*20, y: playerPos.y + sin(45)*20),
+                          CGPoint(x: playerPos.x - cos(45)*20, y: playerPos.y + sin(45)*20),
+                          CGPoint(x: playerPos.x - cos(45)*20, y: playerPos.y - sin(45)*20),
+                          CGPoint(x: playerPos.x + cos(45)*20, y: playerPos.y - sin(45)*20)]
+        
+        for touchCase in testPoints{
+            self.player.removeFromParent()
+            if layer == self.physicsWorld.body(at: touchCase)?.node {
+                self.addChild(self.player)
+                return true
+            }
+            self.addChild(self.player)
+        }
+        
+        return false
+    }
+    
     
     
     override func update(_ currentTime: TimeInterval) {

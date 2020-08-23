@@ -22,9 +22,9 @@ class GameViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(setupView), name: Notification.Name("Reset Game"), object: nil)
         
-//        testLevel(package: 2, level: 10)
+        testLevel(package: 2, level: 10)
         
-        setupView()
+//        setupView()
 
         
     }
@@ -49,6 +49,11 @@ class GameViewController: UIViewController {
         Standards.settingsScene.size = self.game_view.frame.size
         Standards.settingsScene.setUpSettings()
 
+        Standards.alertScene.size = self.view.frame.size
+        Standards.alertScene.setUp()
+        Standards.alertScene.backgroundColor = UIColor.clear
+        self.game_view.allowsTransparency = true
+        
         //show user their first scene
         if UserDefaults.standard.bool(forKey: "isNotFirstTime") == true {
             //not first time

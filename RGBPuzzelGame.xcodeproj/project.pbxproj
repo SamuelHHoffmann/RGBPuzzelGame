@@ -26,6 +26,7 @@
 		905C3EAD20B70457001BCBE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 905C3EAC20B70457001BCBE9 /* Assets.xcassets */; };
 		905C3EB020B70457001BCBE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 905C3EAE20B70457001BCBE9 /* LaunchScreen.storyboard */; };
 		905C3EBA20B76024001BCBE9 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C3EB920B76024001BCBE9 /* Level.swift */; };
+		9071B84124E2C6EC0009408C /* AlertScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9071B84024E2C6EC0009408C /* AlertScene.swift */; };
 		907D5E6223D0D91900C5E307 /* secondaryClick.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 907D5E6123D0D91900C5E307 /* secondaryClick.m4a */; };
 		9082DFB023006D0B00CB15E0 /* RGBAScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9082DFAF23006D0B00CB15E0 /* RGBAScene.swift */; };
 		90A35C4624D33600001A02AB /* RGBPuzzelGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A35C4524D33600001A02AB /* RGBPuzzelGameUITests.swift */; };
@@ -79,6 +80,7 @@
 		905C3EAF20B70457001BCBE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		905C3EB120B70457001BCBE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		905C3EB920B76024001BCBE9 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		9071B84024E2C6EC0009408C /* AlertScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertScene.swift; sourceTree = "<group>"; };
 		907D5E6123D0D91900C5E307 /* secondaryClick.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = secondaryClick.m4a; sourceTree = "<group>"; };
 		9082DFAF23006D0B00CB15E0 /* RGBAScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBAScene.swift; sourceTree = "<group>"; };
 		90A35C4324D33600001A02AB /* RGBPuzzelGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RGBPuzzelGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +177,7 @@
 				905C3EB920B76024001BCBE9 /* Level.swift */,
 				9000BD9922FB21570010DCAA /* settings.swift */,
 				9006C8882492C78A00DDF23D /* loadingScene.swift */,
+				9071B84024E2C6EC0009408C /* AlertScene.swift */,
 				90A3867323424EA50082704A /* MenuMenu.swift */,
 				90ABED4B20DAFDDC00F00422 /* LevelMenu.swift */,
 				90A74A1D229DCE2000AC302E /* welcomeMenu.swift */,
@@ -361,6 +364,7 @@
 				90A3867423424EA50082704A /* MenuMenu.swift in Sources */,
 				9003505F22985FC4003A7344 /* colorSwitch.swift in Sources */,
 				9019CBFA23B3BB6D00353D31 /* backButton.swift in Sources */,
+				9071B84124E2C6EC0009408C /* AlertScene.swift in Sources */,
 				90A7A9652314331600900A84 /* RGBALevel.swift in Sources */,
 				90510A7C23B164590027FC6C /* LevelThumbnail.swift in Sources */,
 			);
