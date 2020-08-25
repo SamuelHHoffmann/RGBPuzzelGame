@@ -22,9 +22,9 @@ class GameViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(setupView), name: Notification.Name("Reset Game"), object: nil)
         
-        testLevel(package: 2, level: 10)
+//        testLevel(package: 1, level: 5)
         
-//        setupView()
+        setupView()
 
         
     }
